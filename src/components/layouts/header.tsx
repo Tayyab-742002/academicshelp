@@ -23,10 +23,13 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
+import { useTheme } from "next-themes";
+import Image from "next/image";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   const navItems = [
     {
@@ -54,49 +57,61 @@ const Header = () => {
 
   const services = [
     {
-      title: "Maths",
-      href: "/services/maths",
+      title: "Essay Writing",
+      href: "/services/essay-writing",
       description:
-        "Expert tutoring in advanced mathematical concepts for students of all levels.",
+        "Professional essay writing services for all academic levels and subjects.",
     },
     {
-      title: "Statistics",
-      href: "/services/statistics",
+      title: "Research Papers",
+      href: "/services/research-papers",
       description:
-        "Comprehensive statistical analysis and data interpretation services.",
+        "In-depth research and well-structured papers with proper citations and references.",
     },
     {
-      title: "Calculus",
-      href: "/services/calculus",
+      title: "Homework Help",
+      href: "/services/homework-help",
       description:
-        "Specialized calculus tutoring covering derivatives, integrals, and differential equations.",
+        "Expert assistance with assignments across various subjects and difficulty levels.",
     },
     {
-      title: "Nursing",
-      href: "/services/nursing",
+      title: "Exam Preparation",
+      href: "/services/exam-preparation",
       description:
-        "Professional nursing education and certification preparation.",
+        "Comprehensive study materials and practice tests for exam success.",
     },
     {
-      title: "Biology",
-      href: "/services/biology",
+      title: "Dissertation Writing",
+      href: "/services/dissertation-writing",
       description:
-        "In-depth biology tutoring covering molecular, cellular, and ecosystem concepts.",
+        "Full dissertation services from proposal to final defense preparation.",
     },
     {
-      title: "Physics",
-      href: "/services/physics",
+      title: "Coding Assignments",
+      href: "/services/coding-assignments",
       description:
-        "Comprehensive physics tutoring from mechanics to quantum physics.",
+        "Programming help in various languages with detailed explanations and documentation.",
     },
   ];
 
   return (
-    <div className="relative w-full">
+    <div className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border-b border-gray-200 dark:border-gray-800">
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
-          <NavbarLogo />
+          <div className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
+              <div className="relative h-8 w-8">
+                <Image
+                  src="/logo.svg"
+                  alt="Academic Assist Logo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span className="font-bold text-xl text-blue-600 dark:text-blue-400">Academic<span className="text-gray-800 dark:text-white">Assist</span></span>
+            </Link>
+          </div>
 
           {/* Custom NavItems with dropdown */}
           <div className="hidden items-center gap-6 md:flex">
@@ -107,7 +122,7 @@ const Header = () => {
                     <NavigationMenuItem>
                       <NavigationMenuTrigger
                         onClick={() => setIsServicesOpen(!isServicesOpen)}
-                        className="flex items-center gap-1"
+                        className="flex items-center gap-1 bg-transparent hover:bg-blue-50 dark:hover:bg-gray-800"
                       >
                         Services
                       </NavigationMenuTrigger>
@@ -117,7 +132,7 @@ const Header = () => {
                             <li key={service.title}>
                               <Link
                                 href={service.href}
-                                className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-blue-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
                               >
                                 <span className="text-sm font-medium leading-none">
                                   {service.title}
@@ -138,7 +153,7 @@ const Header = () => {
                 <Link
                   key={`desktop-link-${idx}`}
                   href={item.link}
-                  className="text-base font-medium text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
+                  className="text-base font-medium text-gray-600 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
                 >
                   {item.name}
                 </Link>
@@ -147,18 +162,78 @@ const Header = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <NavbarButton variant="primary">Get Quote</NavbarButton>
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-400">
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-800">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+              )}
+            </button>
+            <NavbarButton variant="primary" className="bg-blue-600 hover:bg-blue-700 text-white">Get Quote</NavbarButton>
           </div>
         </NavBody>
 
         {/* Mobile Navigation */}
         <MobileNav>
           <MobileNavHeader>
-            <NavbarLogo />
-            <MobileNavToggle
-              isOpen={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            />
+            <div className="flex items-center gap-2">
+              <Link href="/" className="flex items-center gap-2">
+                <div className="relative h-8 w-8">
+                  <Image
+                    src="/logo.svg"
+                    alt="Academic Assist Logo"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="font-bold text-xl text-blue-600 dark:text-blue-400">Academic<span className="text-gray-800 dark:text-white">Assist</span></span>
+              </Link>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                aria-label="Toggle theme"
+              >
+                {theme === "dark" ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-400">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-800">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                  </svg>
+                )}
+              </button>
+              <MobileNavToggle
+                isOpen={isMobileMenuOpen}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              />
+            </div>
           </MobileNavHeader>
 
           <MobileNavMenu
@@ -170,9 +245,23 @@ const Header = () => {
                 <div key={`mobile-dropdown-${idx}`} className="w-full">
                   <button
                     onClick={() => setIsServicesOpen(!isServicesOpen)}
-                    className="flex w-full items-center justify-between py-2 text-left text-neutral-600 dark:text-neutral-300"
+                    className="flex w-full items-center justify-between py-2 text-left text-gray-600 dark:text-gray-300"
                   >
                     <span>{item.name}</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className={`transition-transform ${isServicesOpen ? "rotate-180" : ""}`}
+                    >
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
                   </button>
 
                   {isServicesOpen && (
@@ -182,7 +271,7 @@ const Header = () => {
                           key={`mobile-service-${serviceIdx}`}
                           href={service.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="py-1 text-sm text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                          className="py-1 text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
                         >
                           {service.title}
                         </Link>
@@ -195,7 +284,7 @@ const Header = () => {
                   key={`mobile-link-${idx}`}
                   href={item.link}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="py-2 text-neutral-600 dark:text-neutral-300"
+                  className="py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                 >
                   <span className="block">{item.name}</span>
                 </Link>
@@ -206,7 +295,7 @@ const Header = () => {
               <NavbarButton
                 onClick={() => setIsMobileMenuOpen(false)}
                 variant="primary"
-                className="w-full"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
               >
                 Get Quote
               </NavbarButton>
