@@ -206,9 +206,14 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
                   <div className="absolute inset-0 rounded-full bg-primary/20 blur-md group-hover:bg-primary/30 transition-all duration-300"></div>
                   <Link
                     href="/contact"
-                    className="relative block px-8 py-3 rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium text-center shadow-xl shadow-primary/20 transition-all duration-300"
+                    className="relative block px-8 py-3 rounded-full bg-gradient-to-r from-primary to-accent text-white dark:text-white font-medium text-center shadow-xl shadow-primary/20 transition-all duration-300"
                   >
                     <span className="relative z-10">Get Started</span>
+                    <motion.span
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent opacity-0"
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    ></motion.span>
                   </Link>
                 </motion.div>
                 
@@ -435,8 +440,8 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
                 whileHover={{ y: -5 }}
               >
                 {plan.popular && (
-                  <div className="absolute top-0 right-0 bg-primary text-white py-1 px-3 text-sm font-medium rounded-bl-lg">
-                    Popular
+                  <div className="absolute top-0 right-0 bg-primary text-white dark:text-white py-1 px-3 text-sm font-medium rounded-bl-lg">
+                    Most Popular
                   </div>
                 )}
                 <div className="p-6 bg-card">
@@ -534,11 +539,11 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Ready to Get Started with Our Services?
+            <h2 className="text-3xl md:text-4xl font-bold text-white dark:text-white mb-6">
+              Ready to Achieve Academic Excellence?
             </h2>
-            <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-              Join thousands of satisfied customers who have transformed their academic journey with our expert assistance.
+            <p className="text-white/80 dark:text-white/80 text-lg mb-8 max-w-2xl mx-auto">
+              Join thousands of students who have improved their grades with our professional assistance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.div
@@ -558,9 +563,9 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
               >
                 <Link
                   href="/services"
-                  className="block px-8 py-3 rounded-full border border-white/30 hover:border-white/60 text-white font-medium text-center transition-all duration-300"
+                  className="block px-8 py-3 rounded-full border border-white/30 hover:border-white/60 text-white dark:text-white font-medium text-center transition-all duration-300"
                 >
-                  Explore More Services
+                  View All Services
                 </Link>
               </motion.div>
             </div>

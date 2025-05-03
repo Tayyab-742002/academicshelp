@@ -1,17 +1,18 @@
-
 import Footer from "@/components/layouts/footer";
 import Header from "@/components/layouts/header";
+import OrganizationSchema from "@/components/structured-data/OrganizationSchema";
 
-export default function RootLayout({
+export default function SiteLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <div>
+    <main>
+      <OrganizationSchema />
       <Header />
-      <main>{children}</main>
+      {children}
       <Footer />
-    </div>
+    </main>
   );
 }

@@ -50,23 +50,23 @@ export default function CTASection() {
           transition={{ duration: 0.7 }}
         >
           <motion.h2 
-            className="text-3xl md:text-5xl font-bold text-white mb-6"
+            className="text-3xl md:text-5xl font-bold text-white dark:text-white mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            Ready to Get Started?
+            Ready to Get Professional Academic Help?
           </motion.h2>
           
           <motion.p 
-            className="text-xl text-white/90 max-w-2xl mx-auto mb-12"
+            className="text-xl text-white/90 dark:text-white/90 max-w-2xl mx-auto mb-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.3 }}
           >
-            Choose the plan that works best for you or contact us for a custom solution tailored to your specific needs.
+            Join thousands of students who have achieved academic success with our expert assistance.
           </motion.p>
           
           <motion.div 

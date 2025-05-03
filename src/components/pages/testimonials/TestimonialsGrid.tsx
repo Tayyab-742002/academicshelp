@@ -101,45 +101,35 @@ export default function TestimonialsGrid() {
               
               <motion.button
                 onClick={() => setFilter("all")}
-                className={`relative z-10 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${filter === "all" ? "bg-primary text-white shadow-md shadow-primary/20" : "text-muted-foreground hover:text-foreground"}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
+                className={`text-center px-4 py-2 rounded-full cursor-pointer transition-all duration-300 ${filter === "all" ? "bg-primary text-white dark:text-white shadow-md shadow-primary/20" : "text-muted-foreground hover:text-foreground"}`}
               >
-                All Testimonials
+                All
               </motion.button>
               
               <motion.button
                 onClick={() => setFilter("essay")}
-                className={`relative z-10 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${filter === "essay" ? "bg-primary text-white shadow-md shadow-primary/20" : "text-muted-foreground hover:text-foreground"}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
+                className={`text-center px-4 py-2 rounded-full cursor-pointer transition-all duration-300 ${filter === "essay" ? "bg-primary text-white dark:text-white shadow-md shadow-primary/20" : "text-muted-foreground hover:text-foreground"}`}
               >
                 Essay Writing
               </motion.button>
               
               <motion.button
                 onClick={() => setFilter("research")}
-                className={`relative z-10 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${filter === "research" ? "bg-primary text-white shadow-md shadow-primary/20" : "text-muted-foreground hover:text-foreground"}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
+                className={`text-center px-4 py-2 rounded-full cursor-pointer transition-all duration-300 ${filter === "research" ? "bg-primary text-white dark:text-white shadow-md shadow-primary/20" : "text-muted-foreground hover:text-foreground"}`}
               >
                 Research Papers
               </motion.button>
               
               <motion.button
                 onClick={() => setFilter("homework")}
-                className={`relative z-10 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${filter === "homework" ? "bg-primary text-white shadow-md shadow-primary/20" : "text-muted-foreground hover:text-foreground"}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
+                className={`text-center px-4 py-2 rounded-full cursor-pointer transition-all duration-300 ${filter === "homework" ? "bg-primary text-white dark:text-white shadow-md shadow-primary/20" : "text-muted-foreground hover:text-foreground"}`}
               >
                 Homework Help
               </motion.button>
               
               <motion.button
                 onClick={() => setFilter("project")}
-                className={`relative z-10 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${filter === "project" ? "bg-primary text-white shadow-md shadow-primary/20" : "text-muted-foreground hover:text-foreground"}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
+                className={`text-center px-4 py-2 rounded-full cursor-pointer transition-all duration-300 ${filter === "project" ? "bg-primary text-white dark:text-white shadow-md shadow-primary/20" : "text-muted-foreground hover:text-foreground"}`}
               >
                 Projects
               </motion.button>

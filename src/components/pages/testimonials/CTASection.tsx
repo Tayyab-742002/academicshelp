@@ -90,16 +90,23 @@ export default function CTASection() {
           variants={containerVariants}
         >
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-white mb-6"
-            variants={itemVariants}
+            className="text-3xl md:text-4xl font-bold text-white dark:text-white mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
           >
-            Ready to Join Our Success Stories?
+            Ready to Join Our Satisfied Students?
           </motion.h2>
+          
           <motion.p 
-            className="text-lg text-white/90 max-w-2xl mx-auto mb-8"
-            variants={itemVariants}
+            className="text-lg text-white/90 dark:text-white/90 max-w-2xl mx-auto mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.3 }}
           >
-            Experience the same academic success as our satisfied students. Get started with our expert academic assistance today.
+            Experience academic excellence with our professional assistance services.
           </motion.p>
           <motion.div 
             className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -113,9 +120,9 @@ export default function CTASection() {
               <div className="absolute inset-0 rounded-full bg-white/20 blur-md group-hover:bg-white/30 transition-all duration-300"></div>
               <Link
                 href="/contact"
-                className="relative block px-8 py-3 rounded-full bg-white text-primary font-medium text-center shadow-xl shadow-primary/20 transition-all duration-300"
+                className="px-8 py-3 rounded-full border border-white/80 hover:border-white hover:bg-white/10 text-white dark:text-white font-medium text-center transition-all duration-300"
               >
-                <span className="relative z-10">Get Started</span>
+                Contact Us
               </Link>
             </motion.div>
             
@@ -125,7 +132,7 @@ export default function CTASection() {
             >
               <Link
                 href="/services"
-                className="px-8 py-3 rounded-full border border-white/80 hover:border-white hover:bg-white/10 text-white font-medium text-center transition-all duration-300"
+                className="px-8 py-3 rounded-full border border-white/80 hover:border-white hover:bg-white/10 text-white dark:text-white font-medium text-center transition-all duration-300"
               >
                 Explore Services
               </Link>

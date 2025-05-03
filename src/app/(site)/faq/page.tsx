@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 interface FAQItem {
   question: string;
@@ -132,12 +133,12 @@ export default function FAQ() {
             <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">
               Our support team is available 24/7 to help you with any questions or concerns.
             </p>
-            <a
+            <Link
               href="/contact"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition-colors"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white dark:text-white font-medium py-3 px-8 rounded-lg transition-colors"
             >
               Contact Us
-            </a>
+            </Link>
           </div>
         </div>
       </section>

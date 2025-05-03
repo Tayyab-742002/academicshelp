@@ -1,17 +1,5 @@
-"use client";
-
-import {
-  HeroSection,
-  ServicesGrid,
-  CTASection
-} from "@/components/pages/services";
+import ServicesPageContent from "@/components/pages/services/ServicesPageContent";
 
 export default function ServicesPage() {
-  return (
-    <div className="min-h-screen bg-background text-foreground">
-      <HeroSection />
-      <ServicesGrid />
-      <CTASection />
-    </div>
-  );
-}
+  return <ServicesPageContent />;
+} 

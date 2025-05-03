@@ -46,7 +46,7 @@ export default function CTASection() {
           transition={{ duration: 0.7 }}
         >
           <motion.h2 
-            className="text-3xl md:text-5xl font-bold text-white mb-6"
+            className="text-3xl md:text-5xl font-bold text-white dark:text-white mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -56,7 +56,7 @@ export default function CTASection() {
           </motion.h2>
           
           <motion.p 
-            className="text-xl text-white/90 max-w-2xl mx-auto mb-12"
+            className="text-xl text-white/90 dark:text-white/90 max-w-2xl mx-auto mb-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -84,7 +84,7 @@ export default function CTASection() {
             <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
               <Link
                 href="/services"
-                className="px-8 py-4 rounded-full bg-transparent border-2 border-white/80 hover:bg-white/10 text-white font-medium text-center transition-all duration-300 inline-block"
+                className="px-8 py-4 rounded-full bg-transparent border-2 border-white/80 hover:bg-white/10 text-white dark:text-white font-medium text-center transition-all duration-300 inline-block"
               >
                 Explore Services
               </Link>

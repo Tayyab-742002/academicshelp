@@ -35,9 +35,14 @@ export default function NotFound() {
             <div className="absolute inset-0 rounded-full bg-primary/20 blur-md group-hover:bg-primary/30 transition-all duration-300"></div>
             <Link
               href="/"
-              className="relative block px-8 py-3 rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium text-center shadow-xl shadow-primary/20 transition-all duration-300"
+              className="relative block px-8 py-3 rounded-full bg-gradient-to-r from-primary to-accent text-white dark:text-white font-medium text-center shadow-xl shadow-primary/20 transition-all duration-300"
             >
-              <span className="relative z-10">Back to Home</span>
+              <span className="relative z-10">Return to Home</span>
+              <motion.span
+                className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent opacity-0"
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              ></motion.span>
             </Link>
           </motion.div>
         </motion.div>

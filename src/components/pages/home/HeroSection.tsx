@@ -198,7 +198,7 @@ export default function HeroSection() {
               >
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium text-center transition-all duration-300 shadow-lg hover:shadow-primary/40 w-full sm:w-auto"
+                  className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-gradient-to-r from-primary to-accent text-white dark:text-white font-medium text-center transition-all duration-300 shadow-lg hover:shadow-primary/40 w-full sm:w-auto"
                 >
                   <span>Get Started</span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -249,7 +249,7 @@ export default function HeroSection() {
                 whileHover={{ y: -5, boxShadow: "0 20px 25px -5px rgba(229, 62, 62, 0.1), 0 10px 10px -5px rgba(229, 62, 62, 0.04)" }}
               >
                 <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-gradient-to-br from-primary/10 to-accent/10 group-hover:from-primary/20 group-hover:to-accent/20 transition-all duration-300" />
-                <div className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent mb-1">4.9/5</div>
+                <div className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary/90 via-accent to-primary/90 dark:from-primary dark:via-accent/90 dark:to-primary mb-1">4.9/5</div>
                 <div className="text-sm text-muted-foreground font-medium">Customer Rating</div>
               </motion.div>
             </motion.div>
