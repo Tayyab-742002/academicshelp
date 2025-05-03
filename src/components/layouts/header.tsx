@@ -95,26 +95,30 @@ const Header = () => {
   ];
 
   return (
-    <div className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border-b border-gray-200 dark:border-gray-800">
+    <div className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/90 dark:bg-gray-900/90 border-b border-gray-200/50 dark:border-gray-800/50 shadow-sm">
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
-          <div className="flex items-center gap-2">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="relative h-8 w-8">
-                <Image
-                  src="/logo.svg"
-                  alt="Academic Assist Logo"
-                  fill
-                  className="object-contain"
-                />
+          <div className="flex items-center gap-2 group">
+            <Link href="/" className="flex items-center gap-3 relative">
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative h-9 w-9 bg-gradient-to-br from-primary to-accent rounded-full p-0.5 shadow-lg shadow-primary/30 dark:shadow-primary/20 z-10">
+                <div className="h-full w-full bg-white dark:bg-gray-900 rounded-full flex items-center justify-center">
+                  <Image
+                    src="/logo.svg"
+                    alt="Academic Assist Logo"
+                    width={28}
+                    height={28}
+                    className="object-contain"
+                  />
+                </div>
               </div>
-              <span className="font-bold text-xl text-blue-600 dark:text-blue-400">Academic<span className="text-gray-800 dark:text-white">Assist</span></span>
+              <span className="font-bold text-xl bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent relative z-10">Academic<span className="text-gray-800 dark:text-white">Assist</span></span>
             </Link>
           </div>
 
           {/* Custom NavItems with dropdown */}
-          <div className="hidden items-center gap-6 md:flex">
+          <div className="hidden items-center gap-5 md:flex">
             {navItems.map((item, idx) =>
               item.dropdown ? (
                 <NavigationMenu key={`desktop-dropdown-${idx}`}>
@@ -122,28 +126,31 @@ const Header = () => {
                     <NavigationMenuItem>
                       <NavigationMenuTrigger
                         onClick={() => setIsServicesOpen(!isServicesOpen)}
-                        className="flex items-center gap-1 bg-transparent hover:bg-blue-50 dark:hover:bg-gray-800"
+                        className="flex items-center gap-1 bg-transparent hover:bg-primary/10 dark:hover:bg-primary/20 rounded-full px-4 py-2 text-gray-700 dark:text-gray-200 font-medium transition-all duration-200"
                       >
                         Services
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                          {services.map((service) => (
-                            <li key={service.title}>
-                              <Link
-                                href={service.href}
-                                className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-blue-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
-                              >
-                                <span className="text-sm font-medium leading-none">
-                                  {service.title}
-                                </span>
-                                <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  {service.description}
-                                </p>
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
+                        <div className="rounded-xl overflow-hidden shadow-lg border border-border bg-white dark:bg-gray-900 p-1 mt-2">
+                          <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-transparent to-accent/20 blur-md opacity-80 -z-10"></div>
+                          <ul className="grid w-[400px] gap-1 p-3 md:w-[550px] md:grid-cols-2 lg:w-[600px]">
+                            {services.map((service) => (
+                              <li key={service.title}>
+                                <Link
+                                  href={service.href}
+                                  className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-primary/5 dark:hover:bg-primary/10 hover:scale-[1.02] hover:shadow-sm"
+                                >
+                                  <span className="text-sm font-medium leading-none text-gray-800 dark:text-gray-200">
+                                    {service.title}
+                                  </span>
+                                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                                    {service.description}
+                                  </p>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </NavigationMenuContent>
                     </NavigationMenuItem>
                   </NavigationMenuList>
@@ -153,9 +160,10 @@ const Header = () => {
                 <Link
                   key={`desktop-link-${idx}`}
                   href={item.link}
-                  className="text-base font-medium text-gray-600 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                  className="relative text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors duration-200 px-3 py-2 rounded-full hover:bg-primary/10 dark:hover:bg-primary/20 group"
                 >
-                  {item.name}
+                  <span className="relative z-10">{item.name}</span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent group-hover:w-full transition-all duration-300 opacity-0 group-hover:opacity-100"></span>
                 </Link>
               )
             )}
@@ -164,11 +172,12 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="rounded-full p-2 transition-all duration-300 hover:bg-primary/10 dark:hover:bg-primary/20 relative group"
               aria-label="Toggle theme"
             >
+              <span className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary/5 dark:group-hover:bg-primary/10 transition-colors duration-300"></span>
               {theme === "dark" ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-400">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-400 relative z-10">
                   <circle cx="12" cy="12" r="5"></circle>
                   <line x1="12" y1="1" x2="12" y2="3"></line>
                   <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -180,12 +189,20 @@ const Header = () => {
                   <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary relative z-10">
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
               )}
             </button>
-            <NavbarButton variant="primary" className="bg-blue-600 hover:bg-blue-700 text-white">Get Quote</NavbarButton>
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full blur opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <NavbarButton 
+                variant="primary" 
+                className="relative bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-medium rounded-full px-5 py-2 shadow-lg shadow-primary/30 hover:shadow-accent/40 transition-all duration-300 z-10"
+              >
+                Get Quote
+              </NavbarButton>
+            </div>
           </div>
         </NavBody>
 
@@ -193,26 +210,30 @@ const Header = () => {
         <MobileNav>
           <MobileNavHeader>
             <div className="flex items-center gap-2">
-              <Link href="/" className="flex items-center gap-2">
-                <div className="relative h-8 w-8">
-                  <Image
-                    src="/logo.svg"
-                    alt="Academic Assist Logo"
-                    fill
-                    className="object-contain"
-                  />
+              <Link href="/" className="flex items-center gap-3 group">
+                <div className="relative h-8 w-8 bg-gradient-to-br from-primary to-accent rounded-full p-0.5 shadow-md shadow-primary/20 dark:shadow-primary/10">
+                  <div className="h-full w-full bg-white dark:bg-gray-900 rounded-full flex items-center justify-center">
+                    <Image
+                      src="/logo.svg"
+                      alt="Academic Assist Logo"
+                      width={24}
+                      height={24}
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
-                <span className="font-bold text-xl text-blue-600 dark:text-blue-400">Academic<span className="text-gray-800 dark:text-white">Assist</span></span>
+                <span className="font-bold text-xl bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">Academic<span className="text-gray-800 dark:text-white">Assist</span></span>
               </Link>
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="rounded-full p-2 transition-all duration-300 hover:bg-primary/10 dark:hover:bg-primary/20 relative group"
                 aria-label="Toggle theme"
               >
+                <span className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary/5 dark:group-hover:bg-primary/10 transition-colors duration-300"></span>
                 {theme === "dark" ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-400 relative z-10">
                     <circle cx="12" cy="12" r="5"></circle>
                     <line x1="12" y1="1" x2="12" y2="3"></line>
                     <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -224,15 +245,17 @@ const Header = () => {
                     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                   </svg>
                 ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-800">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary relative z-10">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                   </svg>
                 )}
               </button>
-              <MobileNavToggle
-                isOpen={isMobileMenuOpen}
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              />
+              <div className="relative p-1.5 rounded-md hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors duration-200 cursor-pointer">
+                <MobileNavToggle
+                  isOpen={isMobileMenuOpen}
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                />
+              </div>
             </div>
           </MobileNavHeader>
 
@@ -245,7 +268,7 @@ const Header = () => {
                 <div key={`mobile-dropdown-${idx}`} className="w-full">
                   <button
                     onClick={() => setIsServicesOpen(!isServicesOpen)}
-                    className="flex w-full items-center justify-between py-2 text-left text-gray-600 dark:text-gray-300"
+                    className="flex w-full items-center justify-between py-3 px-2 text-left text-gray-700 dark:text-gray-200 font-medium rounded-lg hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200"
                   >
                     <span>{item.name}</span>
                     <svg
@@ -258,20 +281,20 @@ const Header = () => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className={`transition-transform ${isServicesOpen ? "rotate-180" : ""}`}
+                      className={`transition-transform duration-300 text-primary ${isServicesOpen ? "rotate-180" : ""}`}
                     >
                       <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                   </button>
 
                   {isServicesOpen && (
-                    <div className="ml-4 mt-2 flex flex-col gap-2">
+                    <div className="ml-3 mt-1 mb-2 flex flex-col gap-1 border-l-2 border-primary/20 pl-3">
                       {services.map((service, serviceIdx) => (
                         <Link
                           key={`mobile-service-${serviceIdx}`}
                           href={service.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="py-1 text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+                          className="py-2 px-2 text-sm text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary rounded-md hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200"
                         >
                           {service.title}
                         </Link>
@@ -284,9 +307,9 @@ const Header = () => {
                   key={`mobile-link-${idx}`}
                   href={item.link}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                  className="py-3 px-2 text-gray-700 dark:text-gray-200 font-medium hover:text-primary dark:hover:text-primary rounded-lg hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200"
                 >
-                  <span className="block">{item.name}</span>
+                  {item.name}
                 </Link>
               )
             )}
