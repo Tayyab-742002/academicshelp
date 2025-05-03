@@ -95,25 +95,25 @@ const Header = () => {
   ];
 
   return (
-    <div className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/90 dark:bg-gray-900/90 border-b border-gray-200/50 dark:border-gray-800/50 shadow-sm">
+    <div className="sticky top-0 z-50 w-full backdrop-blur-xl bg-white/90 dark:bg-gray-900/90 border-b border-gray-200/30 dark:border-gray-800/30 shadow-lg shadow-primary/5 dark:shadow-primary/10">
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
           <div className="flex items-center gap-2 group">
-            <Link href="/" className="flex items-center gap-3 relative">
-              <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative h-9 w-9 bg-gradient-to-br from-primary to-accent rounded-full p-0.5 shadow-lg shadow-primary/30 dark:shadow-primary/20 z-10">
-                <div className="h-full w-full bg-white dark:bg-gray-900 rounded-full flex items-center justify-center">
+            <Link href="/" className="flex items-center gap-3 relative px-2 py-1 rounded-full group-hover:bg-primary/5 dark:group-hover:bg-primary/10 transition-all duration-300">
+              <div className="absolute -inset-3 bg-gradient-to-r from-primary/10 via-transparent to-accent/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="relative h-10 w-10 bg-gradient-to-br from-primary to-accent rounded-full p-0.5 shadow-xl shadow-primary/20 dark:shadow-primary/10 z-10 overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                <div className="absolute inset-0 bg-white dark:bg-gray-900 rounded-full m-[2px] flex items-center justify-center overflow-hidden">
                   <Image
                     src="/logo.svg"
                     alt="Academic Assist Logo"
-                    width={28}
-                    height={28}
+                    width={30}
+                    height={30}
                     className="object-contain"
                   />
                 </div>
               </div>
-              <span className="font-bold text-xl bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent relative z-10">Academic<span className="text-gray-800 dark:text-white">Assist</span></span>
+              <span className="font-bold text-xl bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent relative z-10 group-hover:scale-[1.02] transition-transform duration-300">Academic<span className="text-gray-800 dark:text-white ml-[1px]">Assist</span></span>
             </Link>
           </div>
 
@@ -131,8 +131,8 @@ const Header = () => {
                         Services
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <div className="rounded-xl overflow-hidden shadow-lg border border-border bg-white dark:bg-gray-900 p-1 mt-2">
-                          <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-transparent to-accent/20 blur-md opacity-80 -z-10"></div>
+                        <div className="rounded-xl overflow-hidden shadow-xl border border-border/50 bg-white dark:bg-gray-900 p-1 mt-2">
+                          <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-transparent to-accent/20 blur-lg opacity-90 -z-10"></div>
                           <ul className="grid w-[400px] gap-1 p-3 md:w-[550px] md:grid-cols-2 lg:w-[600px]">
                             {services.map((service) => (
                               <li key={service.title}>
@@ -195,10 +195,10 @@ const Header = () => {
               )}
             </button>
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full blur opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full blur-md opacity-80 group-hover:opacity-100 transition-all duration-300"></div>
               <NavbarButton 
                 variant="primary" 
-                className="relative bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-medium rounded-full px-5 py-2 shadow-lg shadow-primary/30 hover:shadow-accent/40 transition-all duration-300 z-10"
+                className="relative bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-medium rounded-full px-6 py-2.5 shadow-xl shadow-primary/20 hover:shadow-accent/30 transition-all duration-300 z-10 border border-white/10 group-hover:scale-[1.03]"
               >
                 Get Quote
               </NavbarButton>
@@ -210,19 +210,19 @@ const Header = () => {
         <MobileNav>
           <MobileNavHeader>
             <div className="flex items-center gap-2">
-              <Link href="/" className="flex items-center gap-3 group">
-                <div className="relative h-8 w-8 bg-gradient-to-br from-primary to-accent rounded-full p-0.5 shadow-md shadow-primary/20 dark:shadow-primary/10">
-                  <div className="h-full w-full bg-white dark:bg-gray-900 rounded-full flex items-center justify-center">
+              <Link href="/" className="flex items-center gap-3 group rounded-full transition-all duration-300">
+                <div className="relative h-9 w-9 bg-gradient-to-br from-primary to-accent rounded-full p-0.5 shadow-lg shadow-primary/20 dark:shadow-primary/10 overflow-hidden">
+                  <div className="absolute inset-0 bg-white dark:bg-gray-900 rounded-full m-[2px] flex items-center justify-center">
                     <Image
                       src="/logo.svg"
                       alt="Academic Assist Logo"
-                      width={24}
-                      height={24}
+                      width={26}
+                      height={26}
                       className="object-contain"
                     />
                   </div>
                 </div>
-                <span className="font-bold text-xl bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">Academic<span className="text-gray-800 dark:text-white">Assist</span></span>
+                <span className="font-bold text-xl bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">Academic<span className="text-gray-800 dark:text-white ml-[1px]">Assist</span></span>
               </Link>
             </div>
             <div className="flex items-center gap-2">
@@ -268,7 +268,7 @@ const Header = () => {
                 <div key={`mobile-dropdown-${idx}`} className="w-full">
                   <button
                     onClick={() => setIsServicesOpen(!isServicesOpen)}
-                    className="flex w-full items-center justify-between py-3 px-2 text-left text-gray-700 dark:text-gray-200 font-medium rounded-lg hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200"
+                    className="flex w-full items-center justify-between py-3.5 px-4 text-left text-gray-700 dark:text-gray-200 font-medium rounded-xl hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200 border border-transparent hover:border-primary/10 dark:hover:border-primary/20"
                   >
                     <span>{item.name}</span>
                     <svg
@@ -288,13 +288,13 @@ const Header = () => {
                   </button>
 
                   {isServicesOpen && (
-                    <div className="ml-3 mt-1 mb-2 flex flex-col gap-1 border-l-2 border-primary/20 pl-3">
+                    <div className="ml-4 mt-2 mb-3 flex flex-col gap-1 border-l-2 border-primary/30 pl-4 animate-in fade-in-50 duration-300">
                       {services.map((service, serviceIdx) => (
                         <Link
                           key={`mobile-service-${serviceIdx}`}
                           href={service.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="py-2 px-2 text-sm text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary rounded-md hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200"
+                          className="py-2.5 px-3 text-sm text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary rounded-lg hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200 hover:translate-x-1"
                         >
                           {service.title}
                         </Link>
@@ -307,7 +307,7 @@ const Header = () => {
                   key={`mobile-link-${idx}`}
                   href={item.link}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="py-3 px-2 text-gray-700 dark:text-gray-200 font-medium hover:text-primary dark:hover:text-primary rounded-lg hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200"
+                  className="py-3.5 px-4 text-gray-700 dark:text-gray-200 font-medium hover:text-primary dark:hover:text-primary rounded-xl hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200 border border-transparent hover:border-primary/10 dark:hover:border-primary/20 hover:pl-6"
                 >
                   {item.name}
                 </Link>
