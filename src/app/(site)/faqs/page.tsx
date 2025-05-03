@@ -1,0 +1,242 @@
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+
+
+interface FaqItem {
+  question: string;
+  answer: string;
+  category: string;
+}
+
+export default function FaqPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string>("general");
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
+
+  const faqItems: FaqItem[] = [
+    // General Questions
+    {
+      question: "What services do you offer?",
+      answer: "We provide a range of academic assistance services including essay writing, research paper help, homework assistance, editing and proofreading, dissertation services, and more. Our goal is to support students in their academic journey with high-quality, personalized help.",
+      category: "general"
+    },
+    {
+      question: "How do I place an order?",
+      answer: "To place an order, simply navigate to the specific service page you're interested in, fill out the order form with your requirements, and proceed to checkout. You can also contact our customer support team for assistance with placing your order.",
+      category: "general"
+    },
+    {
+      question: "What academic levels do you support?",
+      answer: "We support students at all academic levels, from high school to doctoral studies. Our writers are matched to your academic level to ensure appropriate content and quality.",
+      category: "general"
+    },
+    {
+      question: "How do you ensure quality?",
+      answer: "We have a rigorous quality assurance process that includes writer selection, multiple rounds of editing, plagiarism checks, and final review before delivery. Additionally, we provide free revisions if you're not completely satisfied with the initial work.",
+      category: "general"
+    },
+    
+    // Pricing & Payment
+    {
+      question: "How is pricing determined?",
+      answer: "Our pricing is based on several factors, including the type of service, academic level, deadline, and complexity of the assignment. We strive to keep our prices competitive while ensuring high-quality work. You can get an instant quote by filling out the order form.",
+      category: "pricing"
+    },
+    {
+      question: "What payment methods do you accept?",
+      answer: "We accept major credit and debit cards, including Visa, MasterCard, American Express, and Discover. All payments are processed securely through industry-standard encryption and secure payment gateways.",
+      category: "pricing"
+    },
+    {
+      question: "Do you offer any discounts?",
+      answer: "Yes, we offer various discounts including first-time customer discounts, volume discounts for larger orders, and seasonal promotions. We also have a loyalty program for returning customers. Check our website or contact customer support for current offers.",
+      category: "pricing"
+    },
+    {
+      question: "What is your refund policy?",
+      answer: "We have a fair refund policy. If you're not satisfied with the quality of work, if we miss your deadline, or if we're unable to find a suitable writer for your project, you may be eligible for a partial or full refund. Please refer to our Terms of Service for detailed information.",
+      category: "pricing"
+    },
+    
+    // Process & Delivery
+    {
+      question: "How quickly can you complete my assignment?",
+      answer: "Our turnaround times vary depending on the complexity and length of the assignment. We can handle urgent requests with deadlines as short as 24 hours for most assignments, though complex projects like dissertations require more time. We always strive to deliver before your deadline.",
+      category: "process"
+    },
+    {
+      question: "Can I communicate with my writer?",
+      answer: "Yes, you can communicate with your assigned writer through our messaging system. This allows you to provide additional information, ask questions, and receive updates on the progress of your assignment.",
+      category: "process"
+    },
+    {
+      question: "How do revisions work?",
+      answer: "We offer free revisions within a specified time period after delivery (usually 7-30 days, depending on the service). Simply let us know what changes you need, and your writer will make the necessary adjustments to ensure your complete satisfaction.",
+      category: "process"
+    },
+    {
+      question: "What happens if my deadline is missed?",
+      answer: "We have a strong track record of meeting deadlines. However, in the rare case of a late delivery, you may be eligible for a partial or full refund according to our money-back guarantee policy.",
+      category: "process"
+    },
+    
+    // Privacy & Security
+    {
+      question: "Is your service confidential?",
+      answer: "Absolutely. We maintain strict confidentiality regarding your personal information and assignment details. Your privacy is our priority, and we never share your information with third parties. We use secure, encrypted connections for all communications and transactions.",
+      category: "privacy"
+    },
+    {
+      question: "Do you keep my assignments on file?",
+      answer: "We retain completed assignments in our secure system for a limited time to assist with any revision requests. After this period, or upon your request, we can completely remove your assignments from our system.",
+      category: "privacy"
+    },
+    {
+      question: "How do you protect my payment information?",
+      answer: "We use industry-standard encryption and secure payment processors to handle all transactions. We do not store your payment card details on our servers.",
+      category: "privacy"
+    },
+    {
+      question: "Can my school find out I've used your service?",
+      answer: "We maintain complete confidentiality about our clients. We never disclose your identity or the fact that you've used our services to any third parties, including educational institutions.",
+      category: "privacy"
+    },
+    
+    // Academic Integrity
+    {
+      question: "How should I use the materials you provide?",
+      answer: "The materials we provide are intended to be used as reference sources and learning aids. They should help you understand the subject matter better, serve as examples of proper research and writing techniques, and guide you in creating your own original work.",
+      category: "integrity"
+    },
+    {
+      question: "Is using your service considered cheating?",
+      answer: "Our service is designed to provide academic assistance and learning support. We encourage our clients to use our materials ethically, as research and reference tools to enhance their understanding and improve their own work. The proper use of our service aligns with academic integrity principles.",
+      category: "integrity"
+    },
+    {
+      question: "Do you write completely original papers?",
+      answer: "Yes, all our papers are written from scratch based on your specific requirements. We conduct thorough research and properly cite all sources. Every paper undergoes a plagiarism check before delivery to ensure 100% originality.",
+      category: "integrity"
+    },
+    {
+      question: "What citation styles do you support?",
+      answer: "We support all major citation styles, including APA, MLA, Chicago, Harvard, Vancouver, and others. Our writers are skilled in formatting papers according to any style guide you require.",
+      category: "integrity"
+    }
+  ];
+
+  const filteredFaqs = faqItems.filter(faq => faq.category === selectedCategory);
+  
+  const categories = [
+    { id: "general", name: "General Questions" },
+    { id: "pricing", name: "Pricing & Payment" },
+    { id: "process", name: "Process & Delivery" },
+    { id: "privacy", name: "Privacy & Security" },
+    { id: "integrity", name: "Academic Integrity" }
+  ];
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Hero Section */}
+      <section className="relative py-24 md:py-28 overflow-hidden">
+        {/* Background elements */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background to-background/80 dark:from-background dark:to-background/90 z-0" />
+        
+        {/* Gradient accents */}
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl z-0" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent/10 to-transparent rounded-full blur-3xl z-0" />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent text-center">
+              Frequently Asked Questions
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-12 text-center">
+              Find answers to common questions about our academic help services, policies, and processes.
+            </p>
+            
+            {/* Category Tabs */}
+            <div className="flex flex-wrap justify-center mb-12 gap-2">
+              {categories.map(category => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                    selectedCategory === category.id
+                      ? "bg-primary text-white shadow-lg shadow-primary/30"
+                      : "bg-primary/10 text-foreground hover:bg-primary/20"
+                  }`}
+                >
+                  {category.name}
+                </button>
+              ))}
+            </div>
+            
+            {/* FAQ Accordion */}
+            <div className="space-y-4">
+              {filteredFaqs.map((faq, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  className="border border-border rounded-xl overflow-hidden"
+                >
+                  <button
+                    onClick={() => toggleFaq(index)}
+                    className="flex justify-between items-center w-full px-6 py-4 text-left font-medium focus:outline-none"
+                  >
+                    <span className="text-lg">{faq.question}</span>
+                    <motion.div
+                      animate={{ rotate: openFaqIndex === index ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronDown className="h-5 w-5 text-primary" />
+                    </motion.div>
+                  </button>
+                  <AnimatePresence>
+                    {openFaqIndex === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 py-4 border-t border-border bg-muted/30">
+                          <p className="text-muted-foreground">{faq.answer}</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Contact CTA */}
+            <div className="mt-16 p-8 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl text-center">
+              <h3 className="text-2xl font-bold mb-4">Still have questions?</h3>
+              <p className="text-muted-foreground mb-6">
+                Can't find the answer you're looking for? Please chat to our friendly team.
+              </p>
+              <motion.a
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                href="/contact"
+                className="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium shadow-xl shadow-primary/20 transition-all duration-300"
+              >
+                Contact Us
+              </motion.a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

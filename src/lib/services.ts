@@ -192,32 +192,32 @@ export const services: ServiceDetail[] = [
       {
         title: "Academic Excellence",
         description: "Receive research papers that meet the highest academic standards.",
-        icon: "academic"
+        icon: "/icons/academic.svg"
       },
       {
         title: "Expert Insights",
         description: "Benefit from the knowledge of specialists in your field of study.",
-        icon: "star"
+        icon: "/icons/star.svg"
       },
       {
         title: "Time Management",
         description: "Focus on other priorities while we handle your research paper.",
-        icon: "clock"
+        icon: "/icons/clock.svg"
       },
       {
         title: "Learning Resource",
         description: "Use our papers as valuable learning tools for future research.",
-        icon: "academic"
+        icon: "/icons/academic.svg"
       },
       {
         title: "Stress Reduction",
         description: "Eliminate the pressure of complex research and tight deadlines.",
-        icon: "check"
+        icon: "/icons/check.svg"
       },
       {
         title: "Continuous Support",
         description: "Get assistance throughout the entire research process.",
-        icon: "chat"
+        icon: "/icons/chat.svg"
       }
     ],
     process: [
@@ -339,32 +339,32 @@ export const services: ServiceDetail[] = [
       {
         title: "Improve Understanding",
         description: "Gain a deeper understanding of difficult concepts and problem-solving methods.",
-        icon: "academic"
+        icon: "/icons/academic.svg"
       },
       {
         title: "Boost Grades",
         description: "Submit high-quality assignments that meet or exceed your professor's expectations.",
-        icon: "star"
+        icon: "/icons/star.svg"
       },
       {
         title: "Meet Deadlines",
         description: "Get timely assistance even with last-minute assignments and tight deadlines.",
-        icon: "clock"
+        icon: "/icons/clock.svg"
       },
       {
         title: "Reduce Stress",
         description: "Eliminate the anxiety associated with challenging homework assignments.",
-        icon: "check"
+        icon: "/icons/check.svg"
       },
       {
         title: "Learn Effectively",
         description: "Use our solutions as learning tools to improve your problem-solving skills.",
-        icon: "academic"
+        icon: "/icons/academic.svg"
       },
       {
         title: "Get Personalized Help",
         description: "Receive assistance tailored to your specific learning style and needs.",
-        icon: "chat"
+        icon: "/icons/chat.svg"
       }
     ],
     process: [

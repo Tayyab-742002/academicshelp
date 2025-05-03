@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import dynamic from "next/dynamic";
 
 interface ServiceDetail {
   id: string;
@@ -40,6 +41,7 @@ interface ServiceDetailProps {
 
 export default function ServiceDetail({ service }: ServiceDetailProps) {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [isClient, setIsClient] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const overviewRef = useRef<HTMLDivElement>(null);
   const featuresRef = useRef<HTMLDivElement>(null);
@@ -67,7 +69,12 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
     tap: { scale: 0.98 }
   };
   
-  // Parallax scrolling effect
+  // Client-side only effects
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
+  // Parallax scrolling effect - only used on client side
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start']
@@ -83,6 +90,66 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
   const toggleFaq = (index: number) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
+  
+  // This is used to render animations only on the client side
+  // to prevent hydration errors
+  const AnimatedDots = () => {
+    if (!isClient) return null;
+    
+    return (
+      <div className="absolute inset-0 z-0 opacity-30">
+        {Array.from({ length: 20 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-primary/50"
+            style={{
+              left: `${(i * 5) % 100}%`,
+              top: `${(i * 7) % 100}%`,
+            }}
+            animate={{
+              opacity: [0, 1, 0],
+              scale: [0, 1.5, 0],
+            }}
+            transition={{
+              duration: 5 + (i % 5),
+              repeat: Infinity,
+              delay: i % 5,
+            }}
+          />
+        ))}
+      </div>
+    );
+  };
+  
+  // This is used to render animations only on the client side
+  // to prevent hydration errors
+  const AnimatedParticles = () => {
+    if (!isClient) return null;
+    
+    return (
+      <div className="absolute inset-0 z-0 opacity-20">
+        {Array.from({ length: 20 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 rounded-full bg-white"
+            style={{
+              left: `${(i * 7) % 100}%`,
+              top: `${(i * 5) % 100}%`,
+            }}
+            animate={{
+              y: [0, 20, 0],
+              opacity: [0.2, 1, 0.2],
+            }}
+            transition={{
+              duration: 4 + (i % 6),
+              repeat: Infinity,
+              delay: i % 5,
+            }}
+          />
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -95,30 +162,8 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl z-0" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent/10 to-transparent rounded-full blur-3xl z-0" />
         
-        {/* Animated dots - client-side only */}
-        {typeof window !== 'undefined' && (
-          <div className="absolute inset-0 z-0 opacity-30">
-            {Array.from({ length: 20 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 rounded-full bg-primary/50"
-                style={{
-                  left: `${(i * 5) % 100}%`,
-                  top: `${(i * 7) % 100}%`,
-                }}
-                animate={{
-                  opacity: [0, 1, 0],
-                  scale: [0, 1.5, 0],
-                }}
-                transition={{
-                  duration: 5 + (i % 5),
-                  repeat: Infinity,
-                  delay: i % 5,
-                }}
-              />
-            ))}
-          </div>
-        )}
+        {/* Client-side only animations */}
+        <AnimatedDots />
         
         <div className="container mx-auto px-4 relative z-10">
           <motion.div 
@@ -297,13 +342,15 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
                 whileHover={{ y: -5 }}
               >
                 <div className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 mb-4">
-                  <Image 
-                    src={benefit.icon} 
-                    alt={benefit.title} 
-                    width={24} 
-                    height={24} 
-                    className="text-primary" 
-                  />
+                  {isClient && (
+                    <Image 
+                      src={benefit.icon} 
+                      alt={benefit.title} 
+                      width={24} 
+                      height={24} 
+                      className="text-primary" 
+                    />
+                  )}
                 </div>
                 <h3 className="text-xl font-semibold mb-2 text-foreground">{benefit.title}</h3>
                 <p className="text-muted-foreground">{benefit.description}</p>
@@ -482,30 +529,8 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-accent/90 dark:from-primary/80 dark:to-accent/80 z-0" />
         
-        {/* Animated particles - client-side only */}
-        {typeof window !== 'undefined' && (
-          <div className="absolute inset-0 z-0 opacity-20">
-            {Array.from({ length: 20 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-2 h-2 rounded-full bg-white"
-                style={{
-                  left: `${(i * 7) % 100}%`,
-                  top: `${(i * 5) % 100}%`,
-                }}
-                animate={{
-                  y: [0, 20, 0],
-                  opacity: [0.2, 1, 0.2],
-                }}
-                transition={{
-                  duration: 4 + (i % 6),
-                  repeat: Infinity,
-                  delay: i % 5,
-                }}
-              />
-            ))}
-          </div>
-        )}
+        {/* Client-side only animations */}
+        <AnimatedDots />
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">

@@ -6,12 +6,12 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   // Footer links
-  const companyLinks = [
-    { name: "About Us", href: "/about" },
-    { name: "Our Team", href: "/team" },
-    { name: "Careers", href: "/careers" },
-    { name: "Blog", href: "/blog" },
-  ];
+  // const companyLinks = [
+  //   { name: "About Us", href: "/about" },
+  //   { name: "Our Team", href: "/team" },
+  //   { name: "Careers", href: "/careers" },
+  //   { name: "Blog", href: "/blog" },
+  // ];
 
   const serviceLinks = [
     { name: "Essay Writing", href: "/services/essay-writing" },
@@ -24,8 +24,8 @@ const Footer = () => {
   const supportLinks = [
     { name: "FAQs", href: "/faqs" },
     { name: "Contact Us", href: "/contact" },
-    { name: "Privacy Policy", href: "/privacy-policy" },
-    { name: "Terms of Service", href: "/terms-of-service" },
+    { name: "Privacy Policy", href: "/privacy" },
+    { name: "Terms of Service", href: "/terms" },
   ];
 
   const socialLinks = [
@@ -94,7 +94,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
+          {/* <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Company</h3>
             <ul className="space-y-2">
               {companyLinks.map((link) => (
@@ -108,7 +108,7 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
 
           {/* Services */}
           <div>
@@ -132,7 +132,8 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Support</h3>
             <ul className="space-y-2">
               {supportLinks.map((link) => (
-                <li key={link.name}>
+                <li key={link.name }>
+                  
                   <Link
                     href={link.href}
                     className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
