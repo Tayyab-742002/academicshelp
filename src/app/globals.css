@@ -124,147 +124,140 @@
 @import "tailwindcss";
 @import "tw-animate-css"; /* Assuming you have this installed */
 
-/* Define custom dark variant if needed, although Tailwind 4 might handle this differently */
-/* Depending on your setup, you might configure dark mode in tailwind.config.js instead */
-@custom-variant dark (&:is(.dark *));
+/* Tailwind imports */
+@import "tailwindcss";
 
-@theme {
-  /* Theme variables linked to CSS variables */
-  /* Note: In Tailwind v4+, direct CSS variable usage might be cleaner */
-  /* than relying solely on @theme inline for everything */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans); /* Keep your font variables */
-  --font-mono: var(--font-geist-mono); /* Keep your font variables */
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive-foreground: var(--destructive-foreground); /* Added */
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+/* Custom utilities */
+@layer utilities {
+  .bg-grid-pattern {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      hsl(var(--border)) 1px,
+      transparent 0
+    );
+    background-size: 24px 24px;
+  }
 }
 
 @layer base {
   :root {
-    /* Light Theme - Based on Blue Primary, Orange Accent */
-    --radius: 0.625rem; /* Kept your radius */
+    --radius: 0.625rem;
+    --background: oklch(0.98 0.005 80);
+    --foreground: oklch(0.2 0.02 30);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.2 0.02 30);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.2 0.02 30);
+    --primary: oklch(0.45 0.18 25);
+    --primary-foreground: oklch(0.98 0.005 80);
+    --secondary: oklch(0.95 0.01 80);
+    --secondary-foreground: oklch(0.35 0.03 30);
+    --muted: oklch(0.97 0.01 80);
+    --muted-foreground: oklch(0.5 0.02 30);
+    --accent: oklch(0.8 0.12 85);
+    --accent-foreground: oklch(0.2 0.02 30);
+    --destructive: oklch(0.65 0.22 25);
+    --destructive-foreground: oklch(0.98 0.005 25);
+    --border: oklch(0.9 0.01 80);
+    --input: oklch(0.9 0.01 80);
+    --ring: oklch(0.45 0.15 25);
+    --chart-1: oklch(0.45 0.18 25);
+    --chart-2: oklch(0.8 0.12 85);
+    --chart-3: oklch(0.55 0.15 145);
+    --chart-4: oklch(0.5 0.15 200);
+    --chart-5: oklch(0.6 0.15 330);
+    --sidebar: oklch(0.98 0.005 80);
+    --sidebar-foreground: oklch(0.2 0.02 30);
+    --popover-foreground: oklch(0.2 0.02 30); /* Deep burgundy-brown for text */
 
-    --background: oklch(1 0 0); /* White */
-    --foreground: oklch(0.25 0.01 260); /* Dark Gray/Blueish */
+    /* Primary - Professional Burgundy/Maroon */
+    --primary: oklch(0.45 0.18 25); /* Deep burgundy/maroon (~#800020) */
+    --primary-foreground: oklch(0.98 0.005 80); /* Warm off-white text */
 
-    --card: oklch(1 0 0); /* White */
-    --card-foreground: oklch(0.25 0.01 260); /* Dark Gray/Blueish */
+    /* Secondary - Light Gray with subtle warm tint */
+    --secondary: oklch(0.95 0.01 80); /* Light gray with subtle warm tint */
+    --secondary-foreground: oklch(0.35 0.03 30); /* Darker burgundy-brown */
 
-    --popover: oklch(1 0 0); /* White */
-    --popover-foreground: oklch(0.25 0.01 260); /* Dark Gray/Blueish */
+    /* Muted - Subtle backgrounds */
+    --muted: oklch(0.97 0.01 80); /* Very light gray with subtle warm tint */
+    --muted-foreground: oklch(0.5 0.02 30); /* Medium burgundy-brown */
 
-    --primary: oklch(0.59 0.23 264); /* Medium Blue (~#0D6EFD) */
-    --primary-foreground: oklch(0.98 0.005 260); /* Light Gray/Off-White */
+    /* Accent - Professional Gold */
+    --accent: oklch(0.8 0.12 85); /* Gold accent (~#D4AF37) */
+    --accent-foreground: oklch(0.2 0.02 30); /* Deep burgundy-brown text */
 
-    --secondary: oklch(0.96 0.01 260); /* Very Light Gray/Blueish (~#F8F9FA) */
-    --secondary-foreground: oklch(0.4 0.01 260); /* Medium Gray/Blueish */
+    /* Destructive - Professional Red */
+    --destructive: oklch(0.65 0.22 25); /* Professional red (~#DC3545) */
+    --destructive-foreground: oklch(0.98 0.005 25); /* Off-white text */
 
-    --muted: oklch(0.96 0.01 260); /* Very Light Gray/Blueish */
-    --muted-foreground: oklch(0.55 0.01 260); /* Lighter Medium Gray */
+    /* Borders & Focus */
+    --border: oklch(0.9 0.01 80); /* Light gray with subtle warm tint */
+    --input: oklch(0.9 0.01 80); /* Light gray with subtle warm tint */
+    --ring: oklch(0.45 0.15 25); /* Burgundy for focus rings */
 
-    --accent: oklch(0.72 0.18 55); /* Orange (~#FD7E14) */
-    --accent-foreground: oklch(0.2 0.01 55); /* Dark Brown/Orange */
+    /* Chart Colors - Professional palette */
+    --chart-1: oklch(0.45 0.18 25); /* Primary Burgundy */
+    --chart-2: oklch(0.8 0.12 85); /* Gold */
+    --chart-3: oklch(0.55 0.15 145); /* Green */
+    --chart-4: oklch(0.5 0.15 200); /* Blue */
+    --chart-5: oklch(0.6 0.15 330); /* Purple */
 
-    --destructive: oklch(0.62 0.25 25); /* Red (~#DC3545) */
-    --destructive-foreground: oklch(0.98 0.005 25); /* Light Gray/Off-White */
-
-    --border: oklch(0.9 0.01 260); /* Light Gray/Blueish (~#DEE2E6) */
-    --input: oklch(0.9 0.01 260); /* Light Gray/Blueish */
-    --ring: oklch(0.7 0.15 264); /* Lighter Blue for focus */
-
-    /* Chart Colors - Example variations (Adjust as needed) */
-    --chart-1: oklch(0.59 0.23 264); /* Primary Blue */
-    --chart-2: oklch(0.72 0.18 55); /* Accent Orange */
-    --chart-3: oklch(0.7 0.15 150); /* A Teal/Green */
-    --chart-4: oklch(0.8 0.1 90); /* A Yellow */
-    --chart-5: oklch(0.65 0.15 300); /* A Purple */
-
-    /* Sidebar - Example: Slightly off-white background */
-    --sidebar: oklch(0.98 0.005 260); /* Very Light Gray/Off-white */
-    --sidebar-foreground: oklch(0.25 0.01 260); /* Dark Gray/Blueish */
+    /* Sidebar - Professional styling */
+    --sidebar: oklch(0.98 0.005 80); /* Very light gray/off-white with warm tint */
+    --sidebar-foreground: oklch(0.2 0.02 30); /* Deep burgundy-brown */
     --sidebar-primary: var(--primary);
     --sidebar-primary-foreground: var(--primary-foreground);
-    --sidebar-accent: var(--secondary); /* Use secondary as accent bg */
-    --sidebar-accent-foreground: var(
-      --secondary-foreground
-    ); /* Text on accent bg */
+    --sidebar-accent: var(--secondary);
+    --sidebar-accent-foreground: var(--secondary-foreground);
     --sidebar-border: var(--border);
     --sidebar-ring: var(--ring);
   }
 
   .dark {
-    /* Dark Theme - Based on Blue Primary, Orange Accent */
-    --background: oklch(0.2 0.03 265); /* Very Dark Blue/Gray (~#1A1A2E) */
-    --foreground: oklch(0.93 0.01 260); /* Light Gray/Off-White (~#EAEAEA) */
+    /* Modern Dark Theme with Reddish Accents */
+    --background: oklch(0.12 0.02 30); /* Deep reddish-black background (#1A0F0F) */
+    --foreground: oklch(0.95 0.01 0); /* Off-white text */
 
-    --card: oklch(0.25 0.03 265); /* Slightly lighter Dark Blue/Gray */
-    --card-foreground: oklch(0.93 0.01 260); /* Light Gray/Off-White */
+    /* Card & Popover - Slightly lighter than background */
+    --card: oklch(0.16 0.03 25); /* Slightly lighter reddish-black (#251515) */
+    --card-foreground: oklch(0.95 0.01 0); /* Off-white text */
+    --popover: oklch(0.16 0.03 25); /* Slightly lighter reddish-black */
+    --popover-foreground: oklch(0.95 0.01 0); /* Off-white text */
 
-    --popover: oklch(0.22 0.03 265); /* Dark Blue/Gray */
-    --popover-foreground: oklch(0.93 0.01 260); /* Light Gray/Off-White */
+    /* Primary - Vibrant Red */
+    --primary: oklch(0.65 0.28 25); /* Vibrant red (#E53E3E) */
+    --primary-foreground: oklch(0.98 0.005 0); /* Pure white */
 
-    --primary: oklch(0.75 0.16 255); /* Lighter/Brighter Blue (~#4DABF7) */
-    --primary-foreground: oklch(0.15 0.02 260); /* Very Dark Blue/Gray */
+    /* Secondary - Dark red-tinted gray */
+    --secondary: oklch(0.25 0.05 25); /* Dark red-tinted gray (#3D2929) */
+    --secondary-foreground: oklch(0.9 0.01 0); /* Light gray */
 
-    --secondary: oklch(0.3 0.02 265); /* Medium Dark Blue/Gray */
-    --secondary-foreground: oklch(0.85 0.01 260); /* Lighter Gray */
+    /* Muted - Subtle backgrounds */
+    --muted: oklch(0.2 0.04 25); /* Muted dark red (#332222) */
+    --muted-foreground: oklch(0.75 0.01 0); /* Medium-light gray */
 
-    --muted: oklch(0.3 0.02 265); /* Medium Dark Blue/Gray */
-    --muted-foreground: oklch(0.65 0.01 260); /* Medium Gray */
+    /* Accent - Coral/Pink */
+    --accent: oklch(0.7 0.2 35); /* Coral/Pink (#FF6B6B) */
+    --accent-foreground: oklch(0.15 0.02 30); /* Very dark reddish-black */
 
-    --accent: oklch(0.79 0.19 65); /* Brighter Orange (~#FFA500) */
-    --accent-foreground: oklch(0.3 0.05 65); /* Dark Orange/Brown */
+    /* Destructive - Bright Red */
+    --destructive: oklch(0.65 0.3 25); /* Bright red (#FF0000) */
+    --destructive-foreground: oklch(0.98 0.005 0); /* Pure white */
 
-    --destructive: oklch(0.75 0.19 25); /* Lighter Red (~#E57373) */
-    --destructive-foreground: oklch(0.1 0.02 25); /* Very Dark Red/Brown */
+    /* Borders & Focus - Subtle with transparency */
+    --border: oklch(0.6 0.1 25 / 20%); /* Reddish border with alpha */
+    --input: oklch(0.6 0.1 25 / 20%); /* Reddish input with alpha */
+    --ring: oklch(0.65 0.28 25); /* Vibrant red for focus rings */
 
-    /* Using slight transparency for borders/inputs can look good in dark mode */
-    --border: oklch(0.93 0.01 260 / 15%); /* Light Gray with alpha */
-    --input: oklch(0.93 0.01 260 / 15%); /* Light Gray with alpha */
-    --ring: oklch(0.8 0.1 255); /* Medium Bright Blue for focus */
+    /* Chart Colors - Modern red theme palette */
+    --chart-1: oklch(0.65 0.28 25); /* Vibrant red */
+    --chart-2: oklch(0.7 0.2 35); /* Coral/Pink */
+    --chart-3: oklch(0.6 0.15 15); /* Deep maroon */
+    --chart-4: oklch(0.8 0.1 40); /* Light pink */
+    --chart-5: oklch(0.5 0.2 0); /* Dark gray with red undertone */
 
-    /* Chart Colors - Dark Theme Variations */
-    --chart-1: oklch(0.75 0.16 255); /* Primary Light Blue */
-    --chart-2: oklch(0.79 0.19 65); /* Accent Bright Orange */
-    --chart-3: oklch(0.75 0.16 150); /* Bright Teal/Green */
-    --chart-4: oklch(0.85 0.12 90); /* Bright Yellow */
-    --chart-5: oklch(0.7 0.18 300); /* Bright Purple */
-
-    /* Sidebar - Dark Theme */
-    --sidebar: oklch(0.22 0.03 265); /* Slightly different Dark Blue/Gray */
+    /* Sidebar - Modern dark styling */
+    --sidebar: oklch(0.14 0.02 30); /* Slightly different dark reddish-black */
     --sidebar-foreground: var(--foreground);
     --sidebar-primary: var(--primary);
     --sidebar-primary-foreground: var(--primary-foreground);
@@ -277,10 +270,15 @@
 
 @layer base {
   * {
-    @apply border-border outline-offset-2 outline-ring/50; /* Adjusted outline */
+    border-color: hsl(var(--border));
+    outline-offset: 2px;
+    outline-color: hsl(var(--ring) / 0.5);
   }
   body {
-    @apply bg-background text-foreground antialiased; /* Added antialiased */
-    font-family: var(--font-sans); /* Apply default font */
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-sans);
   }
 }
