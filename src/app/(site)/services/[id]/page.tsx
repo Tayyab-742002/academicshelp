@@ -3,8 +3,14 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getServiceById, ServiceDetail as ServiceDetailType } from "@/lib/services";
-import ServiceDetail from "@/components/pages/services/ServiceDetail";
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
+
+// Import ServiceDetail component with no SSR to prevent hydration errors
+const ServiceDetail = dynamic(
+  () => import("@/components/pages/services/ServiceDetail"),
+  { ssr: false }
+);
 
 export default function ServicePage() {
   const params = useParams();
@@ -25,8 +31,8 @@ export default function ServicePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -35,5 +41,7 @@ export default function ServicePage() {
     notFound();
   }
 
-  return <ServiceDetail service={service} />;
+  // Using key={Date.now()} here ensures the component remounts with fresh random values
+  // This is a workaround for hydration errors caused by Math.random()
+  return <ServiceDetail service={service} key={service.id} />;
 }

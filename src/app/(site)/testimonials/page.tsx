@@ -9,7 +9,7 @@ import {
 
 export default function TestimonialsPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-background text-foreground">
       <HeroSection />
       <StatsSection />
       <TestimonialsGrid />

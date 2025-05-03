@@ -51,32 +51,32 @@ export const services: ServiceDetail[] = [
       {
         title: "Save Time",
         description: "Focus on other important tasks while our experts handle your essay writing needs.",
-        icon: "clock"
+        icon: "/icons/clock.svg"
       },
       {
         title: "Improve Grades",
         description: "Learn from professionally written essays that meet high academic standards.",
-        icon: "academic"
+        icon: "/icons/academic.svg"
       },
       {
         title: "Reduce Stress",
         description: "Eliminate the anxiety of tight deadlines and challenging topics.",
-        icon: "check"
+        icon: "/icons/check.svg"
       },
       {
         title: "Learn Effectively",
         description: "Use our essays as learning tools to improve your own writing skills.",
-        icon: "star"
+        icon: "/icons/star.svg"
       },
       {
         title: "Ensure Quality",
         description: "Receive well-researched, properly structured essays that meet academic requirements.",
-        icon: "shield"
+        icon: "/icons/shield.svg"
       },
       {
         title: "Get Support",
         description: "Access our 24/7 customer support team for any questions or concerns.",
-        icon: "chat"
+        icon: "/icons/chat.svg"
       }
     ],
     process: [
