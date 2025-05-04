@@ -56,13 +56,13 @@ export default function GuaranteesSection() {
     <section className="py-24 md:py-32 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background dark:from-background/90 dark:to-background z-0" />
-      
+
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-primary/5 to-transparent rounded-full blur-3xl z-0" />
       <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-accent/5 to-transparent rounded-full blur-3xl z-0" />
-      
+
       <div className="container mx-auto px-4 relative z-10">
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -70,12 +70,12 @@ export default function GuaranteesSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="inline-block mb-3">
-            <div className="flex items-center justify-center space-x-2 bg-accent/5 dark:bg-accent/10 px-4 py-1.5 rounded-full">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+            <div className="flex items-center justify-center space-x-2 bg-accent/5 dark:bg-accent/10 px-4 py-1.5 rounded-full ">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse bg-[#ec705e]" />
               <span className="text-sm font-medium text-accent">Peace of Mind</span>
             </div>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text ">
             Our Guarantees
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -83,7 +83,7 @@ export default function GuaranteesSection() {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6"
           variants={containerVariants}
           initial="hidden"
@@ -99,22 +99,22 @@ export default function GuaranteesSection() {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500 -z-10" />
-              
+
               <div className="relative bg-card/80 backdrop-blur-sm border border-border hover:border-accent/20 rounded-2xl p-8 text-center h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,107,107,0.15)] z-10">
                 {/* Animated background glow */}
-                <motion.div 
+                <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
                   animate={{
                     scale: [1, 1.05, 1],
                     opacity: [0, 0.2, 0],
                   }}
-                  transition={{ 
-                    duration: 3, 
+                  transition={{
+                    duration: 3,
                     repeat: Infinity,
                     repeatType: "reverse"
                   }}
                 />
-                
+
                 <div className="relative z-10">
                   <div className="w-20 h-20 bg-gradient-to-br from-accent/20 to-primary/10 dark:from-accent/30 dark:to-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                     <svg
@@ -132,11 +132,11 @@ export default function GuaranteesSection() {
                       />
                     </svg>
                   </div>
-                  
+
                   <h3 className="text-xl font-bold mb-3 group-hover:text-accent transition-colors duration-300">
                     {guarantee.title}
                   </h3>
-                  
+
                   <p className="text-muted-foreground">
                     {guarantee.description}
                   </p>

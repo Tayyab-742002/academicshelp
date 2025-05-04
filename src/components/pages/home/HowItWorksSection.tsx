@@ -14,31 +14,34 @@ export default function HowItWorksSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
-  
+
   // Parallax effect for background elements
   const y1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const y2 = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  
+
   // How it works steps
   const howItWorks: Step[] = [
     {
       step: 1,
       title: "Submit Details",
-      description: "Fill out our simple form with your assignment requirements and deadline.",
+      description:
+        "Fill out our simple form with your assignment requirements and deadline.",
       icon: "clipboard",
     },
     {
       step: 2,
       title: "Match with Expert",
-      description: "We'll connect you with a subject matter expert who specializes in your topic.",
+      description:
+        "We'll connect you with a subject matter expert who specializes in your topic.",
       icon: "users",
     },
     {
       step: 3,
       title: "Receive Solution",
-      description: "Get your completed assignment delivered to your inbox before the deadline.",
+      description:
+        "Get your completed assignment delivered to your inbox before the deadline.",
       icon: "check-circle",
     },
   ];
@@ -50,9 +53,9 @@ export default function HowItWorksSection() {
       opacity: 1,
       transition: {
         staggerChildren: 0.3,
-        delayChildren: 0.2
-      }
-    }
+        delayChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
@@ -63,28 +66,31 @@ export default function HowItWorksSection() {
       transition: {
         type: "spring",
         stiffness: 100,
-        damping: 15
-      }
-    }
+        damping: 15,
+      },
+    },
   };
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 relative overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="py-24 md:py-32 relative overflow-hidden"
+    >
       {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background to-background/90 dark:from-background dark:to-background/95 z-0" />
-      
+      {/* <div className="absolute inset-0 bg-gradient-to-b from-background to-background/90 dark:from-background dark:to-background/95 z-0" /> */}
+
       {/* Animated background elements */}
-      <motion.div 
-        className="absolute -top-40 -left-40 w-96 h-96 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-3xl z-0" 
+      <motion.div
+        className="absolute -top-40 -left-40 w-96 h-96 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-3xl z-0"
         style={{ y: y1 }}
       />
-      <motion.div 
-        className="absolute -bottom-40 -right-40 w-96 h-96 bg-gradient-to-tr from-accent/5 to-transparent rounded-full blur-3xl z-0" 
+      <motion.div
+        className="absolute -bottom-40 -right-40 w-96 h-96 bg-gradient-to-tr from-accent/5 to-transparent rounded-full blur-3xl z-0"
         style={{ y: y2 }}
       />
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div 
+
+      <div className="container mx-auto px-4 relative z-10 ">
+        <motion.div
           className="text-center mb-20"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -92,20 +98,23 @@ export default function HowItWorksSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="inline-block mb-3">
-            <div className="flex items-center justify-center space-x-2 bg-primary/5 dark:bg-primary/10 px-4 py-1.5 rounded-full">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary">Simple Process</span>
+            <div className="flex items-center justify-center space-x-2 bg-primary/5 dark:bg-primary/10 px-4 py-1.5 rounded-full ">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse bg-[#ec705e]" />
+              <span className="text-sm font-medium text-primary">
+                Simple Process
+              </span>
             </div>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text ">
             How It Works
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Getting academic help has never been easier. Follow these simple steps:
+            Getting academic help has never been easier. Follow these simple
+            steps:
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 relative"
           variants={containerVariants}
           initial="hidden"
@@ -119,21 +128,21 @@ export default function HowItWorksSection() {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="group relative"
+              className="group relative "
               whileHover={{ y: -5 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               {/* Step number with gradient background */}
-              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 z-20">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/20 dark:shadow-primary/10 border-4 border-background dark:border-background">
+              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 z-20 ">
+                <div className="w-16 h-16  rounded-full flex items-center justify-center   text-primary font-normal text-xl shadow-lg border-2 border-primary ">
                   {step.step}
                 </div>
               </div>
-              
+
               <div className="bg-card/80 backdrop-blur-sm border border-border hover:border-primary/20 rounded-2xl p-8 pt-12 text-center h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(229,62,62,0.15)] relative z-10">
                 {/* Hover glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500 -z-10" />
-                
+
                 <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -150,15 +159,13 @@ export default function HowItWorksSection() {
                     />
                   </svg>
                 </div>
-                
+
                 <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
                   {step.title}
                 </h3>
-                
-                <p className="text-muted-foreground">
-                  {step.description}
-                </p>
-                
+
+                <p className="text-muted-foreground">{step.description}</p>
+
                 {/* Animated dots */}
                 {Array.from({ length: 3 }).map((_, i) => (
                   <motion.div

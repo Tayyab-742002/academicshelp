@@ -18,37 +18,43 @@ export default function ServicesSection() {
     {
       title: "Essay Writing",
       icon: "pen-tool",
-      description: "Professional essays tailored to your requirements with thorough research and proper citations.",
+      description:
+        "Professional essays tailored to your requirements with thorough research and proper citations.",
       href: "/services/essay-writing",
     },
     {
       title: "Research Papers",
       icon: "file-text",
-      description: "In-depth research papers with proper methodology and academic rigor.",
+      description:
+        "In-depth research papers with proper methodology and academic rigor.",
       href: "/services/research-papers",
     },
     {
       title: "Homework Help",
       icon: "book-open",
-      description: "Expert assistance with assignments across various subjects and difficulty levels.",
+      description:
+        "Expert assistance with assignments across various subjects and difficulty levels.",
       href: "/services/homework-help",
     },
     {
       title: "Exam Preparation",
       icon: "award",
-      description: "Comprehensive study materials and practice tests for exam success.",
+      description:
+        "Comprehensive study materials and practice tests for exam success.",
       href: "/services/exam-preparation",
     },
     {
       title: "Dissertation Writing",
       icon: "book",
-      description: "Full dissertation services from proposal to final defense preparation.",
+      description:
+        "Full dissertation services from proposal to final defense preparation.",
       href: "/services/dissertation-writing",
     },
     {
       title: "Coding Assignments",
       icon: "code",
-      description: "Programming help in various languages with detailed explanations.",
+      description:
+        "Programming help in various languages with detailed explanations.",
       href: "/services/coding-assignments",
     },
   ];
@@ -61,9 +67,9 @@ export default function ServicesSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -74,20 +80,20 @@ export default function ServicesSection() {
       transition: {
         type: "spring",
         stiffness: 100,
-        damping: 15
-      }
-    }
+        damping: 15,
+      },
+    },
   };
 
   return (
     <section className="py-20 md:py-32 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-background to-background/80 dark:from-background dark:to-background/90 z-0" />
-      
+
       {/* Red gradient accent */}
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl z-0" />
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent/10 to-transparent rounded-full blur-3xl z-0" />
-      
+
       {/* Animated dots */}
       <div className="absolute inset-0 z-0 opacity-30">
         {Array.from({ length: 20 }).map((_, i) => (
@@ -112,7 +118,7 @@ export default function ServicesSection() {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -120,20 +126,21 @@ export default function ServicesSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="inline-block mb-3">
-            <div className="flex items-center justify-center space-x-2 bg-primary/5 dark:bg-primary/10 px-4 py-1.5 rounded-full">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary">Premium Services</span>
+            <div className="flex items-center justify-center space-x-2 bg-primary/5 dark:bg-primary/10 px-4 py-1.5 rounded-full ">
+              <span className="w-2 h-2 rounded-full  dark:bg-green-400 bg-accent animate-pulse" />
+              <span className="text-sm font-medium  ">Premium Services</span>
             </div>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text ">
             Our Academic Services
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Comprehensive academic support services to help you excel in your studies.
+            Comprehensive academic support services to help you excel in your
+            studies.
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           variants={containerVariants}
           initial="hidden"
@@ -149,10 +156,10 @@ export default function ServicesSection() {
               className="relative group"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500 -z-10 transform group-hover:scale-105" />
-              
+
               <div className="bg-card/80 backdrop-blur-sm border border-border hover:border-primary/20 rounded-2xl p-8 h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(229,62,62,0.15)] relative z-10">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/10 to-accent/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-                
+
                 <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -169,15 +176,15 @@ export default function ServicesSection() {
                     />
                   </svg>
                 </div>
-                
+
                 <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
                   {service.title}
                 </h3>
-                
+
                 <p className="text-muted-foreground mb-6">
                   {service.description}
                 </p>
-                
+
                 <Link
                   href={service.href}
                   className="inline-flex items-center text-primary hover:text-accent font-medium transition-all duration-300 group-hover:translate-x-1"
@@ -198,10 +205,10 @@ export default function ServicesSection() {
                     />
                   </svg>
                 </Link>
-                
+
                 {/* Animated border when hovered */}
                 {hoveredIndex === index && (
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-0 rounded-2xl z-0 pointer-events-none"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -216,20 +223,22 @@ export default function ServicesSection() {
           ))}
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="text-center mt-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.7 }}
+          transition={{ delay: 0.1, duration: 0.3 }}
+          whileHover={{ scale: 1.05 }}
         >
           <Link
             href="/services"
-            className="relative inline-flex items-center justify-center px-8 py-3.5 overflow-hidden font-medium rounded-full group"
+            className="relative inline-flex items-center justify-center px-8 py-3.5 overflow-hidden font-medium bg-[#ec705e] hover:bg-[#ec705e]/90 rounded-full group"
           >
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-primary to-accent opacity-70 group-hover:opacity-80 transition duration-300 ease-out"></span>
             <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-white/20 to-transparent h-1/3"></span>
-            <span className="relative text-white font-medium text-base">View All Services</span>
+            <span className="relative text-white font-medium text-base">
+              View All Services
+            </span>
           </Link>
         </motion.div>
       </div>

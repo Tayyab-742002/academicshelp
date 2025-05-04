@@ -8,7 +8,7 @@ import {
   HowItWorksSection,
   TestimonialsSection,
   CTASection,
-  DisclaimerSection
+  DisclaimerSection,
 } from "@/components/pages/home";
 
 // Animation utility function
@@ -40,4 +40,4 @@ export default function Home() {
       <DisclaimerSection />
     </div>
   );
-} 
+}

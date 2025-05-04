@@ -12,7 +12,7 @@ const Header = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  
+
   // Handle scroll effects
   useEffect(() => {
     const handleScroll = () => {
@@ -22,11 +22,11 @@ const Header = () => {
         setScrolled(false);
       }
     };
-    
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
+
   // Handle theme change animation
   useEffect(() => {
     setMounted(true);
@@ -101,56 +101,56 @@ const Header = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08
-      }
-    }
+        staggerChildren: 0.08,
+      },
+    },
   };
-  
+
   const navItemVariants = {
     hidden: { opacity: 0, y: -10 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        type: "spring", 
-        stiffness: 300, 
-        damping: 24
-      } 
-    }
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 24,
+      },
+    },
   };
-  
+
   const serviceItemVariants = {
     hidden: { opacity: 0, y: 10 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        type: "spring", 
-        stiffness: 300, 
-        damping: 24
-      } 
-    }
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 24,
+      },
+    },
   };
 
   return (
-    <motion.header 
-      className={`fixed top-0 left-0 w-full z-50 ${
-        scrolled 
-          ? "bg-gray-50 dark:bg-gray-950 backdrop-blur-lg shadow-lg shadow-black/[0.03] dark:shadow-white/[0.02]" 
-          : "bg-gray-50 dark:bg-gray-950 backdrop-blur-sm"
-      } transition-all duration-300`}
+    <motion.header
+      className={`fixed top-0 left-0 w-full z-50  ${
+        scrolled
+          ? "bg-card/50 dark:bg-card/50 backdrop-blur-lg shadow-lg shadow-black/[0.03] dark:shadow-white/[0.02]"
+          : "bg-card/50 dark:bg-card/50 backdrop-blur-sm"
+      } transition-all duration-300 `}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ 
-        type: "spring", 
-        stiffness: 260, 
-        damping: 20 
+      transition={{
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
       }}
     >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <motion.div 
+          <motion.div
             className="flex shrink-0 items-center"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -160,7 +160,7 @@ const Header = () => {
               <div className="relative h-10 w-10 overflow-hidden rounded-full bg-gradient-to-tr from-primary to-accent p-0.5 transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/20">
                 <div className="absolute inset-0 rounded-full bg-gray-50 dark:bg-gray-950 m-[2px] flex items-center justify-center">
                   <motion.div
-                    animate={{ rotate: theme === 'dark' ? 360 : 0 }}
+                    animate={{ rotate: theme === "dark" ? 360 : 0 }}
                     transition={{ duration: 0.6, ease: "easeInOut" }}
                   >
                     <Image
@@ -181,13 +181,13 @@ const Header = () => {
           </motion.div>
 
           {/* Desktop navigation */}
-          <motion.nav 
-            className="hidden md:flex items-center space-x-1 lg:space-x-2"
+          <motion.nav
+            className="hidden md:flex  items-center space-x-1 lg:space-x-2"
             variants={navContainerVariants}
             initial="hidden"
             animate="visible"
           >
-            {navItems.map((item, idx) => 
+            {navItems.map((item, idx) =>
               item.dropdown ? (
                 <motion.div
                   key={`desktop-dropdown-${idx}`}
@@ -202,7 +202,7 @@ const Header = () => {
                     setActiveDropdown(null);
                   }}
                 >
-                  <button 
+                  <button
                     className="flex items-center space-x-1 px-4 py-2 rounded-full text-gray-800 dark:text-gray-100 font-medium hover:bg-primary/10 dark:hover:bg-primary/20 transition-all duration-200"
                     onClick={(e) => {
                       e.preventDefault();
@@ -211,25 +211,32 @@ const Header = () => {
                     }}
                   >
                     <span>{item.name}</span>
-                    <motion.svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      width="16" 
+                    <motion.svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
                       height="16"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
                       strokeWidth="2"
-                      animate={{ rotate: isServicesOpen && activeDropdown === idx ? 180 : 0 }}
+                      animate={{
+                        rotate:
+                          isServicesOpen && activeDropdown === idx ? 180 : 0,
+                      }}
                       transition={{ duration: 0.3 }}
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19 9l-7 7-7-7"
+                      />
                     </motion.svg>
                   </button>
 
                   <AnimatePresence>
                     {isServicesOpen && activeDropdown === idx && (
                       <motion.div
-                        className="absolute left-0 top-full mt-2 w-[550px] rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-950 shadow-lg shadow-black/10 dark:shadow-black/20 border border-gray-200 dark:border-gray-800 z-50"
+                        className="absolute left-0 top-full mt-2 w-[550px] rounded-xl overflow-hidden bg-card/70 dark:bg-card/70 shadow-lg shadow-black/10 dark:shadow-black/20 border border-gray-200 dark:border-gray-800 z-50"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
@@ -237,10 +244,10 @@ const Header = () => {
                       >
                         {/* Debug info */}
                         {/* <div className="bg-primary text-white p-2 text-xs">Services count: {services.length}</div> */}
-                        
+
                         <div className="relative p-4">
                           <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 via-transparent to-accent/10 blur-lg opacity-70 -z-10 rounded-xl"></div>
-                          
+
                           {services && services.length > 0 ? (
                             <div className="grid grid-cols-2 gap-4">
                               {services.map((service, serviceIdx) => (
@@ -248,14 +255,14 @@ const Header = () => {
                                   key={`service-item-${serviceIdx}`}
                                   initial={{ opacity: 0, y: 10 }}
                                   animate={{ opacity: 1, y: 0 }}
-                                  transition={{ 
+                                  transition={{
                                     delay: 0.05 * serviceIdx,
-                                    duration: 0.2
+                                    duration: 0.2,
                                   }}
                                   className="group"
                                 >
-                                  <Link 
-                                    href={service.href} 
+                                  <Link
+                                    href={service.href}
                                     onClick={() => {
                                       setIsServicesOpen(false);
                                       setActiveDropdown(null);
@@ -273,7 +280,9 @@ const Header = () => {
                               ))}
                             </div>
                           ) : (
-                            <div className="p-4 text-center text-gray-500">No services available</div>
+                            <div className="p-4 text-center text-gray-500">
+                              No services available
+                            </div>
                           )}
                         </div>
                       </motion.div>
@@ -290,7 +299,7 @@ const Header = () => {
                     className="relative px-4 py-2 rounded-full text-gray-800 dark:text-gray-100 font-medium hover:bg-primary/10 dark:hover:bg-primary/20 transition-all duration-200 group inline-block"
                   >
                     <span>{item.name}</span>
-                    <motion.span 
+                    <motion.span
                       className="absolute bottom-1.5 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:w-1/2 group-hover:opacity-100"
                       transition={{ duration: 0.3 }}
                     />
@@ -311,18 +320,18 @@ const Header = () => {
               aria-label="Toggle theme"
             >
               <AnimatePresence mode="wait" initial={false}>
-                {mounted && (
-                  theme === "dark" ? (
-                    <motion.svg 
+                {mounted &&
+                  (theme === "dark" ? (
+                    <motion.svg
                       key="sun"
-                      xmlns="http://www.w3.org/2000/svg" 
-                      width="20" 
-                      height="20" 
-                      viewBox="0 0 24 24" 
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
                       fill="none"
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
                       strokeLinejoin="round"
                       className="text-yellow-400"
                       initial={{ opacity: 0, rotate: -90 }}
@@ -341,16 +350,16 @@ const Header = () => {
                       <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </motion.svg>
                   ) : (
-                    <motion.svg 
+                    <motion.svg
                       key="moon"
-                      xmlns="http://www.w3.org/2000/svg" 
-                      width="20" 
-                      height="20" 
-                      viewBox="0 0 24 24" 
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
                       fill="none"
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
                       strokeLinejoin="round"
                       className="text-primary"
                       initial={{ opacity: 0, rotate: 90 }}
@@ -360,20 +369,21 @@ const Header = () => {
                     >
                       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </motion.svg>
-                  )
-                )}
+                  ))}
               </AnimatePresence>
             </motion.button>
 
             {/* CTA Button */}
             <div className="hidden md:block">
               <motion.button
-                className="relative inline-flex h-10 overflow-hidden rounded-full bg-gradient-to-r from-primary to-accent px-6 py-0 font-medium text-white shadow-md transition-all duration-300 hover:shadow-lg"
+                className="relative inline-flex h-10 overflow-hidden rounded-full bg-gradient-to-r from-accent to-accent px-6 py-0 font-medium text-white shadow-md transition-all duration-300 hover:shadow-lg"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
-                <span className="relative z-10 flex h-full items-center justify-center">Get Quote</span>
-                <motion.span 
+                <span className="relative z-10 flex h-full items-center justify-center">
+                  Get Quote
+                </span>
+                <motion.span
                   className="absolute inset-0 -z-10 bg-gradient-to-r from-primary/80 to-accent/80 opacity-0"
                   whileHover={{ opacity: 1 }}
                 />
@@ -442,15 +452,15 @@ const Header = () => {
       {/* Mobile menu, show/hide based on menu state */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
-            className="md:hidden bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800"
+          <motion.div
+            className="md:hidden bg-card/80 dark:bg-card/80 border-t border-gray-200 dark:border-gray-800"
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
             <div className="space-y-1 px-4 pb-5 pt-2">
-              {navItems.map((item, idx) => 
+              {navItems.map((item, idx) =>
                 item.dropdown ? (
                   <div key={`mobile-dropdown-${idx}`}>
                     <motion.button
@@ -463,9 +473,9 @@ const Header = () => {
                       transition={{ delay: 0.1 * idx }}
                     >
                       <span>{item.name}</span>
-                      <motion.svg 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        width="16" 
+                      <motion.svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
                         height="16"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -474,16 +484,20 @@ const Header = () => {
                         animate={{ rotate: activeDropdown === idx ? 180 : 0 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19 9l-7 7-7-7"
+                        />
                       </motion.svg>
                     </motion.button>
-                    
+
                     <AnimatePresence>
                       {activeDropdown === idx && (
                         <motion.div
                           className="mt-2 pl-4 border-l-2 border-primary/30 ml-4"
                           initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
+                          animate={{ opacity: 1, height: "auto" }}
                           exit={{ opacity: 0, height: 0 }}
                           transition={{ duration: 0.2 }}
                         >
@@ -527,7 +541,7 @@ const Header = () => {
                   </motion.div>
                 )
               )}
-              
+
               <motion.div
                 className="mt-6"
                 initial={{ opacity: 0, y: 20 }}
@@ -535,7 +549,7 @@ const Header = () => {
                 transition={{ delay: 0.3 }}
               >
                 <button
-                  className="w-full rounded-lg bg-gradient-to-r from-primary to-accent py-3 px-4 font-medium text-white shadow-md"
+                  className="w-full rounded-lg bg-gradient-to-r from-accent to-accent py-3 px-4 font-medium text-white shadow-md"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Get Quote
