@@ -127,7 +127,7 @@ export default function ServicesSection() {
         >
           <div className="inline-block mb-3">
             <div className="flex items-center justify-center space-x-2 bg-primary/5 dark:bg-primary/10 px-4 py-1.5 rounded-full ">
-              <span className="w-2 h-2 rounded-full  dark:bg-green-400 bg-accent animate-pulse" />
+              <span className="w-2 h-2 rounded-full  dark:bg-[#EC705E] bg-accent animate-pulse" />
               <span className="text-sm font-medium  ">Premium Services</span>
             </div>
           </div>
@@ -155,15 +155,11 @@ export default function ServicesSection() {
               onMouseLeave={() => setHoveredIndex(null)}
               className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500 -z-10 transform group-hover:scale-105" />
-
               <div className="bg-card/80 backdrop-blur-sm border border-border hover:border-primary/20 rounded-2xl p-8 h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(229,62,62,0.15)] relative z-10">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/10 to-accent/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-
                 <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8 text-primary group-hover:text-accent transition-colors duration-300"
+                    className="h-8 w-8 text-primary group-hover:text-[#EC705E] transition-colors duration-300"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

@@ -14,17 +14,20 @@ export default function GuaranteesSection() {
     {
       title: "24/7 Support",
       icon: "headphones",
-      description: "Our team is available round the clock to assist you with any questions.",
+      description:
+        "Our team is available round the clock to assist you with any questions.",
     },
     {
       title: "100% Confidential",
       icon: "shield",
-      description: "Your personal information is protected and never shared with third parties.",
+      description:
+        "Your personal information is protected and never shared with third parties.",
     },
     {
       title: "Money-Back Promise",
       icon: "dollar-sign",
-      description: "Not satisfied with our service? Get your money back, no questions asked.",
+      description:
+        "Not satisfied with our service? Get your money back, no questions asked.",
     },
   ];
 
@@ -34,9 +37,9 @@ export default function GuaranteesSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
-      }
-    }
+        staggerChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
@@ -47,9 +50,9 @@ export default function GuaranteesSection() {
       transition: {
         type: "spring",
         stiffness: 100,
-        damping: 15
-      }
-    }
+        damping: 15,
+      },
+    },
   };
 
   return (
@@ -70,16 +73,17 @@ export default function GuaranteesSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="inline-block mb-3">
-            <div className="flex items-center justify-center space-x-2 bg-accent/5 dark:bg-accent/10 px-4 py-1.5 rounded-full ">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse bg-[#ec705e]" />
-              <span className="text-sm font-medium text-accent">Peace of Mind</span>
+            <div className="flex items-center justify-center space-x-2 bg-primary/5 dark:bg-primary/10 px-4 py-1.5 rounded-full ">
+              <span className="w-2 h-2 rounded-full  dark:bg-[#EC705E] bg-accent animate-pulse" />
+              <span className="text-sm font-medium  ">Pease of Mind</span>
             </div>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text ">
             Our Guarantees
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            We're committed to providing you with the highest quality service and support.
+            We're committed to providing you with the highest quality service
+            and support.
           </p>
         </motion.div>
 
@@ -111,7 +115,7 @@ export default function GuaranteesSection() {
                   transition={{
                     duration: 3,
                     repeat: Infinity,
-                    repeatType: "reverse"
+                    repeatType: "reverse",
                   }}
                 />
 
@@ -119,7 +123,7 @@ export default function GuaranteesSection() {
                   <div className="w-20 h-20 bg-gradient-to-br from-accent/20 to-primary/10 dark:from-accent/30 dark:to-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-10 w-10 text-accent group-hover:text-primary transition-colors duration-300"
+                      className="h-10 w-10 text-[#EC705E] group-hover:text-primary transition-colors duration-300"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -133,7 +137,7 @@ export default function GuaranteesSection() {
                     </svg>
                   </div>
 
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-accent transition-colors duration-300">
+                  <h3 className="text-xl font-bold mb-3 group-hover:text-[#EC705E] transition-colors duration-300">
                     {guarantee.title}
                   </h3>
 

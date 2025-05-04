@@ -10,7 +10,7 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
-import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
+import {  Highlight } from "@/components/ui/hero-highlight";
 
 export default function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -165,7 +165,7 @@ export default function HeroSection() {
           {/* Left content section */}
           <div className="lg:w-1/2 order-2 lg:order-1">
             <motion.div
-              className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 backdrop-blur-sm border border-primary/30 text-primary mb-8 shadow-lg"
+              className="inline-flex items-center px-4 py-2 rounded-full bg-card backdrop-blur-sm border border-primary/30 text-primary mb-8 shadow-lg"
               variants={itemVariants}
               whileHover={{ scale: 1.05, y: -2 }}
             >
@@ -208,12 +208,6 @@ export default function HeroSection() {
               >
                 Academic&nbsp; <br />
                 <Highlight>Success</Highlight>
-                <motion.span
-                  className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent to-primary rounded-full"
-                  initial={{ width: 0, opacity: 0 }}
-                  animate={{ width: "100%", opacity: 1 }}
-                  transition={{ delay: 1, duration: 0.8 }}
-                />
               </motion.span>
             </motion.h1>
 
@@ -280,14 +274,44 @@ export default function HeroSection() {
                     "0 20px 25px -5px rgba(229, 62, 62, 0.1), 0 10px 10px -5px rgba(229, 62, 62, 0.04)",
                 }}
               >
-                <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-all duration-300" />
+                <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-accent/10 group-hover:bg-accent/50 transition-all duration-300" />
                 <div className="text-4xl font-bold text-primary mb-1">98%</div>
                 <div className="text-sm text-muted-foreground font-medium">
                   Success Rate
                 </div>
               </motion.div>
-
               <motion.div
+                className="bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-md p-5 rounded-2xl border border-primary/20 shadow-lg overflow-hidden relative group"
+                whileHover={{
+                  y: -5,
+                  boxShadow:
+                    "0 20px 25px -5px rgba(229, 62, 62, 0.1), 0 10px 10px -5px rgba(229, 62, 62, 0.04)",
+                }}
+              >
+                <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-accent/10 group-hover:bg-accent/50 transition-all duration-300" />
+                <div className="text-4xl font-bold text-primary mb-1">24/7</div>
+                <div className="text-sm text-muted-foreground font-medium">
+                  Expert Support
+                </div>
+              </motion.div>
+              <motion.div
+                className="bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-md p-5 rounded-2xl border border-primary/20 shadow-lg overflow-hidden relative group"
+                whileHover={{
+                  y: -5,
+                  boxShadow:
+                    "0 20px 25px -5px rgba(229, 62, 62, 0.1), 0 10px 10px -5px rgba(229, 62, 62, 0.04)",
+                }}
+              >
+                <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-accent/10 group-hover:bg-accent/50 transition-all duration-300" />
+                <div className="text-4xl font-bold text-primary mb-1">
+                  4.9/5
+                </div>
+                <div className="text-sm text-muted-foreground font-medium">
+                  Customer Rating
+                </div>
+              </motion.div>
+
+              {/* <motion.div
                 className="bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-md p-5 rounded-2xl border border-accent/20 shadow-lg overflow-hidden relative group"
                 whileHover={{
                   y: -5,
@@ -315,7 +339,7 @@ export default function HeroSection() {
                 <div className="text-sm text-muted-foreground font-medium">
                   Customer Rating
                 </div>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           </div>
 

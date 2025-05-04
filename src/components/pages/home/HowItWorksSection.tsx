@@ -99,10 +99,8 @@ export default function HowItWorksSection() {
         >
           <div className="inline-block mb-3">
             <div className="flex items-center justify-center space-x-2 bg-primary/5 dark:bg-primary/10 px-4 py-1.5 rounded-full ">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse bg-[#ec705e]" />
-              <span className="text-sm font-medium text-primary">
-                Simple Process
-              </span>
+              <span className="w-2 h-2 rounded-full  dark:bg-[#EC705E] bg-accent animate-pulse" />
+              <span className="text-sm font-medium  ">Simple Process</span>
             </div>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text ">
@@ -134,7 +132,7 @@ export default function HowItWorksSection() {
             >
               {/* Step number with gradient background */}
               <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 z-20 ">
-                <div className="w-16 h-16  rounded-full flex items-center justify-center   text-primary font-normal text-xl shadow-lg border-2 border-primary ">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20  rounded-full flex items-center justify-center   text-primary font-normal text-xl shadow-lg border-2 border-primary/20 ">
                   {step.step}
                 </div>
               </div>
@@ -146,7 +144,7 @@ export default function HowItWorksSection() {
                 <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8 text-primary group-hover:text-accent transition-colors duration-300"
+                    className="h-8 w-8 text-primary group-hover:text-[#EC705E] transition-colors duration-300"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
