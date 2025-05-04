@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { ScrollProgress } from "../magicui/scroll-progress";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -147,6 +148,7 @@ const Header = () => {
         damping: 20,
       }}
     >
+      <ScrollProgress className="top-[65px] md:top-[80px] bg-[#EC705E]" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}

@@ -1,5 +1,6 @@
 "use client";
 
+import { MagicCard } from "@/components/magicui/magic-card";
 import { motion } from "framer-motion";
 
 interface Guarantee {

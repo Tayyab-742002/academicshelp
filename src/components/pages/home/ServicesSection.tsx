@@ -3,6 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Pointer } from "@/components/magicui/pointer";
+import { BookOpen } from "lucide-react";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
 
 // Define the service type
 interface Service {
@@ -155,6 +158,43 @@ export default function ServicesSection() {
               onMouseLeave={() => setHoveredIndex(null)}
               className="relative group"
             >
+              <Pointer>
+                <motion.div
+                  animate={{
+                    scale: [0.8, 1, 0.8],
+                    rotate: [0, 5, -5, 0],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="text-accent dark:text-primary"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-8 w-8 text-primary group-hover:text-[#EC705E] transition-colors duration-300"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d={getIconPath(service.icon)}
+                      />
+                    </svg>
+                  </svg>
+                </motion.div>
+              </Pointer>
               <div className="bg-card/80 backdrop-blur-sm border border-border hover:border-primary/20 rounded-2xl p-8 h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(229,62,62,0.15)] relative z-10">
                 <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg
@@ -227,14 +267,17 @@ export default function ServicesSection() {
           transition={{ delay: 0.1, duration: 0.3 }}
           whileHover={{ scale: 1.05 }}
         >
-          <Link
-            href="/services"
-            className="relative inline-flex items-center justify-center px-8 py-3.5 overflow-hidden font-medium bg-[#ec705e] hover:bg-[#ec705e]/90 rounded-full group"
-          >
-            <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-white/20 to-transparent h-1/3"></span>
-            <span className="relative text-white font-medium text-base">
-              View All Services
-            </span>
+          <Link href="/services">
+            <ShimmerButton
+              shimmerColor="#ffffff"
+              background="#ec705e"
+              className="relative inline-flex items-center justify-center px-8 py-3.5 overflow-hidden font-medium bg-[#ec705e]  rounded-full group"
+            >
+              <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-white/20 to-transparent h-1/3"></span>
+              <span className="relative text-white font-medium text-base">
+                View All Services
+              </span>
+            </ShimmerButton>
           </Link>
         </motion.div>
       </div>

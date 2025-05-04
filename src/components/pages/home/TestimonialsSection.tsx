@@ -1,20 +1,19 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-
-interface Testimonial {
-  name: string;
-  role: string;
-  quote: string;
-  rating: number;
-  image: string;
-}
+import { Testimonial } from "@/lib/fallbackdata/testimonial";
+import { getFeaturedTestimonials } from "@/lib/testimonials";
+import { BorderBeam } from "@/components/magicui/border-beam";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 
 export default function TestimonialsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [loading, setLoading] = useState(true);
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -24,33 +23,22 @@ export default function TestimonialsSection() {
   // Parallax effect for background elements
   const y1 = useTransform(scrollYProgress, [0, 1], [50, -50]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1, 0.5]);
-  // Testimonials data
-  const testimonials: Testimonial[] = [
-    {
-      name: "Sarah Johnson",
-      role: "Psychology Student, University of Michigan",
-      quote:
-        "The essay I received was well-researched and perfectly formatted. My professor was impressed with the quality!",
-      rating: 5,
-      image: "/testimonials/sarah.jpg",
-    },
-    {
-      name: "Michael Chen",
-      role: "Computer Science Major, Stanford University",
-      quote:
-        "I was struggling with a complex coding assignment until I found this service. The solution was elegant and well-documented.",
-      rating: 5,
-      image: "/testimonials/michael.jpg",
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Business Administration, NYU",
-      quote:
-        "Their dissertation assistance helped me organize my research and present it in a coherent manner. Highly recommended!",
-      rating: 4,
-      image: "/testimonials/emily.jpg",
-    },
-  ];
+
+  // Fetch testimonials
+  useEffect(() => {
+    async function loadTestimonials() {
+      try {
+        const featuredTestimonials = await getFeaturedTestimonials();
+        setTestimonials(featuredTestimonials);
+      } catch (error) {
+        console.error("Error loading testimonials:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadTestimonials();
+  }, []);
 
   // Animation variants
   const containerVariants = {
@@ -75,6 +63,21 @@ export default function TestimonialsSection() {
       },
     },
   };
+
+  if (loading) {
+    return (
+      <section className="py-24 md:py-32 relative overflow-hidden">
+        <div className="container mx-auto px-4 flex justify-center items-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+        </div>
+      </section>
+    );
+  }
+
+  // If no featured testimonials, don't render the section
+  if (testimonials.length === 0) {
+    return null;
+  }
 
   return (
     <section
@@ -120,7 +123,7 @@ export default function TestimonialsSection() {
           </p>
         </motion.div>
 
-        <motion.div
+        {/* <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
           variants={containerVariants}
           initial="hidden"
@@ -129,27 +132,24 @@ export default function TestimonialsSection() {
         >
           {testimonials.map((testimonial, index) => (
             <motion.div
-              key={index}
+              key={testimonial._id}
               variants={itemVariants}
               className="group relative"
               whileHover={{ y: -8 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               onHoverStart={() => setActiveIndex(index)}
             >
-              {/* Hover glow effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500 -z-10 transform group-hover:scale-105" />
 
-              <div className="bg-card/80 backdrop-blur-sm border border-border hover:border-primary/20 rounded-2xl p-8 h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(229,62,62,0.15)] relative z-10">
-                {/* Quote mark decoration */}
-                <div className="absolute top-6 right-6 text-6xl leading-none text-primary/10 font-serif">
-                  "
-                </div>
-
+              <div className="bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl p-6 shadow-lg overflow-hidden transition-all duration-300 h-full">
                 <div className="flex items-center mb-6 relative z-10">
                   <div className="w-14 h-14 rounded-full overflow-hidden mr-4 ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
                     <div className="relative w-full h-full">
                       <Image
-                        src={testimonial.image || "/placeholder-avatar.png"}
+                        src={
+                          testimonial.image?.asset.url ||
+                          "/placeholder-avatar.png"
+                        }
                         alt={testimonial.name}
                         fill
                         sizes="56px"
@@ -185,7 +185,6 @@ export default function TestimonialsSection() {
                   "{testimonial.quote}"
                 </p>
 
-                {/* Animated particles */}
                 {activeIndex === index &&
                   Array.from({ length: 3 }).map((_, i) => (
                     <motion.div
@@ -211,23 +210,27 @@ export default function TestimonialsSection() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
-
+        </motion.div> */}
+        <AnimatedTestimonials testimonials={testimonials} />
         <motion.div
           className="text-center mt-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.7 }}
+          transition={{ delay: 0.1, duration: 0.3 }}
+          whileHover={{ scale: 1.05 }}
         >
-          <Link
-            href="/testimonials"
-            className="relative inline-flex items-center justify-center px-8 py-3.5 overflow-hidden font-medium rounded-full group"
-          >
-            <span className="absolute inset-0 w-full h-full group-hover:opacity-80 bg-[#EC705E] transition duration-300 ease-out"></span>
-            <span className="relative text-white transition-colors duration-300 ">
-              View All Testimonials
-            </span>
+          <Link href="/testimonials">
+            <ShimmerButton
+              shimmerColor="#ffffff"
+              background="#ec705e"
+              className="relative inline-flex items-center justify-center px-8 py-3.5 overflow-hidden font-medium bg-[#ec705e]  rounded-full group"
+            >
+              <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-white/20 to-transparent h-1/3"></span>
+              <span className="relative text-white font-medium text-base">
+                View All Testimonials
+              </span>
+            </ShimmerButton>
           </Link>
         </motion.div>
       </div>

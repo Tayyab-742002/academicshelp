@@ -21,7 +21,7 @@ export default function ServicePage() {
     if (params.id) {
       const serviceId = Array.isArray(params.id) ? params.id[0] : params.id;
       const serviceData = getServiceById(serviceId);
-      
+
       if (serviceData) {
         setService(serviceData);
       }
@@ -32,7 +32,7 @@ export default function ServicePage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary">.</div>
       </div>
     );
   }
