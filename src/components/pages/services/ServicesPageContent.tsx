@@ -3,7 +3,7 @@
 import {
   HeroSection,
   ServicesGrid,
-  CTASection
+
 } from "@/components/pages/services";
 import ServiceSchema from "@/components/structured-data/ServiceSchema";
 
@@ -13,7 +13,7 @@ export default function ServicesPageContent() {
       <ServiceSchema />
       <HeroSection />
       <ServicesGrid />
-      <CTASection />
+    
     </div>
   );
 } 

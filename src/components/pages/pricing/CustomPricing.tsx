@@ -27,12 +27,12 @@ export default function CustomPricing() {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15
+        duration: 0.6, 
+        ease: [0.22, 1, 0.36, 1]
       }
     }
   };
+  
   const customPricing: PricingItem[] = [
     {
       service: "Essay Writing",
@@ -67,30 +67,29 @@ export default function CustomPricing() {
   ];
 
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background to-background/80 dark:from-background dark:to-background/90 z-0" />
+    <section id="custom-pricing" className="py-16 md:py-24 relative overflow-hidden">
+      {/* Enhanced background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-muted/20 to-background dark:from-muted/10 dark:to-background z-0" />
       
-      {/* Red gradient accent */}
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl z-0" />
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent/10 to-transparent rounded-full blur-3xl z-0" />
+      {/* Subtle decorative gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-primary/5 via-accent/5 to-transparent dark:from-primary/10 dark:via-accent/5 dark:to-transparent opacity-60 z-0" />
       
-      {/* Animated dots */}
-      <div className="absolute inset-0 z-0 opacity-30">
-        {Array.from({ length: 20 }).map((_, i) => (
+      {/* Animated particles */}
+      <div className="absolute inset-0 opacity-40 dark:opacity-40 z-0">
+        {Array.from({ length: 10 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 rounded-full bg-primary/50"
+            className="absolute w-1 h-1 rounded-full bg-primary/90 dark:bg-primary/90"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
+              y: [0, Math.random() * 100 - 50],
               opacity: [0, 1, 0],
-              scale: [0, 1.5, 0],
             }}
             transition={{
-              duration: 5 + Math.random() * 5,
+              duration: 5 + Math.random() * 10,
               repeat: Infinity,
               delay: Math.random() * 5,
             }}
@@ -103,51 +102,96 @@ export default function CustomPricing() {
           className="max-w-3xl mx-auto text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <div className="inline-block mb-3">
-            <div className="flex items-center justify-center space-x-2 bg-accent/5 dark:bg-accent/10 px-4 py-1.5 rounded-full">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="text-sm font-medium text-accent">Tailored Solutions</span>
-            </div>
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-card/90 backdrop-blur-sm border border-accent/40 text-accent mb-8 shadow-md dark:bg-card/60 dark:border-accent/40">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+              />
+            </svg>
+            <span className="text-sm font-medium">
+              Tailored Solutions
+            </span>
           </div>
           
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent">
-            Custom Assignment Pricing
-          </h2>
+          <motion.h2 
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 leading-tight tracking-tight"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+          >
+            <span className="block mb-2 text-foreground">
+              Custom Assignment
+            </span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary dark:from-primary dark:via-accent dark:to-primary">
+              Pricing
+            </span>
+          </motion.h2>
           
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <motion.p
+            className="text-lg md:text-xl text-muted-foreground mb-6 max-w-xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
             Need help with a specific assignment? Check our per-service pricing below or contact us for a custom quote.
-          </p>
+          </motion.p>
+          
+          {/* Animated decoration */}
+          <motion.div 
+            className="w-24 h-1 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60 rounded-full mx-auto"
+            initial={{ width: 0, opacity: 0 }}
+            whileInView={{ 
+              width: 120, 
+              opacity: 1,
+              transition: { 
+                duration: 0.8,
+                delay: 0.3,
+                ease: [0.22, 1, 0.36, 1] 
+              }
+            }}
+            viewport={{ once: true }}
+          />
         </motion.div>
 
         <motion.div 
-          className="max-w-4xl mx-auto bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl shadow-lg overflow-hidden relative"
+          className="max-w-4xl mx-auto bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/20 dark:border-primary/30 shadow-lg overflow-hidden relative"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          whileHover={{ boxShadow: "0 0 25px rgba(229,62,62,0.15)" }}
+          viewport={{ once: true }}
+          whileHover={{ boxShadow: "0 20px 30px -10px rgba(0, 0, 0, 0.1)" }}
           transition={{ duration: 0.3 }}
         >
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-gradient-to-r from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10 relative">
-                {/* Subtle background pattern */}
-                <div className="absolute inset-0 opacity-5 z-0" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e53e3e' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')" }}></div>
+                <tr className="bg-gradient-to-r from-primary/10 to-accent/10 dark:from-primary/15 dark:to-accent/15">
                   <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Service</th>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Description</th>
                   <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">Price Range</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border/50 dark:divide-border/30">
+              <tbody className="divide-y divide-primary/10 dark:divide-primary/20">
                 {customPricing.map((item, index) => (
                   <motion.tr 
                     key={index} 
                     className="hover:bg-primary/5 transition-colors duration-200"
                     variants={itemVariants}
+                    custom={index}
                   >
                     <td className="px-6 py-4 text-sm font-medium text-foreground">{item.service}</td>
                     <td className="px-6 py-4 text-sm text-muted-foreground">{item.description}</td>
@@ -166,18 +210,34 @@ export default function CustomPricing() {
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.7 }}
         >
-          <p className="text-muted-foreground mb-6 text-lg">
+          <p className="text-muted-foreground mb-8 text-lg">
             Need a custom quote for your specific requirements?
           </p>
           
-          <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-block"
+          >
             <Link
               href="/contact"
-              className="relative inline-flex items-center justify-center px-8 py-3.5 overflow-hidden font-medium rounded-full group text-white"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium shadow-md hover:shadow-lg transition-all duration-200"
             >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-primary to-accent opacity-80 group-hover:opacity-90 transition duration-300 ease-out"></span>
-              <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-white/20 to-transparent h-1/3"></span>
-              <span className="relative text-white font-medium text-base">Request a Custom Quote</span>
+              Request a Custom Quote
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 ml-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
             </Link>
           </motion.div>
         </motion.div>

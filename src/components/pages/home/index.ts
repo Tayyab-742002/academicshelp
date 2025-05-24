@@ -3,5 +3,4 @@ export { default as ServicesSection } from './ServicesSection';
 export { default as GuaranteesSection } from './GuaranteesSection';
 export { default as HowItWorksSection } from './HowItWorksSection';
 export { default as TestimonialsSection } from './TestimonialsSection';
-export { default as CTASection } from '../../common/CTASection';
 export { default as DisclaimerSection } from './DisclaimerSection';

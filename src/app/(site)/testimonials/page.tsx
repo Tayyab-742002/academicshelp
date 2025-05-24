@@ -1,10 +1,11 @@
 "use client";
 
+import CTASection from "@/components/common/CTASection";
 import {
   HeroSection,
   TestimonialsGrid,
   StatsSection,
-  CTASection
+
 } from "@/components/pages/testimonials";
 
 export default function TestimonialsPage() {
@@ -13,7 +14,7 @@ export default function TestimonialsPage() {
       <HeroSection />
       <StatsSection />
       <TestimonialsGrid />
-      <CTASection />
+     <CTASection />
     </div>
   );
 }

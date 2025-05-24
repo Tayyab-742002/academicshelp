@@ -25,7 +25,7 @@ export default function PricingPlans() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.15
       }
     }
   };
@@ -36,9 +36,8 @@ export default function PricingPlans() {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15
+        duration: 0.6, 
+        ease: [0.22, 1, 0.36, 1]
       }
     }
   };
@@ -96,30 +95,32 @@ export default function PricingPlans() {
   ];
 
   return (
-    <section className="py-20 md:py-32 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background to-background/80 dark:from-background dark:to-background/90 z-0" />
+    <section id="pricing-plans" className="py-16 md:py-24 relative overflow-hidden">
+      {/* Enhanced background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-muted/20 to-background dark:from-muted/10 dark:to-background z-0" />
       
-      {/* Red gradient accent */}
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl z-0" />
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent/10 to-transparent rounded-full blur-3xl z-0" />
+      {/* Subtle decorative gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/5 via-accent/5 to-transparent dark:from-primary/10 dark:via-accent/5 dark:to-transparent opacity-60 z-0" />
       
-      {/* Animated dots */}
-      <div className="absolute inset-0 z-0 opacity-30">
-        {Array.from({ length: 20 }).map((_, i) => (
+      {/* Animated gradient line */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent dark:via-primary/60" />
+      
+      {/* Animated particles */}
+      <div className="absolute inset-0 opacity-40 dark:opacity-40 z-0">
+        {Array.from({ length: 10 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 rounded-full bg-primary/50"
+            className="absolute w-1 h-1 rounded-full bg-primary/90 dark:bg-primary/90"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
+              y: [0, Math.random() * 100 - 50],
               opacity: [0, 1, 0],
-              scale: [0, 1.5, 0],
             }}
             transition={{
-              duration: 5 + Math.random() * 5,
+              duration: 5 + Math.random() * 10,
               repeat: Infinity,
               delay: Math.random() * 5,
             }}
@@ -136,29 +137,35 @@ export default function PricingPlans() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <div className="bg-card/50 backdrop-blur-sm p-1.5 rounded-full inline-flex border border-border/50 shadow-lg relative overflow-hidden">
+          <div className="bg-card/90 backdrop-blur-sm p-1.5 rounded-full inline-flex border border-primary/20 dark:border-primary/30 shadow-md overflow-hidden relative">
             {/* Subtle gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10 opacity-50"></div>
-            <button
+            
+            <motion.button
               onClick={() => setBillingPeriod('monthly')}
               className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                 billingPeriod === 'monthly'
                   ? 'bg-primary text-white shadow-md shadow-primary/20'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.98 }}
             >
               Monthly
-            </button>
-            <button
+            </motion.button>
+            
+            <motion.button
               onClick={() => setBillingPeriod('annually')}
               className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                 billingPeriod === 'annually'
                   ? 'bg-primary text-white shadow-md shadow-primary/20'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.98 }}
             >
               Annually <span className="text-green-400 font-medium ml-1">Save 20%</span>
-            </button>
+            </motion.button>
           </div>
         </motion.div>
 
@@ -174,18 +181,28 @@ export default function PricingPlans() {
             <motion.div 
               key={index}
               variants={itemVariants}
-              className="group relative"
+              className="relative"
               onMouseEnter={() => setHoveredPlan(index)}
               onMouseLeave={() => setHoveredPlan(null)}
-              whileHover={{ y: -10 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              {/* Hover glow effect */}
-              <div className={`absolute inset-0 bg-gradient-to-r ${plan.popular ? 'from-primary/20 to-accent/20' : 'from-primary/10 to-accent/10'} rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500 -z-10 transform group-hover:scale-105`} />
-              
-              <div className={`relative bg-card/80 backdrop-blur-sm border ${plan.popular ? 'border-primary/30' : 'border-border'} hover:border-primary/20 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_25px_rgba(229,62,62,0.15)] z-10 h-full flex flex-col`}>
-                {/* Subtle background pattern */}
-                <div className="absolute inset-0 opacity-5 z-0" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e53e3e' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')" }}></div>
+              <motion.div 
+                className={`relative bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border ${plan.popular ? 'border-primary/30' : 'border-primary/20 dark:border-primary/30'} shadow-lg overflow-hidden transition-all duration-300 h-full flex flex-col`}
+                whileHover={{ 
+                  y: -10, 
+                  boxShadow: "0 20px 30px -10px rgba(0, 0, 0, 0.1)",
+                  transition: { type: "spring", stiffness: 400, damping: 17 }
+                }}
+              >
+                {/* Hover glow effect */}
+                {hoveredPlan === index && (
+                  <motion.div
+                    className={`absolute inset-0 bg-gradient-to-r ${plan.popular ? 'from-primary/15 to-accent/15' : 'from-primary/10 to-accent/10'} rounded-2xl blur-xl opacity-0 transition-opacity duration-500 -z-10 transform scale-105`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.7 }}
+                    exit={{ opacity: 0 }}
+                  />
+                )}
+                
                 {plan.popular && (
                   <div className="absolute top-0 right-0 bg-gradient-to-r from-primary to-accent text-white dark:text-white px-4 py-1 rounded-bl-lg text-sm font-medium">
                     Popular Choice
@@ -196,7 +213,7 @@ export default function PricingPlans() {
                   <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">{plan.name}</h3>
                   
                   <div className="flex items-baseline mb-4">
-                    <span className="text-4xl font-extrabold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent">
+                    <span className="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary dark:from-primary dark:via-accent dark:to-primary">
                       ${billingPeriod === 'monthly' ? plan.price.monthly : plan.price.annually}
                     </span>
                     <span className="text-muted-foreground ml-2">/ month</span>
@@ -204,17 +221,20 @@ export default function PricingPlans() {
                   
                   <p className="text-muted-foreground mb-8">{plan.description}</p>
                   
-                  <Link
-                    href="/contact"
-                    className={`relative inline-flex w-full items-center justify-center px-6 py-3 overflow-hidden font-medium rounded-full group ${plan.popular ? 'text-white' : 'text-foreground'}`}
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <span className={`absolute inset-0 w-full h-full ${plan.popular ? 'bg-gradient-to-br from-primary to-accent' : 'bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20'} group-hover:opacity-90 transition duration-300 ease-out opacity-70`}></span>
-                    <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-white/20 to-transparent h-1/3"></span>
-                    <span className="relative font-medium text-base">Get Started</span>
-                  </Link>
+                    <Link
+                      href="/contact"
+                      className={`relative inline-flex w-full items-center justify-center px-6 py-3 overflow-hidden font-medium rounded-full shadow-md ${plan.popular ? 'bg-primary text-primary-foreground hover:shadow-lg hover:shadow-primary/20' : 'bg-card border-2 border-primary/50 text-foreground hover:border-primary hover:bg-primary/10'} transition-all duration-300`}
+                    >
+                      <span className="relative font-medium">Get Started</span>
+                    </Link>
+                  </motion.div>
                 </div>
                 
-                <div className="bg-gradient-to-br from-card/90 to-card/50 dark:from-card/80 dark:to-card/40 px-8 py-6 border-t border-border/50 dark:border-border/30">
+                <div className="bg-gradient-to-br from-card/90 to-card/50 dark:from-card/80 dark:to-card/40 px-8 py-6 border-t border-primary/20 dark:border-primary/30">
                   <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-foreground/80">
                     What's included
                   </h4>
@@ -226,7 +246,7 @@ export default function PricingPlans() {
                         className="flex items-start"
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 * i, duration: 0.3 }}
+                        transition={{ delay: 0.05 * i, duration: 0.3 }}
                       >
                         <div className="mr-3 mt-0.5">
                           <div className={`w-5 h-5 rounded-full flex items-center justify-center ${plan.popular ? 'bg-primary/20' : 'bg-primary/10'}`}>
@@ -250,20 +270,7 @@ export default function PricingPlans() {
                     ))}
                   </ul>
                 </div>
-                
-                {/* Animated border when hovered */}
-                {hoveredPlan === index && (
-                  <motion.div 
-                    className="absolute inset-0 rounded-2xl z-0 pointer-events-none"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    layoutId="pricingBorder"
-                  >
-                    <div className={`absolute inset-0 rounded-2xl border-2 ${plan.popular ? 'border-primary/40' : 'border-primary/30'} animate-pulse`} />
-                  </motion.div>
-                )}
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>
@@ -276,6 +283,22 @@ export default function PricingPlans() {
           transition={{ delay: 0.5, duration: 0.7 }}
         >
           <p className="text-muted-foreground mb-4">All plans include unlimited revisions and 24/7 support</p>
+          
+          {/* Animated decoration */}
+          <motion.div 
+            className="w-24 h-1 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60 rounded-full mx-auto mt-8"
+            initial={{ width: 0, opacity: 0 }}
+            whileInView={{ 
+              width: 120, 
+              opacity: 1,
+              transition: { 
+                duration: 0.8,
+                delay: 0.2,
+                ease: [0.22, 1, 0.36, 1] 
+              }
+            }}
+            viewport={{ once: true }}
+          />
         </motion.div>
       </div>
     </section>

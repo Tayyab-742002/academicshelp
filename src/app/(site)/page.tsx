@@ -7,9 +7,9 @@ import {
   GuaranteesSection,
   HowItWorksSection,
   TestimonialsSection,
-  CTASection,
   DisclaimerSection,
 } from "@/components/pages/home";
+import CTASection from "@/components/common/CTASection";
 
 // Animation utility function
 function useScrollAnimation() {

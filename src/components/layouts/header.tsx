@@ -5,14 +5,34 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ScrollProgress } from "../magicui/scroll-progress";
+import { getServices } from "@/lib/services";
+import type { Service } from "@/lib/fallbackdata/service";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // Fetch services from Sanity
+  useEffect(() => {
+    async function loadServices() {
+      try {
+        const servicesData = await getServices();
+        setServices(servicesData);
+      } catch (error) {
+        console.error("Error loading services:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    loadServices();
+  }, []);
 
   // Handle scroll effects
   useEffect(() => {
@@ -54,45 +74,6 @@ const Header = () => {
     {
       name: "Contact",
       link: "/contact",
-    },
-  ];
-
-  const services = [
-    {
-      title: "Essay Writing",
-      href: "/services/essay-writing",
-      description:
-        "Professional essay writing services for all academic levels and subjects.",
-    },
-    {
-      title: "Research Papers",
-      href: "/services/research-papers",
-      description:
-        "In-depth research and well-structured papers with proper citations and references.",
-    },
-    {
-      title: "Homework Help",
-      href: "/services/homework-help",
-      description:
-        "Expert assistance with assignments across various subjects and difficulty levels.",
-    },
-    {
-      title: "Exam Preparation",
-      href: "/services/exam-preparation",
-      description:
-        "Comprehensive study materials and practice tests for exam success.",
-    },
-    {
-      title: "Dissertation Writing",
-      href: "/services/dissertation-writing",
-      description:
-        "Full dissertation services from proposal to final defense preparation.",
-    },
-    {
-      title: "Coding Assignments",
-      href: "/services/coding-assignments",
-      description:
-        "Programming help in various languages with detailed explanations and documentation.",
     },
   ];
 
@@ -244,13 +225,20 @@ const Header = () => {
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.2 }}
                       >
-                        {/* Debug info */}
-                        {/* <div className="bg-primary text-white p-2 text-xs">Services count: {services.length}</div> */}
-
                         <div className="relative p-4">
                           <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 via-transparent to-accent/10 blur-lg opacity-70 -z-10 rounded-xl"></div>
 
-                          {services && services.length > 0 ? (
+                          {loading ? (
+                            <div className="grid grid-cols-2 gap-4">
+                              {[1, 2, 3, 4].map((_, i) => (
+                                <div key={i} className="animate-pulse">
+                                  <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
+                                  <div className="h-3 bg-gray-100 dark:bg-gray-800 rounded w-full"></div>
+                                  <div className="h-3 bg-gray-100 dark:bg-gray-800 rounded w-5/6 mt-1"></div>
+                                </div>
+                              ))}
+                            </div>
+                          ) : services && services.length > 0 ? (
                             <div className="grid grid-cols-2 gap-4">
                               {services.map((service, serviceIdx) => (
                                 <motion.div
@@ -264,7 +252,7 @@ const Header = () => {
                                   className="group"
                                 >
                                   <Link
-                                    href={service.href}
+                                    href={`/services/${service.slug.current}`}
                                     onClick={() => {
                                       setIsServicesOpen(false);
                                       setActiveDropdown(null);
@@ -275,7 +263,7 @@ const Header = () => {
                                       {service.title}
                                     </div>
                                     <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                                      {service.description}
+                                      {service.shortDescription}
                                     </p>
                                   </Link>
                                 </motion.div>
@@ -503,25 +491,37 @@ const Header = () => {
                           exit={{ opacity: 0, height: 0 }}
                           transition={{ duration: 0.2 }}
                         >
-                          {services.map((service, serviceIdx) => (
-                            <motion.div
-                              key={`mobile-service-${serviceIdx}`}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.05 * serviceIdx }}
-                            >
-                              <Link
-                                href={service.href}
-                                className="block py-2 px-3 text-base text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary rounded-md hover:bg-primary/5 dark:hover:bg-primary/10"
-                                onClick={() => {
-                                  setIsMobileMenuOpen(false);
-                                  setActiveDropdown(null);
-                                }}
+                          {loading ? (
+                            <div className="py-2 px-3">
+                              <div className="animate-pulse h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
+                              <div className="animate-pulse h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2 w-5/6"></div>
+                              <div className="animate-pulse h-4 bg-gray-200 dark:bg-gray-700 rounded w-4/6"></div>
+                            </div>
+                          ) : services && services.length > 0 ? (
+                            services.map((service, serviceIdx) => (
+                              <motion.div
+                                key={`mobile-service-${serviceIdx}`}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.05 * serviceIdx }}
                               >
-                                {service.title}
-                              </Link>
-                            </motion.div>
-                          ))}
+                                <Link
+                                  href={`/services/${service.slug.current}`}
+                                  className="block py-2 px-3 text-base text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary rounded-md hover:bg-primary/5 dark:hover:bg-primary/10"
+                                  onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    setActiveDropdown(null);
+                                  }}
+                                >
+                                  {service.title}
+                                </Link>
+                              </motion.div>
+                            ))
+                          ) : (
+                            <div className="py-2 px-3 text-gray-500">
+                              No services available
+                            </div>
+                          )}
                         </motion.div>
                       )}
                     </AnimatePresence>

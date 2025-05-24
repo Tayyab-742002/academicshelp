@@ -456,24 +456,55 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <div className="inline-block mb-3">
-              <div className="flex items-center justify-center space-x-2 bg-primary/5 dark:bg-primary/10 px-4 py-1.5 rounded-full">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                <span className="text-sm font-medium text-primary">
-                  Transparent Pricing
-                </span>
-              </div>
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-card/90 backdrop-blur-sm border border-primary/40 text-primary mb-8 shadow-md dark:bg-card/60 dark:border-primary/40">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span className="text-sm font-medium">
+                Transparent Pricing
+              </span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Choose Your Plan
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary dark:from-primary dark:via-accent dark:to-primary">
+                Choose Your Plan
+              </span>
             </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+              We offer transparent pricing options to suit different needs and budgets.
+            </p>
+            
+            {/* Animated decoration */}
+            <motion.div 
+              className="w-24 h-1 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60 rounded-full mx-auto mb-10"
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ 
+                width: 120, 
+                opacity: 1,
+                transition: { 
+                  duration: 0.8,
+                  delay: 0.3,
+                  ease: [0.22, 1, 0.36, 1] 
+                }
+              }}
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {service.pricing.map((plan, index) => (
               <motion.div
                 key={index}
-                className={`rounded-2xl overflow-hidden border ${plan.popular ? "border-primary shadow-xl shadow-primary/10" : "border-border shadow-lg"} relative`}
+                className="relative"
                 initial={{ opacity: 0, y: 30 }}
                 animate={
                   isBenefitsVisible
@@ -481,50 +512,78 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
                     : { opacity: 0, y: 30 }
                 }
                 transition={{ duration: 0.6, delay: 0.1 * index }}
-                whileHover={{ y: -5 }}
+                whileHover={{ y: -10, transition: { type: "spring", stiffness: 400, damping: 17 } }}
               >
-                {plan.popular && (
-                  <div className="absolute top-0 right-0 bg-primary text-white dark:text-white py-1 px-3 text-sm font-medium rounded-bl-lg">
-                    Most Popular
+                <motion.div
+                  className={`relative bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border ${plan.popular ? "border-primary/30" : "border-primary/20 dark:border-primary/30"} shadow-lg overflow-hidden transition-all duration-300 h-full flex flex-col`}
+                >
+                  {/* Hover glow effect */}
+                  <motion.div
+                    className={`absolute inset-0 bg-gradient-to-r ${plan.popular ? 'from-primary/15 to-accent/15' : 'from-primary/10 to-accent/10'} rounded-2xl blur-xl opacity-0 transition-opacity duration-500 -z-10 transform scale-105`}
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 0.7 }}
+                    exit={{ opacity: 0 }}
+                  />
+                
+                  {plan.popular && (
+                    <div className="absolute top-0 right-0 bg-gradient-to-r from-primary to-accent text-white dark:text-white px-4 py-1 rounded-bl-lg text-sm font-medium">
+                      Most Popular
+                    </div>
+                  )}
+                
+                  <div className="p-8 flex-grow">
+                    <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">{plan.title}</h3>
+                    
+                    <div className="flex items-baseline mb-4">
+                      <span className="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary dark:from-primary dark:via-accent dark:to-primary">
+                        {plan.price}
+                      </span>
+                    </div>
+                  
+                    <ul className="space-y-3 mb-6">
+                      {plan.features.map((feature, featureIndex) => (
+                        <motion.li 
+                          key={featureIndex} 
+                          className="flex items-start"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.05 * featureIndex, duration: 0.3 }}
+                        >
+                          <div className="mr-3 mt-0.5">
+                            <div className={`w-5 h-5 rounded-full flex items-center justify-center ${plan.popular ? 'bg-primary/20' : 'bg-primary/10'}`}>
+                              <svg 
+                                className="h-3 w-3 text-primary" 
+                                fill="none" 
+                                viewBox="0 0 24 24" 
+                                stroke="currentColor"
+                              >
+                                <path 
+                                  strokeLinecap="round" 
+                                  strokeLinejoin="round" 
+                                  strokeWidth={2} 
+                                  d="M5 13l4 4L19 7" 
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                          <span className="text-muted-foreground">{feature}</span>
+                        </motion.li>
+                      ))}
+                    </ul>
+                    
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Link
+                        href="/contact"
+                        className={`relative inline-flex w-full items-center justify-center px-6 py-3 overflow-hidden font-medium rounded-full shadow-md ${plan.popular ? 'bg-primary text-primary-foreground hover:shadow-lg hover:shadow-primary/20' : 'bg-card border-2 border-primary/50 text-foreground hover:border-primary hover:bg-primary/10'} transition-all duration-300`}
+                      >
+                        <span className="relative font-medium">Get Started</span>
+                      </Link>
+                    </motion.div>
                   </div>
-                )}
-                <div className="p-6 bg-card">
-                  <h3 className="text-xl font-bold mb-2 text-foreground">
-                    {plan.title}
-                  </h3>
-                  <div className="mb-4">
-                    <span className="text-3xl font-bold text-foreground">
-                      {plan.price}
-                    </span>
-                  </div>
-                  <ul className="space-y-3 mb-6">
-                    {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start gap-2">
-                        <span className="text-primary mt-1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                        <span className="text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href="/contact"
-                    className={`block w-full py-3 rounded-full text-center ${plan.popular ? "bg-primary hover:bg-primary/90 text-white" : "bg-primary/10 hover:bg-primary/20 text-foreground"} font-medium transition-colors duration-300`}
-                  >
-                    Get Started
-                  </Link>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
