@@ -57,8 +57,9 @@ export default function GuaranteesSection() {
   };
 
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
-
+    <section className="py-24 md:py-32 relative overflow-hidden bg-gradient-to-b from-muted/40 to-muted/10 dark:from-muted/10 dark:to-background">
+      {/* Enhanced background pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-background/0 via-background/0 to-background/60 pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
@@ -69,12 +70,12 @@ export default function GuaranteesSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="inline-block mb-3">
-            <div className="flex items-center justify-center space-x-2 bg-primary/15 dark:bg-primary/10 px-4 py-1.5 rounded-full ">
-              <span className="w-2 h-2 rounded-full  bg-[#EC705E]  animate-pulse" />
-              <span className="text-sm font-medium  ">Pease of Mind</span>
+            <div className="flex items-center justify-center space-x-2 bg-primary/15 dark:bg-primary/15 px-4 py-1.5 rounded-full shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-sm font-medium text-primary">Peace of Mind</span>
             </div>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text ">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-foreground">
             Our Guarantees
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -98,16 +99,12 @@ export default function GuaranteesSection() {
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-         
-
-              <div className="relative bg-card/80 backdrop-blur-sm border border-primary/40 hover:border-accent/50 rounded-2xl p-8 text-center h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,107,107,0.15)] z-10">
-     
-
+              <div className="relative bg-card/95 backdrop-blur-sm border border-primary/20 hover:border-primary/30 rounded-2xl p-8 text-center h-full transition-all duration-300 hover:shadow-lg dark:bg-card/90 dark:hover:shadow-primary/10 dark:hover:border-primary/20 z-10">
                 <div className="relative z-10">
-                  <div className="w-20 h-20 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-20 h-20 bg-primary/15 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-10 w-10 text-[#EC705E] group-hover:text-primary transition-colors duration-300"
+                      className="h-10 w-10 text-primary group-hover:text-primary transition-colors duration-300"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -121,7 +118,7 @@ export default function GuaranteesSection() {
                     </svg>
                   </div>
 
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-[#EC705E] transition-colors duration-300">
+                  <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
                     {guarantee.title}
                   </h3>
 
@@ -129,7 +126,13 @@ export default function GuaranteesSection() {
                     {guarantee.description}
                   </p>
                 </div>
+
+                {/* Enhanced background gradient for better light mode visibility */}
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/5 dark:to-primary/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
+              
+              {/* Subtle glow effect on hover */}
+              <div className="absolute -inset-0.5 bg-primary/5 dark:bg-primary/10 rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300 -z-10" />
             </motion.div>
           ))}
         </motion.div>

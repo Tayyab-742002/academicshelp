@@ -7,14 +7,11 @@ import {
   motion,
   useScroll,
   useTransform,
-  useMotionValue,
-  useSpring,
 } from "framer-motion";
-import {  Highlight } from "@/components/ui/hero-highlight";
+import { Highlight } from "@/components/ui/hero-highlight";
 
 export default function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -26,37 +23,9 @@ export default function HeroSection() {
   const y2 = useTransform(scrollYProgress, [0, 1], [0, 70]);
   const y3 = useTransform(scrollYProgress, [0, 1], [0, 30]);
 
-  // Spring animations for smoother mouse following
-  // const mouseX = useMotionValue(0);
-  // const mouseY = useMotionValue(0);
-  // const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  // const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-
-  // useEffect(() => {
-  //   setIsLoaded(true);
-
-  //   const handleMouseMove = (e: MouseEvent) => {
-  //     const { clientX, clientY } = e;
-  //     const { left, top, width, height } =
-  //       heroRef.current?.getBoundingClientRect() || {
-  //         left: 0,
-  //         top: 0,
-  //         width: 0,
-  //         height: 0,
-  //       };
-
-  //     // Calculate mouse position relative to hero section
-  //     const x = (clientX - left) / width - 0.5;
-  //     const y = (clientY - top) / height - 0.5;
-
-  //     // mouseX.set(x * 100); // Convert to percentage for easier use
-  //     // mouseY.set(y * 100);
-  //     setMousePosition({ x, y });
-  //   };
-
-  //   window.addEventListener("mousemove", handleMouseMove);
-  //   return () => window.removeEventListener("mousemove", handleMouseMove);
-  // }, [mouseX, mouseY]);
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   // Animation variants
   const containerVariants = {
@@ -82,7 +51,7 @@ export default function HeroSection() {
   const buttonVariants = {
     hover: {
       scale: 1.05,
-      boxShadow: "0 10px 25px -5px rgba(229, 62, 62, 0.4)",
+      boxShadow: "0 10px 25px -5px rgba(var(--primary-rgb), 0.4)",
     },
     tap: { scale: 0.98 },
   };
@@ -90,29 +59,26 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-[90vh] flex items-center overflow-hidden py-16 md:py-24"
+      className="relative min-h-[90vh] flex items-center overflow-hidden py-16 md:py-24 bg-gradient-to-b from-background to-muted/30"
     >
-      {/* Ultra-modern gradient background with reddish tones */}
-      {/* <div className="absolute inset-0 bg-gradient-to-br from-rose-50/90 via-background to-background dark:from-primary/10 dark:via-background/80 dark:to-background z-0" /> */}
+      {/* Enhanced background gradient for better light mode appearance */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background/90 to-background dark:from-primary/10 dark:via-background/80 dark:to-background z-0" />
 
-      {/* Animated red gradient overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-accent/5 to-transparent dark:from-primary/15 dark:via-accent/10 dark:to-transparent opacity-70 z-0" />
+      {/* Animated gradient overlay with improved contrast */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/15 via-accent/10 to-transparent dark:from-primary/20 dark:via-accent/15 dark:to-transparent opacity-70 z-0" />
 
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
+        {/* Animated gradient lines with better visibility in light mode */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/60 to-transparent dark:via-primary/70" />
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/60 to-transparent dark:via-accent/70" />
 
-      
-
-        {/* Animated gradient lines */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
-
-        {/* Animated particles */}
-        <div className="absolute inset-0 opacity-30">
-          {Array.from({ length: 20 }).map((_, i) => (
+        {/* Animated particles with improved visibility in light mode */}
+        <div className="absolute inset-0 opacity-40 dark:opacity-40">
+          {Array.from({ length: 15 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 rounded-full bg-primary/80 dark:bg-primary/90"
+              className="absolute w-1 h-1 rounded-full bg-primary/90 dark:bg-primary/90"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -142,7 +108,7 @@ export default function HeroSection() {
           {/* Left content section */}
           <div className="lg:w-1/2 order-2 lg:order-1">
             <motion.div
-              className="inline-flex items-center px-4 py-2 rounded-full bg-card backdrop-blur-sm border border-primary/30 text-primary mb-8 shadow-lg"
+              className="inline-flex items-center px-4 py-2 rounded-full bg-card/90 backdrop-blur-sm border border-primary/40 text-primary mb-8 shadow-md dark:bg-card/60 dark:border-primary/40"
               variants={itemVariants}
               whileHover={{ scale: 1.05, y: -2 }}
             >
@@ -166,11 +132,11 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.h1
-              className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold mb-8 leading-tight tracking-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-8 leading-tight tracking-tight"
               variants={itemVariants}
             >
               <motion.span
-                className="block mb-2"
+                className="block mb-2 text-foreground"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
@@ -178,7 +144,7 @@ export default function HeroSection() {
                 Elevate Your
               </motion.span>
               <motion.span
-                className="bg-clip-text  bg-gradient-to-r from-primary via-accent to-primary dark:from-primary dark:via-accent dark:to-primary relative inline-block"
+                className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary dark:from-primary dark:via-accent dark:to-primary relative inline-block"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
@@ -189,7 +155,7 @@ export default function HeroSection() {
             </motion.h1>
 
             <motion.p
-              className="text-xl text-muted-foreground mb-10 max-w-lg"
+              className="text-lg md:text-xl text-muted-foreground mb-10 max-w-lg"
               variants={itemVariants}
             >
               Get premium assistance with essays, research papers, and
@@ -198,16 +164,16 @@ export default function HeroSection() {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-5 mb-16 "
+              className="flex flex-col sm:flex-row gap-5 mb-16"
               variants={itemVariants}
             >
               <motion.div
                 variants={buttonVariants}
                 whileHover="hover"
                 whileTap="tap"
-                className="inline-flex items-center justify-center px-4 py-2 rounded-full  text-foreground font-medium text-center transition-all duration-300 hover:text-primary  w-full sm:w-auto backdrop-blur-sm"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium text-center transition-all duration-300 w-full sm:w-auto shadow-md hover:shadow-lg"
               >
-                <Link href="/contact" className="inline-flex  items-center">
+                <Link href="/contact" className="inline-flex items-center">
                   <span>Get Started</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -230,7 +196,7 @@ export default function HeroSection() {
                 variants={buttonVariants}
                 whileHover="hover"
                 whileTap="tap"
-                className="inline-flex items-center justify-center px-4 py-2 rounded-full border-2 border-primary/50 text-foreground font-medium text-center transition-all duration-300 hover:text-primary  w-full sm:w-auto backdrop-blur-sm"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-card border-2 border-primary/50 text-foreground font-medium text-center transition-all duration-300 hover:border-primary hover:bg-primary/10 w-full sm:w-auto shadow-sm"
               >
                 <Link href="/services">
                   <span>View Services</span>
@@ -238,48 +204,48 @@ export default function HeroSection() {
               </motion.div>
             </motion.div>
 
-            {/* Stats section */}
+            {/* Stats section with improved light mode visibility */}
             <motion.div
               className="grid grid-cols-2 sm:grid-cols-3 gap-5"
               variants={itemVariants}
             >
               <motion.div
-                className="bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-md p-5 rounded-2xl border border-primary/20 shadow-lg overflow-hidden relative group"
+                className="bg-gradient-to-br from-card/95 to-card/70 backdrop-blur-md p-5 rounded-2xl border border-primary/30 shadow-lg overflow-hidden relative group dark:from-card/80 dark:to-card/50"
                 whileHover={{
                   y: -5,
                   boxShadow:
-                    "0 20px 25px -5px rgba(229, 62, 62, 0.1), 0 10px 10px -5px rgba(229, 62, 62, 0.04)",
+                    "0 20px 25px -5px rgba(var(--primary-rgb), 0.15), 0 10px 10px -5px rgba(var(--primary-rgb), 0.08)",
                 }}
               >
-                <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-accent/10 group-hover:bg-accent/50 transition-all duration-300" />
+                <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-accent/20 group-hover:bg-accent/30 transition-all duration-300" />
                 <div className="text-4xl font-bold text-primary mb-1">98%</div>
                 <div className="text-sm text-muted-foreground font-medium">
                   Success Rate
                 </div>
               </motion.div>
               <motion.div
-                className="bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-md p-5 rounded-2xl border border-primary/20 shadow-lg overflow-hidden relative group"
+                className="bg-gradient-to-br from-card/95 to-card/70 backdrop-blur-md p-5 rounded-2xl border border-primary/30 shadow-lg overflow-hidden relative group dark:from-card/80 dark:to-card/50"
                 whileHover={{
                   y: -5,
                   boxShadow:
-                    "0 20px 25px -5px rgba(229, 62, 62, 0.1), 0 10px 10px -5px rgba(229, 62, 62, 0.04)",
+                    "0 20px 25px -5px rgba(var(--primary-rgb), 0.15), 0 10px 10px -5px rgba(var(--primary-rgb), 0.08)",
                 }}
               >
-                <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-accent/10 group-hover:bg-accent/50 transition-all duration-300" />
+                <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-accent/20 group-hover:bg-accent/30 transition-all duration-300" />
                 <div className="text-4xl font-bold text-primary mb-1">24/7</div>
                 <div className="text-sm text-muted-foreground font-medium">
                   Expert Support
                 </div>
               </motion.div>
               <motion.div
-                className="bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-md p-5 rounded-2xl border border-primary/20 shadow-lg overflow-hidden relative group"
+                className="bg-gradient-to-br from-card/95 to-card/70 backdrop-blur-md p-5 rounded-2xl border border-primary/30 shadow-lg overflow-hidden relative group dark:from-card/80 dark:to-card/50"
                 whileHover={{
                   y: -5,
                   boxShadow:
-                    "0 20px 25px -5px rgba(229, 62, 62, 0.1), 0 10px 10px -5px rgba(229, 62, 62, 0.04)",
+                    "0 20px 25px -5px rgba(var(--primary-rgb), 0.15), 0 10px 10px -5px rgba(var(--primary-rgb), 0.08)",
                 }}
               >
-                <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-accent/10 group-hover:bg-accent/50 transition-all duration-300" />
+                <div className="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-accent/20 group-hover:bg-accent/30 transition-all duration-300" />
                 <div className="text-4xl font-bold text-primary mb-1">
                   4.9/5
                 </div>
@@ -287,19 +253,18 @@ export default function HeroSection() {
                   Customer Rating
                 </div>
               </motion.div>
-
             </motion.div>
           </div>
 
-          {/* Right image section */}
+          {/* Right image section with improved light mode contrast */}
           <motion.div
             className="lg:w-1/2 order-1 lg:order-2 relative w-full"
             variants={itemVariants}
           >
             <div className="relative w-full max-w-md mx-auto sm:max-w-lg">
-              {/* Simple image container */}
+              {/* Image container with better light mode styling */}
               <motion.div
-                className="relative w-full aspect-square rounded-2xl overflow-hidden z-10"
+                className="relative w-full aspect-square rounded-2xl overflow-hidden z-10 bg-card/40 dark:bg-card/20 border border-primary/20 shadow-xl"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}

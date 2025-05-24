@@ -74,9 +74,14 @@ export default function HowItWorksSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 md:py-32 relative overflow-hidden"
+      className="py-24 md:py-32 relative overflow-hidden bg-gradient-to-b from-background/90 via-muted/10 to-background/80 dark:from-background dark:via-muted/5 dark:to-background"
     >
- 
+      {/* Enhanced background elements */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-background/80 to-background dark:from-primary/10 dark:via-background/60 dark:to-background opacity-80 z-0" />
+      
+      {/* Animated gradient accents */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent dark:via-primary/60" />
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/40 to-transparent dark:via-accent/60" />
 
       <div className="container mx-auto px-4 relative z-10 ">
         <motion.div
@@ -87,12 +92,12 @@ export default function HowItWorksSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="inline-block mb-3">
-            <div className="flex items-center justify-center space-x-2 bg-primary/15 dark:bg-primary/10 px-4 py-1.5 rounded-full ">
-              <span className="w-2 h-2 rounded-full  bg-[#EC705E]  animate-pulse" />
-              <span className="text-sm font-medium  ">Simple Process</span>
+            <div className="flex items-center justify-center space-x-2 bg-primary/15 dark:bg-primary/20 px-4 py-1.5 rounded-full shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-sm font-medium text-primary">Simple Process</span>
             </div>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text ">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-foreground">
             How It Works
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -108,26 +113,30 @@ export default function HowItWorksSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* Connecting gradient line */}
-          <div className="hidden md:block absolute top-32 left-0 right-0 h-1 bg-gradient-to-r from-primary/20 via-accent/30 to-primary/20 rounded-full z-0"></div>
+          {/* Connecting gradient line with improved visibility */}
+          <div className="hidden md:block absolute top-32 left-0 right-0 h-1.5 bg-gradient-to-r from-primary/10 via-primary/40 to-primary/10 dark:from-primary/20 dark:via-primary/50 dark:to-primary/20 rounded-full z-0"></div>
 
           {howItWorks.map((step, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
               className="group relative "
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -8 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-      
+              {/* Step number indicator with improved visibility */}
+              <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-card border border-primary/30 dark:border-primary/40 flex items-center justify-center text-lg font-bold text-primary shadow-lg z-20">
+                {step.step}
+              </div>
 
-              <div className="bg-card/80 backdrop-blur-sm border  border-primary/40 hover:border-primary/20 rounded-2xl p-8 pt-12 text-center h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(229,62,62,0.15)] relative z-10">
-             
+              <div className="bg-card/95 backdrop-blur-sm border border-primary/30 hover:border-primary/50 dark:border-primary/40 dark:hover:border-primary/60 rounded-2xl p-8 pt-12 text-center h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(var(--primary-rgb),0.2)] dark:hover:shadow-[0_0_25px_rgba(var(--primary-rgb),0.15)] relative z-10">
+                {/* Subtle gradient background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/5 dark:to-primary/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-16 h-16 bg-primary/15 dark:bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8 text-primary group-hover:text-[#EC705E] transition-colors duration-300"
+                    className="h-8 w-8 text-primary group-hover:text-primary transition-colors duration-300"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -147,11 +156,11 @@ export default function HowItWorksSection() {
 
                 <p className="text-muted-foreground">{step.description}</p>
 
-                {/* Animated dots */}
-                {Array.from({ length: 3 }).map((_, i) => (
+                {/* Enhanced animated dots */}
+                {Array.from({ length: 5 }).map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute w-1 h-1 rounded-full bg-primary/50"
+                    className="absolute w-1.5 h-1.5 rounded-full bg-primary/60 dark:bg-primary/70"
                     style={{
                       left: `${20 + Math.random() * 60}%`,
                       top: `${20 + Math.random() * 60}%`,
@@ -168,6 +177,9 @@ export default function HowItWorksSection() {
                   />
                 ))}
               </div>
+
+              {/* Subtle glow effect on hover */}
+              <div className="absolute -inset-0.5 bg-primary/5 dark:bg-primary/10 rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300 -z-10" />
             </motion.div>
           ))}
         </motion.div>

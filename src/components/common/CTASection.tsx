@@ -6,16 +6,16 @@ import { motion } from "framer-motion";
 export default function CTASection() {
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
-      {/* Modern gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/90 to-accent/80 dark:from-card/90 dark:to-card/80 z-0" />
+      {/* Enhanced gradient background with better light/dark compatibility */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-background/80 dark:from-primary/15 dark:via-accent/10 dark:to-background/90 z-0" />
       
-      {/* Glass morphism card effect */}
-      {/* <div className="absolute inset-x-4 md:inset-x-12 lg:inset-x-24 top-8 bottom-8 rounded-3xl backdrop-blur-md bg-card/20 dark:bg-card-900/20 border border-accent/30 dark:border-accent-700/30 shadow-2xl z-0" /> */}
+      {/* Glass morphism card effect with improved visibility */}
+      {/* <div className="absolute inset-x-4 md:inset-x-12 lg:inset-x-24 top-8 bottom-8 rounded-3xl backdrop-blur-md bg-card/30 dark:bg-card/20 border border-primary/20 dark:border-primary/30 shadow-[0_8px_30px_rgba(var(--primary-rgb),0.1)] dark:shadow-[0_8px_30px_rgba(var(--primary-rgb),0.15)] z-0" /> */}
       
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent dark:via-primary/60" />
+      {/* <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/40 to-transparent dark:via-accent/60" /> */}
   
-
-  
-
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <motion.div
           className="max-w-4xl mx-auto"
@@ -34,7 +34,7 @@ export default function CTASection() {
               transition={{ duration: 0.7, delay: 0.2 }}
             >
               <motion.h2
-                className="text-3xl md:text-4xl lg:text-5xl font-bold bg-clip-text  mb-6"
+                className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -44,7 +44,7 @@ export default function CTASection() {
               </motion.h2>
 
               <motion.p
-                className="text-lg md:text-xl text-gray-800 dark:text-gray-300 mb-8"
+                className="text-lg md:text-xl text-muted-foreground mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -68,7 +68,7 @@ export default function CTASection() {
                 >
                   <Link
                     href="/contact"
-                    className="px-8 py-4 rounded-xl bg-primary hover:from-primary/90 hover:to-primary text-white dark:text-accent font-medium text-center transition-all duration-300 shadow-lg shadow-primary/20 dark:shadow-primary/10 inline-block"
+                    className="px-8 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-center transition-all duration-300 shadow-lg shadow-primary/20 dark:shadow-primary/15 inline-block"
                   >
                     Get a Free Quote
                   </Link>
@@ -81,7 +81,7 @@ export default function CTASection() {
                 >
                   <Link
                     href="/services"
-                    className="px-8 py-4 rounded-xl bg-secondary border  text-gray-800 dark:text-white hover:bg-gray-50 dark:hover:bg-accent/70 font-medium text-center transition-all duration-300 shadow-md inline-block"
+                    className="px-8 py-4 rounded-xl bg-card border border-primary/30 dark:border-primary/40 text-foreground hover:bg-primary/10 dark:hover:bg-primary/20 font-medium text-center transition-all duration-300 shadow-md inline-block"
                   >
                     Explore Services
                   </Link>
@@ -89,7 +89,7 @@ export default function CTASection() {
               </motion.div>
             </motion.div>
 
-            {/* Visual element - Student success illustration */}
+            {/* Visual element - Student success illustration with improved styling */}
             <motion.div
               className="lg:w-1/2 hidden md:block"
               initial={{ opacity: 0, x: 20 }}
@@ -99,7 +99,7 @@ export default function CTASection() {
             >
               <div className="relative">
                 <motion.div
-                  className="absolute -top-6 -left-6 w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 z-0"
+                  className="absolute -top-6 -left-6 w-12 h-12 rounded-lg bg-primary/20 dark:bg-primary/30 z-0"
                   animate={{
                     rotate: [0, 90],
                     scale: [1, 1.1, 1],
@@ -111,7 +111,7 @@ export default function CTASection() {
                   }}
                 />
                 <motion.div
-                  className="absolute -bottom-4 -right-4 w-16 h-16 rounded-full bg-secondary/20 dark:bg-secondary/30 z-0"
+                  className="absolute -bottom-4 -right-4 w-16 h-16 rounded-full bg-accent/30 dark:bg-accent/40 z-0"
                   animate={{
                     scale: [1, 1.2, 1],
                   }}
@@ -121,7 +121,7 @@ export default function CTASection() {
                     ease: "easeInOut"
                   }}
                 />
-                <div className="relative p-4 rounded-2xl bg-accent/10 dark:bg-accent/10 backdrop-blur-sm border border-accent/20  dark:border-black/10 shadow-xl">
+                <div className="relative p-4 rounded-2xl bg-card/70 dark:bg-card/40 backdrop-blur-sm border border-primary/20 dark:border-primary/30 shadow-[0_10px_30px_rgba(var(--primary-rgb),0.2)] dark:shadow-[0_10px_30px_rgba(var(--primary-rgb),0.25)]">
                   <img 
                     src="/images/student-success.svg" 
                     alt="Student Success" 
@@ -136,8 +136,6 @@ export default function CTASection() {
               </div>
             </motion.div>
           </div>
-
-
         </motion.div>
       </div>
     </section>
