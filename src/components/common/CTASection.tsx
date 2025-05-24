@@ -3,7 +3,23 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-export default function CTASection() {
+type CTASectionProps = {
+  title?: string;
+  description?: string;
+  primaryCta?: string;
+  primaryCtaLink?: string;
+  secondaryCta?: string;
+  secondaryCtaLink?: string;
+};
+
+export default function CTASection({
+  title = "Ready to Boost Your Academic Performance?",
+  description = "Join thousands of students who have achieved academic success with our expert assistance.",
+  primaryCta = "Get a Free Quote",
+  primaryCtaLink = "/contact",
+  secondaryCta = "Explore Services",
+  secondaryCtaLink = "/services",
+}: CTASectionProps) {
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
       {/* Enhanced gradient background with better light/dark compatibility */}
@@ -40,7 +56,7 @@ export default function CTASection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.3 }}
               >
-                Ready to Boost Your Academic Performance?
+                {title}
               </motion.h2>
 
               <motion.p
@@ -50,8 +66,7 @@ export default function CTASection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.4 }}
               >
-                Join thousands of students who have achieved academic success with
-                our expert assistance.
+                {description}
               </motion.p>
 
               <motion.div
@@ -67,10 +82,10 @@ export default function CTASection() {
                   transition={{ type: "spring", stiffness: 400 }}
                 >
                   <Link
-                    href="/contact"
+                    href={primaryCtaLink}
                     className="px-8 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-center transition-all duration-300 shadow-lg shadow-primary/20 dark:shadow-primary/15 inline-block"
                   >
-                    Get a Free Quote
+                    {primaryCta}
                   </Link>
                 </motion.div>
 
@@ -80,10 +95,10 @@ export default function CTASection() {
                   transition={{ type: "spring", stiffness: 400 }}
                 >
                   <Link
-                    href="/services"
+                    href={secondaryCtaLink}
                     className="px-8 py-4 rounded-xl bg-card border border-primary/30 dark:border-primary/40 text-foreground hover:bg-primary/10 dark:hover:bg-primary/20 font-medium text-center transition-all duration-300 shadow-md inline-block"
                   >
-                    Explore Services
+                    {secondaryCta}
                   </Link>
                 </motion.div>
               </motion.div>

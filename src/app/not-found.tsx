@@ -1,49 +1,197 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Home, Search, ArrowLeft, FileQuestion } from "lucide-react";
 
 export default function NotFound() {
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100, damping: 10 }
+    }
+  };
+
+  // Floating animations for decorative elements
+  const floatingVariants = {
+    animate: (custom: number) => ({
+      y: [0, custom, 0],
+      rotate: [0, custom * 2, 0],
+      transition: {
+        duration: 3 + Math.random() * 2,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut"
+      }
+    })
+  };
+
   return (
-    <div className="min-h-screen bg-background text-foreground flex items-center justify-center relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background to-background/80 dark:from-background dark:to-background/90 z-0" />
-      
-      {/* Gradient accents */}
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl z-0" />
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent/10 to-transparent rounded-full blur-3xl z-0" />
-      
-      <div className="container mx-auto px-4 relative z-10 text-center">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
+      {/* Background gradients */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/90 z-0" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] opacity-60 dark:opacity-30" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[100px] opacity-60 dark:opacity-30" />
+
+      {/* Decorative elements */}
+      {Array.from({ length: 10 }).map((_, i) => (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          key={i}
+          className="absolute z-0"
+          style={{
+            top: `${20 + Math.random() * 60}%`,
+            left: `${10 + Math.random() * 80}%`,
+            width: `${10 + Math.random() * 20}px`,
+            height: `${10 + Math.random() * 20}px`,
+            borderRadius: Math.random() > 0.5 ? "50%" : "30%",
+            background: `rgba(var(--primary-rgb), ${0.1 + Math.random() * 0.2})`,
+          }}
+          custom={-10 + Math.random() * 20}
+          variants={floatingVariants}
+          animate="animate"
+        />
+      ))}
+
+      {/* Main content */}
+      <div className="container max-w-4xl px-4 sm:px-6 relative z-10">
+        <motion.div
+          className="text-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
         >
-          <h1 className="text-9xl font-bold text-primary mb-4">404</h1>
-          <h2 className="text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent">
-            Page Not Found
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-xl mx-auto mb-10">
-            The page you are looking for doesn't exist or has been moved.
-          </p>
-          
+          {/* 404 Badge */}
           <motion.div
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-block relative group"
+            className="flex justify-center mb-8"
+            variants={itemVariants}
           >
-            <div className="absolute inset-0 rounded-full bg-primary/20 blur-md group-hover:bg-primary/30 transition-all duration-300"></div>
-            <Link
-              href="/"
-              className="relative block px-8 py-3 rounded-full bg-gradient-to-r from-primary to-accent text-white dark:text-white font-medium text-center shadow-xl shadow-primary/20 transition-all duration-300"
-            >
-              <span className="relative z-10">Return to Home</span>
-              <motion.span
-                className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent opacity-0"
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              ></motion.span>
+            <div className="flex items-center px-6 py-3 rounded-full bg-card/90 backdrop-blur-sm border border-primary/40 text-primary shadow-md">
+              <FileQuestion className="h-5 w-5 mr-2" />
+              <span className="text-lg font-bold">Error 404</span>
+            </div>
+          </motion.div>
+
+          {/* Main error message */}
+          <motion.h1
+            className="text-4xl md:text-6xl font-bold mb-6"
+            variants={itemVariants}
+          >
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary/80">
+              Page Not Found
+            </span>
+          </motion.h1>
+
+          {/* Subheading */}
+          <motion.p
+            className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto"
+            variants={itemVariants}
+          >
+            Oops! It seems the page you're looking for has been moved, deleted, or never existed.
+          </motion.p>
+
+          {/* Action buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            variants={itemVariants}
+          >
+            <Link href="/">
+              <motion.div
+                className="px-8 py-4 rounded-xl bg-primary text-primary-foreground font-medium text-center transition-all duration-200 shadow-lg shadow-primary/20 inline-block flex items-center justify-center"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Home className="h-5 w-5 mr-2" />
+                Return Home
+              </motion.div>
             </Link>
+
+            <Link href="/contact">
+              <motion.div
+                className="px-8 py-4 rounded-xl bg-card border border-primary/30 dark:border-primary/40 text-foreground hover:bg-primary/10 dark:hover:bg-primary/20 font-medium text-center transition-all duration-200 shadow-md inline-block flex items-center justify-center"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <ArrowLeft className="h-5 w-5 mr-2" />
+                Contact Support
+              </motion.div>
+            </Link>
+          </motion.div>
+
+          {/* Illustration */}
+          <motion.div
+            className="mt-16 max-w-md mx-auto relative"
+            variants={itemVariants}
+          >
+            <div className="aspect-square max-h-[300px] mx-auto bg-card/70 backdrop-blur-md rounded-2xl p-6 border border-primary/20 dark:border-primary/30 shadow-xl overflow-hidden flex items-center justify-center">
+              <div className="relative">
+                <div className="text-9xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-primary/70 to-accent/70">
+                  404
+                </div>
+                <motion.div
+                  className="absolute -top-10 -right-10 w-20 h-20 rounded-full bg-primary/10"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    rotate: [0, 90, 0],
+                    opacity: [0.5, 0.8, 0.5],
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                  }}
+                />
+                <motion.div
+                  className="absolute -bottom-8 -left-8 w-16 h-16 rounded-full bg-accent/20"
+                  animate={{
+                    scale: [1, 1.3, 1],
+                    opacity: [0.6, 0.8, 0.6],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                  }}
+                />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Search suggestion */}
+          <motion.div
+            className="mt-12 bg-card/60 backdrop-blur-sm rounded-xl p-6 border border-primary/20 dark:border-primary/30 max-w-xl mx-auto"
+            variants={itemVariants}
+          >
+            <h3 className="text-lg font-medium mb-3">Looking for something specific?</h3>
+            <div className="flex gap-4">
+              <div className="relative flex-1">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Search className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  placeholder="Search our academic services..."
+                />
+              </div>
+              <button className="px-4 py-2 bg-primary text-primary-foreground rounded-lg">
+                Search
+              </button>
+            </div>
           </motion.div>
         </motion.div>
       </div>

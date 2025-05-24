@@ -3,12 +3,22 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { getServices, Service } from "@/lib/services";
-import { ArrowRight } from "lucide-react";
-import dynamic from "next/dynamic";
+import { getServices } from "@/lib/services";
+import { ArrowRight, FileText, BookOpen, PenTool, FileCheck, Bookmark, HelpCircle } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+// Define a map of icon names to components
+const iconMap: Record<string, LucideIcon> = {
+  'file-text': FileText,
+  'book-open': BookOpen,
+  'pen-tool': PenTool,
+  'file-check': FileCheck,
+  'bookmark': Bookmark,
+  'help-circle': HelpCircle,
+};
 
 export default function ServicesGrid() {
-  const [services, setServices] = useState<Service[]>([]);
+  const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isClient, setIsClient] = useState(false);
   const [hoveredService, setHoveredService] = useState<string | null>(null);
@@ -59,17 +69,14 @@ export default function ServicesGrid() {
     },
   };
 
-  // Dynamically import icons to prevent SSR issues
-  const DynamicIcon = ({ name }: { name: string }) => {
-    const LucideIcon = dynamic(
-      () => import("lucide-react").then((mod) => mod[name as keyof typeof mod] as any),
-      {
-        loading: () => <div className="w-6 h-6 bg-primary/20 rounded-md animate-pulse" />,
-        ssr: false
-      }
-    );
-
-    return <LucideIcon className="w-6 h-6 text-primary" />;
+  // Simple component to render icon by name
+  const IconComponent = ({ name }: { name?: string }) => {
+    if (!name || !iconMap[name]) {
+      return <FileText className="w-6 h-6 text-primary" />;
+    }
+    
+    const Icon = iconMap[name];
+    return <Icon className="w-6 h-6 text-primary" />;
   };
 
   if (loading) {
@@ -253,7 +260,7 @@ export default function ServicesGrid() {
                 <div className="flex-grow">
                   <div className="w-14 h-14 rounded-full bg-primary/10 dark:bg-primary/15 flex items-center justify-center mb-6">
                     {service.icon ? (
-                      <DynamicIcon name={service.icon} />
+                      <IconComponent name={service.icon} />
                     ) : (
                       <div className="w-6 h-6 bg-primary/20 rounded-md" />
                     )}

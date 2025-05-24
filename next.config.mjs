@@ -3,7 +3,7 @@ const nextConfig = {
   /* config options here */
 
   images: {
-    domains: ["cdn.sanity.io"],
+    domains: ["cdn.sanity.io","randomuser.me"],
   },
 };
 

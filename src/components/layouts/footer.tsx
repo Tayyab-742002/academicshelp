@@ -1,15 +1,38 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { theme } = useTheme();
   const footerRef = useRef<HTMLElement>(null);
+  const [particles, setParticles] = useState<{ left: string; top: string; animY: number; duration: number; delay: number }[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  // Initialize client-side only after component mounts
+  useEffect(() => {
+    setIsClient(true);
+    
+    // Generate consistent particles
+    const newParticles = Array.from({ length: 10 }).map((_, i) => {
+      // Use consistent values based on index
+      const seed = i / 10; // 0.0, 0.1, 0.2, etc.
+      return {
+        left: `${10 + (seed * 80)}%`,
+        top: `${15 + (seed * 70)}%`,
+        animY: 25 + (i * 5),
+        duration: 5 + (i * 1.5),
+        delay: i * 0.5
+      };
+    });
+    
+    setParticles(newParticles);
+  }, []);
 
   // Scroll animations
   const { scrollYProgress } = useScroll({
@@ -70,6 +93,33 @@ const Footer = () => {
     { name: "LinkedIn", icon: "linkedin", href: "https://linkedin.com" },
   ];
 
+  const contactDetails = [
+    { 
+      icon: <Phone className="h-5 w-5" />, 
+      label: "Phone", 
+      value: "+1 (555) 123-4567",
+      href: "tel:+15551234567"
+    },
+    { 
+      icon: <MessageCircle className="h-5 w-5" />, 
+      label: "WhatsApp", 
+      value: "+1 (555) 987-6543",
+      href: "https://wa.me/15559876543"
+    },
+    { 
+      icon: <Mail className="h-5 w-5" />, 
+      label: "Email", 
+      value: "support@academicassist.com",
+      href: "mailto:support@academicassist.com"
+    },
+    { 
+      icon: <MapPin className="h-5 w-5" />, 
+      label: "Address", 
+      value: "123 Education St, Academic City",
+      href: "https://maps.google.com/?q=123+Education+St,+Academic+City"
+    }
+  ];
+
   return (
     <motion.footer 
       ref={footerRef}
@@ -108,24 +158,24 @@ const Footer = () => {
         }}
       ></motion.div>
       
-      {/* Animated particles - similar to HeroSection */}
+      {/* Animated particles - with fixed positions */}
       <div className="absolute inset-0 opacity-30">
-        {Array.from({ length: 10 }).map((_, i) => (
+        {isClient && particles.map((particle, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 rounded-full bg-primary/80 dark:bg-primary/90"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: particle.left,
+              top: particle.top,
             }}
             animate={{
-              y: [0, Math.random() * 100 - 50],
+              y: [0, particle.animY, 0],
               opacity: [0, 0.6, 0],
             }}
             transition={{
-              duration: 5 + Math.random() * 10,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: particle.delay,
             }}
           />
         ))}
@@ -231,9 +281,53 @@ const Footer = () => {
             </motion.div>
           </motion.div>
 
+          {/* Contact Information */}
+          <motion.div
+            className="lg:col-span-4"
+            variants={itemVariants}
+          >
+            <motion.h3 
+              className="text-lg font-semibold mb-5 text-gray-900 dark:text-white"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              Contact Us
+            </motion.h3>
+
+            <ul className="space-y-4">
+              {contactDetails.map((contact, index) => (
+                <motion.li 
+                  key={contact.label}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 * index, duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="flex items-start group"
+                >
+                  <a 
+                    href={contact.href}
+                    className="flex items-start group"
+                    target={contact.label === "Address" ? "_blank" : undefined}
+                    rel={contact.label === "Address" ? "noopener noreferrer" : undefined}
+                  >
+                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary mr-3 group-hover:bg-primary/20 transition-colors duration-300">
+                      {contact.icon}
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{contact.label}</p>
+                      <p className="text-gray-900 dark:text-gray-200 font-medium group-hover:text-primary transition-colors duration-200">{contact.value}</p>
+                    </div>
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
           {/* Services */}
           <motion.div 
-            className="lg:col-span-3"
+            className="lg:col-span-2"
             variants={itemVariants}
           >
             <motion.h3 
@@ -267,7 +361,7 @@ const Footer = () => {
 
           {/* Support */}
           <motion.div 
-            className="lg:col-span-3"
+            className="lg:col-span-1"
             variants={itemVariants}
           >
             <motion.h3 
@@ -301,7 +395,7 @@ const Footer = () => {
           
           {/* Newsletter or Call to Action - Optional */}
           <motion.div 
-            className="lg:col-span-1"
+            className="lg:col-span-0"
             variants={itemVariants}
           ></motion.div>
         </div>
@@ -326,25 +420,42 @@ const Footer = () => {
               &copy; {currentYear} <span className="text-primary dark:text-primary-foreground">Academic Assist</span>. All rights reserved.
             </motion.p>
             
-            <motion.p 
-              className="text-sm text-gray-600 dark:text-gray-400 backdrop-blur-sm bg-gray-50/30 dark:bg-gray-950/30 px-4 py-2 rounded-full border border-gray-100/50 dark:border-gray-800/50"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              whileHover={{ 
-                boxShadow: "0 0 20px rgba(229,62,62,0.15)",
-                scale: 1.02
-              }}
-            >
-              <span className="font-medium text-primary dark:text-primary-foreground">Disclaimer:</span> Services are for reference and guidance only.
-            </motion.p>
+            <motion.div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+              <motion.p 
+                className="backdrop-blur-sm bg-gray-50/30 dark:bg-gray-950/30 px-4 py-2 rounded-full border border-gray-100/50 dark:border-gray-800/50"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                whileHover={{ 
+                  boxShadow: "0 0 20px rgba(229,62,62,0.15)",
+                  scale: 1.02
+                }}
+              >
+                <span className="font-medium text-primary dark:text-primary-foreground">Disclaimer:</span> Services are for reference and guidance only.
+              </motion.p>
+              
+              <motion.p
+                className="text-sm"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+              >
+                <a href="tel:+15551234567" className="hover:text-primary transition-colors duration-300">
+                  <Phone className="h-3.5 w-3.5 inline-block mr-1 mb-0.5" /> +1 (555) 123-4567
+                </a>
+                <span className="mx-2">•</span>
+                <a href="mailto:support@academicassist.com" className="hover:text-primary transition-colors duration-300">
+                  <Mail className="h-3.5 w-3.5 inline-block mr-1 mb-0.5" /> support@academicassist.com
+                </a>
+              </motion.p>
+            </motion.div>
           </div>
         </div>
       </motion.div>
 
       {/* Copyright */}
       <motion.div 
-        className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700 text-center"
+        className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.3 }}
@@ -354,6 +465,26 @@ const Footer = () => {
           &copy; {currentYear} Academic Assist. All rights reserved.
         </p>
       </motion.div>
+
+      {/* Fixed WhatsApp Button */}
+      <motion.a
+        href="https://wa.me/15559876543"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-white/80 dark:border-gray-800/80"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 260, damping: 20, delay: 1.5 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        aria-label="Contact us on WhatsApp"
+      >
+        <span className="sr-only">Contact us on WhatsApp</span>
+        <div className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-20"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+        </svg>
+      </motion.a>
     </motion.footer>
   );
 };

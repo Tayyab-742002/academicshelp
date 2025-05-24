@@ -19,10 +19,26 @@ interface ServiceDetailPageProps {
 export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const [particles, setParticles] = useState<{ left: string; top: string; animY: number; duration: number; delay: number }[]>([]);
 
   // Set isClient to true when component mounts
   useEffect(() => {
     setIsClient(true);
+    
+    // Generate deterministic particles
+    const newParticles = Array.from({ length: 10 }).map((_, i) => {
+      // Use deterministic values based on index
+      const seed = i / 10; // 0.0, 0.1, 0.2, etc.
+      return {
+        left: `${5 + (seed * 90)}%`,
+        top: `${10 + ((i % 5) * 20)}%`,
+        animY: 20 + (i * 3),
+        duration: 5 + (i * 0.7),
+        delay: i * 0.4
+      };
+    });
+    
+    setParticles(newParticles);
   }, []);
 
   // Toggle FAQ expansion
@@ -44,29 +60,29 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       <section className="pt-24 pb-16 relative overflow-hidden">
         {/* Enhanced background elements */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/90 to-background dark:from-background/95 dark:to-background z-0" />
-        
+
         {/* Enhanced accent gradients */}
         <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl z-0" />
         <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-gradient-to-tr from-accent/10 to-transparent rounded-full blur-3xl z-0" />
         
         {/* Animated particles */}
         <div className="absolute inset-0 opacity-30 dark:opacity-40 z-0">
-          {isClient && Array.from({ length: 10 }).map((_, i) => (
+          {isClient && particles.map((particle, i) => (
             <motion.div
-              key={i}
+              key={`hero-${i}`}
               className="absolute w-1 h-1 rounded-full bg-primary/90 dark:bg-primary/90"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                left: particle.left,
+                top: particle.top,
               }}
               animate={{
-                y: [0, Math.random() * 100 - 50],
+                y: [0, particle.animY, 0],
                 opacity: [0, 1, 0],
               }}
               transition={{
-                duration: 5 + Math.random() * 10,
+                duration: particle.duration,
                 repeat: Infinity,
-                delay: Math.random() * 5,
+                delay: particle.delay,
               }}
             />
           ))}
@@ -99,7 +115,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                 </svg>
                 <span className="text-sm font-medium">
                   Premium Service
-                </span>
+                  </span>
               </div>
 
               <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white">
@@ -172,12 +188,12 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 400 }}
                   >
-                    <Image
-                      src={service.mainImage.asset.url}
-                      alt={service.title}
-                      fill
+                  <Image
+                    src={service.mainImage.asset.url}
+                    alt={service.title}
+                    fill
                       className="object-cover transition-transform duration-500 hover:scale-110"
-                    />
+                  />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent"></div>
                   </motion.div>
                 </div>
@@ -270,10 +286,10 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                     <div className="mt-4">
                       <PortableText value={service.fullDescription} />
                     </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
-              
+
               <div>
                 <h3 className="text-xl font-bold mb-4 text-foreground">Service Details</h3>
                 <div className="space-y-4">
@@ -287,10 +303,10 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                             className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm"
                           >
                             {level.name}
-                          </span>
+                            </span>
                         ))}
                       </div>
-                    </div>
+                          </div>
                   )}
                   
                   {service.deliveryTimeframes && service.deliveryTimeframes.length > 0 && (
@@ -305,11 +321,11 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                             {timeframe.name} ({timeframe.duration})
                           </span>
                         ))}
-                      </div>
-                    </div>
+                  </div>
+                </div>
                   )}
-                  
-                  <div>
+
+                <div>
                     <h4 className="text-sm font-semibold text-primary mb-2">Pricing:</h4>
                     <div className="flex items-center gap-2 text-foreground">
                       <span className="text-xl font-bold">
@@ -339,22 +355,22 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         
         {/* Animated particles */}
         <div className="absolute inset-0 opacity-40 dark:opacity-40 z-0">
-          {isClient && Array.from({ length: 8 }).map((_, i) => (
+          {isClient && particles.map((particle, i) => (
             <motion.div
-              key={i}
+              key={`features-${i}`}
               className="absolute w-1 h-1 rounded-full bg-primary/90 dark:bg-primary/90"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                left: particle.left,
+                top: particle.top,
               }}
               animate={{
-                y: [0, Math.random() * 100 - 50],
+                y: [0, particle.animY, 0],
                 opacity: [0, 1, 0],
               }}
               transition={{
-                duration: 5 + Math.random() * 10,
+                duration: particle.duration,
                 repeat: Infinity,
-                delay: Math.random() * 5,
+                delay: particle.delay,
               }}
             />
           ))}
@@ -385,9 +401,9 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               </svg>
               <span className="text-sm font-medium">
                 Key Features
-              </span>
-            </div>
-            
+                    </span>
+                  </div>
+
             <motion.h2 
               className="text-3xl md:text-4xl font-bold mb-4"
               initial={{ opacity: 0, y: 20 }}
@@ -404,7 +420,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             >
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary dark:from-primary dark:via-accent dark:to-primary">
                 What Makes Our Service Special
-              </span>
+                    </span>
             </motion.h2>
             
             <motion.p 
@@ -468,13 +484,13 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
-                </div>
-                
+                  </div>
+
                 <p className="text-muted-foreground">{feature}</p>
               </motion.div>
             ))}
-          </div>
-          
+                  </div>
+
           {/* Additional Features - if service has more than 6 features */}
           {service.features && service.features.length > 6 && (
             <div className="mt-12 bg-card/60 backdrop-blur-sm border border-primary/20 dark:border-primary/30 rounded-2xl p-8 shadow-lg">
@@ -504,7 +520,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                             d="M5 13l4 4L19 7" 
                           />
                         </svg>
-                      </div>
+                  </div>
                     </div>
                     <span className="text-muted-foreground">{feature}</span>
                   </motion.div>
@@ -851,15 +867,15 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                           whileHover={{ x: 5 }}
                           transition={{ type: "spring", stiffness: 400 }}
                         >
-                          <a
-                            href={work.fileUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <a
+                          href={work.fileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
                             className="inline-flex items-center text-primary font-medium hover:underline group"
-                          >
-                            Download Sample
+                        >
+                          Download Sample
                             <ArrowRight className="ml-1 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                          </a>
+                        </a>
                         </motion.div>
                       )}
                     </div>
@@ -914,7 +930,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               </span>
             </div>
             
-            <motion.h2 
+            <motion.h2
               className="text-3xl md:text-4xl font-bold text-foreground mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ 
@@ -930,8 +946,8 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             >
               How Our <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary dark:from-primary dark:via-accent dark:to-primary">Process Works</span>
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ 
@@ -1037,7 +1053,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                   </div>
                 </motion.div>
 
-                <motion.div
+            <motion.div
                   className="flex items-start gap-6 mb-12 relative"
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -1076,7 +1092,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                       Receive your completed work before your deadline. If needed, request revisions to ensure your complete satisfaction with the final product.
                     </p>
                   </div>
-                </motion.div>
+            </motion.div>
               </>
             )}
           </div>

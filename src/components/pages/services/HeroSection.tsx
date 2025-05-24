@@ -1,8 +1,32 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function HeroSection() {
+  const [isClient, setIsClient] = useState(false);
+  const [particles, setParticles] = useState<{ left: string; top: string; animY: number; duration: number; delay: number }[]>([]);
+
+  // Set up deterministic particles once on client-side
+  useEffect(() => {
+    setIsClient(true);
+    
+    // Generate deterministic particles
+    const newParticles = Array.from({ length: 10 }).map((_, i) => {
+      // Use deterministic values based on index
+      const seed = i / 10; // 0.0, 0.1, 0.2, etc.
+      return {
+        left: `${5 + (seed * 90)}%`,
+        top: `${10 + ((i % 5) * 20)}%`,
+        animY: 20 + (i * 3),
+        duration: 5 + (i * 0.7),
+        delay: i * 0.4
+      };
+    });
+    
+    setParticles(newParticles);
+  }, []);
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -40,22 +64,22 @@ export default function HeroSection() {
 
         {/* Animated particles with improved visibility in light mode */}
         <div className="absolute inset-0 opacity-40 dark:opacity-40">
-          {Array.from({ length: 10 }).map((_, i) => (
+          {isClient && particles.map((particle, i) => (
             <motion.div
               key={i}
               className="absolute w-1 h-1 rounded-full bg-primary/90 dark:bg-primary/90"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                left: particle.left,
+                top: particle.top,
               }}
               animate={{
-                y: [0, Math.random() * 100 - 50],
+                y: [0, particle.animY, 0],
                 opacity: [0, 1, 0],
               }}
               transition={{
-                duration: 5 + Math.random() * 10,
+                duration: particle.duration,
                 repeat: Infinity,
-                delay: Math.random() * 5,
+                delay: particle.delay,
               }}
             />
           ))}

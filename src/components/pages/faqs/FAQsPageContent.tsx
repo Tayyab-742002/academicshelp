@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, HelpCircle, DollarSign, Clock, Shield, BookOpen } from "lucide-react";
 import Link from "next/link";
 import FAQSchema from "@/components/structured-data/FAQSchema";
 
@@ -135,12 +135,33 @@ export default function FAQsPageContent() {
   const filteredFaqs = faqItems.filter(faq => faq.category === selectedCategory);
   
   const categories = [
-    { id: "general", name: "General Questions" },
-    { id: "pricing", name: "Pricing & Payment" },
-    { id: "process", name: "Process & Delivery" },
-    { id: "privacy", name: "Privacy & Security" },
-    { id: "integrity", name: "Academic Integrity" }
+    { id: "general", name: "General Questions", icon: HelpCircle },
+    { id: "pricing", name: "Pricing & Payment", icon: DollarSign },
+    { id: "process", name: "Process & Delivery", icon: Clock },
+    { id: "privacy", name: "Privacy & Security", icon: Shield },
+    { id: "integrity", name: "Academic Integrity", icon: BookOpen }
   ];
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    },
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -154,66 +175,140 @@ export default function FAQsPageContent() {
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl z-0" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent/10 to-transparent rounded-full blur-3xl z-0" />
         
+        {/* Animated particles */}
+        <div className="absolute inset-0 opacity-30 dark:opacity-40 z-0">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 rounded-full bg-primary/90 dark:bg-primary/90"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, Math.random() * 100 - 50],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration: 5 + Math.random() * 10,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+              }}
+            />
+          ))}
+        </div>
+        
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <div className="md:w-3/4 mx-auto">
-              <div className="mb-12 text-center">
-                <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-primary/90 via-accent to-primary/90 dark:from-primary dark:via-accent dark:to-primary bg-clip-text text-transparent text-center">
-                  Frequently Asked Questions
-                </h1>
-                <p className="text-muted-foreground mb-8">
-                  Find answers to common questions about our academic help services, policies, and processes.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                  {categories.map((category, index) => (
-                    <button
-                      key={category.id}
-                      onClick={() => setSelectedCategory(category.id)}
-                      className={`px-4 py-2 rounded-full transition-all 
-                        ${selectedCategory === category.id 
-                          ? "bg-primary text-white dark:text-white shadow-lg shadow-primary/30"
-                          : "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
-                        }`}
-                    >
-                      {category.name}
-                    </button>
-                  ))}
-                </div>
+          <motion.div
+            className="max-w-4xl mx-auto"
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+          >
+            <motion.div className="mb-12 text-center" variants={itemVariants}>
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-card/90 backdrop-blur-sm border border-primary/40 text-primary mb-8 shadow-md dark:bg-card/60 dark:border-primary/40">
+                <HelpCircle className="h-4 w-4 mr-2" />
+                <span className="text-sm font-medium">
+                  Knowledge Base
+                </span>
               </div>
-            </div>
+              
+              <motion.h1 
+                className="text-4xl md:text-5xl font-bold mb-6"
+                variants={itemVariants}
+              >
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary dark:from-primary dark:via-accent dark:to-primary">
+                  Frequently Asked Questions
+                </span>
+              </motion.h1>
+              
+              <motion.p 
+                className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto"
+                variants={itemVariants}
+              >
+                Find answers to common questions about our academic help services, policies, and processes.
+              </motion.p>
+              
+              {/* Category Selection */}
+              <motion.div 
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-12"
+                variants={itemVariants}
+              >
+                {categories.map((category) => (
+                  <motion.button
+                    key={category.id}
+                    onClick={() => setSelectedCategory(category.id)}
+                    className={`px-4 py-3 rounded-xl transition-all duration-300 flex flex-col items-center gap-2 
+                      ${selectedCategory === category.id 
+                        ? "bg-gradient-to-br from-primary/90 to-accent/90 text-white dark:text-white shadow-lg shadow-primary/30"
+                        : "bg-card/90 border border-primary/20 dark:bg-card/70 text-foreground hover:bg-primary/10 dark:hover:bg-primary/10"
+                      }`}
+                    whileHover={{ y: -3, transition: { type: "spring", stiffness: 400 } }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <category.icon className={`h-5 w-5 ${selectedCategory === category.id ? "text-white" : "text-primary"}`} />
+                    <span className="text-sm font-medium">{category.name}</span>
+                  </motion.button>
+                ))}
+              </motion.div>
+            </motion.div>
             
             {/* FAQ Accordion */}
-            <div className="space-y-4">
+            <motion.div 
+              className="space-y-4 bg-card/60 backdrop-blur-sm border border-primary/20 dark:border-primary/30 rounded-2xl p-6 shadow-lg"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <h2 className="text-2xl font-bold mb-6 text-center">
+                {categories.find(cat => cat.id === selectedCategory)?.name}
+              </h2>
+              
               {filteredFaqs.map((faq, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="border border-border rounded-xl overflow-hidden"
+                  variants={itemVariants}
+                  className="rounded-xl overflow-hidden border border-primary/10 shadow-sm hover:shadow-md transition-all duration-300"
                 >
-                  <button
+                  <motion.button
                     onClick={() => toggleFaq(index)}
-                    className="flex justify-between items-center w-full px-6 py-4 text-left font-medium focus:outline-none"
+                    className={`flex justify-between items-center w-full px-6 py-4 text-left font-medium focus:outline-none transition-colors duration-300 ${
+                      openFaqIndex === index 
+                        ? "bg-primary/10 text-primary" 
+                        : "bg-card/80 hover:bg-card/90"
+                    }`}
+                    whileHover={{ 
+                      scale: 1.01,
+                      transition: { type: "spring", stiffness: 400, damping: 17 }
+                    }}
                   >
                     <span className="text-lg">{faq.question}</span>
                     <motion.div
                       animate={{ rotate: openFaqIndex === index ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 ml-2"
                     >
-                      <ChevronDown className="h-5 w-5 text-primary" />
+                      <ChevronDown className="h-4 w-4 text-primary" />
                     </motion.div>
-                  </button>
+                  </motion.button>
                   <AnimatePresence>
                     {openFaqIndex === index && (
                       <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
+                        initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                        animate={{ 
+                          height: "auto", 
+                          opacity: 1,
+                          marginTop: 0
+                        }}
+                        exit={{ 
+                          height: 0, 
+                          opacity: 0,
+                          marginTop: 0
+                        }}
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                       >
-                        <div className="px-6 py-4 border-t border-border bg-muted/30">
+                        <div className="px-6 py-5 bg-card/50 border-t border-primary/10">
                           <p className="text-muted-foreground">{faq.answer}</p>
                         </div>
                       </motion.div>
@@ -221,22 +316,60 @@ export default function FAQsPageContent() {
                   </AnimatePresence>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
             
             {/* Contact CTA */}
-            <div className="mt-16 p-8 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl text-center">
-              <h3 className="text-2xl font-bold mb-4 text-foreground dark:text-white">Still have questions?</h3>
-              <p className="text-muted-foreground mb-6">
-                Can't find the answer you're looking for? Please chat to our friendly team.
-              </p>
-              <Link 
-                href="/contact"
-                className="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-primary to-accent text-white dark:text-white font-medium shadow-xl shadow-primary/20 transition-all duration-300"
-              >
-                Contact Us
-              </Link>
-            </div>
-          </div>
+            <motion.div
+              className="mt-16 p-8 bg-gradient-to-r from-primary/90 via-primary to-accent/90 rounded-2xl text-center shadow-xl relative overflow-hidden"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+            >
+              {/* Animated overlay pattern */}
+              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')" }}></div>
+              
+              {/* Subtle light highlights */}
+              <div className="absolute top-0 left-0 w-full h-12 bg-gradient-to-b from-white/20 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-black/20 to-transparent"></div>
+              
+              <div className="relative z-10">
+                <h3 className="text-2xl font-bold mb-4 text-white">Still have questions?</h3>
+                <p className="text-white/90 mb-6 max-w-xl mx-auto">
+                  Can't find the answer you're looking for? Our friendly support team is here to help you with any queries you might have.
+                </p>
+                <motion.div
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  <Link 
+                    href="/contact"
+                    className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-white hover:bg-gray-50 text-primary font-medium text-center shadow-xl shadow-primary/20 relative overflow-hidden group"
+                  >
+                    {/* Button highlight effect */}
+                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-white/0 via-white/30 to-white/0 opacity-0 group-hover:opacity-100 transform -translate-x-full group-hover:translate-x-full transition-all duration-1000 ease-out"></span>
+                    <span className="flex items-center">
+                      Contact Our Support Team
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
+                    </span>
+                  </Link>
+                </motion.div>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </div>

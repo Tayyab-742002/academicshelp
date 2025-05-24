@@ -42,24 +42,24 @@ export default function HeroSection() {
         {/* Animated particles with improved visibility in light mode */}
         <div className="absolute inset-0 opacity-40 dark:opacity-40">
           {Array.from({ length: 10 }).map((_, i) => (
-            <motion.div
-              key={i}
+          <motion.div
+            key={i}
               className="absolute w-1 h-1 rounded-full bg-primary/90 dark:bg-primary/90"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, Math.random() * 100 - 50],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: 5 + Math.random() * 10,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-              }}
-            />
-          ))}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, Math.random() * 100 - 50],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 5 + Math.random() * 10,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+            }}
+          />
+        ))}
         </div>
       </div>
 
