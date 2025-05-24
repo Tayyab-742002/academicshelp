@@ -28,6 +28,31 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Writing', value: 'writing' },
+          { title: 'Advanced', value: 'advanced' },
+          { title: 'Editing', value: 'editing' },
+          { title: 'Assistance', value: 'assistance' },
+          { title: 'Coding', value: 'coding' },
+          { title: 'Homework', value: 'homework' },
+          { title: 'Other', value: 'other' },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'features',
+      title: 'Key Features',
+      description: 'List of key features for this service (displayed on cards)',
+      type: 'array',
+      of: [{ type: 'string' }],
+      validation: (Rule) => Rule.max(6),
+    }),
+    defineField({
       name: 'shortDescription',
       title: 'Short Description',
       description: 'Brief description for service cards (max 150 chars)',

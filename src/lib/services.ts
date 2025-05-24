@@ -11,6 +11,8 @@ export async function getServices(): Promise<Service[]> {
         title,
         slug,
         icon,
+        category,
+        features,
         shortDescription,
         fullDescription,
         featured,
@@ -67,6 +69,8 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
         title,
         slug,
         icon,
+        category,
+        features,
         shortDescription,
         fullDescription,
         featured,
@@ -136,9 +140,13 @@ export async function getFeaturedServices(): Promise<Service[]> {
         title,
         slug,
         icon,
+        category,
+        features,
         shortDescription,
         featured,
         mainImage,
+        basePrice,
+        pricingUnit,
         order
       }
     `);

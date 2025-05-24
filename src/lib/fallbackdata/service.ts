@@ -4,8 +4,10 @@ export const fallbackServices = [
     title: "Essay Writing",
     slug: { current: "essay-writing" },
     icon: "pen-tool",
+    category: "writing",
     shortDescription:
       "Professional essays tailored to your requirements with thorough research and proper citations.",
+    features: ["Professional writers", "Plagiarism-free", "On-time delivery", "All academic levels", "Free revisions"],
     featured: true,
     mainImage: {
       asset: {
@@ -106,8 +108,10 @@ export const fallbackServices = [
     title: "Research Papers",
     slug: { current: "research-papers" },
     icon: "file-text",
+    category: "writing",
     shortDescription:
       "In-depth research papers with proper methodology and academic rigor.",
+    features: ["In-depth research", "All citation styles", "Expert researchers", "Quality assurance", "Data analysis"],
     featured: true,
     mainImage: {
       asset: {
@@ -204,8 +208,10 @@ export const fallbackServices = [
     title: "Homework Help",
     slug: { current: "homework-help" },
     icon: "book-open",
+    category: "homework",
     shortDescription:
       "Expert assistance with assignments across various subjects and difficulty levels.",
+    features: ["Step-by-step solutions", "All subjects covered", "24/7 support", "Detailed explanations", "Quick delivery"],
     featured: true,
     mainImage: {
       asset: {
@@ -252,16 +258,16 @@ export const fallbackServices = [
       },
       {
         name: "Undergraduate",
-        priceMultiplier: 1.3,
+        priceMultiplier: 1.2,
       },
       {
-        name: "Graduate",
-        priceMultiplier: 1.8,
+        name: "Master's",
+        priceMultiplier: 1.5,
       },
     ],
     faqs: [
       {
-        question: "What subjects do you cover for homework help?",
+        question: "What subjects do you cover?",
         answer: [
           {
             _type: "block",
@@ -270,7 +276,7 @@ export const fallbackServices = [
             children: [
               {
                 _type: "span",
-                text: "We cover a wide range of subjects including mathematics, physics, chemistry, biology, computer science, engineering, economics, business, humanities, and social sciences.",
+                text: "We cover a wide range of subjects including Mathematics, Physics, Chemistry, Biology, Economics, Computer Science, Programming, Engineering, Literature, History, and more.",
               },
             ],
             markDefs: [],
@@ -278,7 +284,7 @@ export const fallbackServices = [
         ],
       },
       {
-        question: "How quickly can you complete my homework?",
+        question: "How quickly can I get help with my homework?",
         answer: [
           {
             _type: "block",
@@ -287,7 +293,7 @@ export const fallbackServices = [
             children: [
               {
                 _type: "span",
-                text: "Our turnaround time depends on the complexity and length of your assignment. We can handle urgent requests with deadlines as short as 12 hours.",
+                text: "Our turnaround times vary depending on the complexity of the assignment. For most homework, we can provide solutions within 24-48 hours. For urgent requests, we offer expedited services.",
               },
             ],
             markDefs: [],
@@ -307,8 +313,10 @@ export interface Service {
     current: string;
   };
   icon?: string;
+  category: string;
   shortDescription: string;
   fullDescription: any[];
+  features?: string[];
   featured: boolean;
   mainImage?: {
     asset: {

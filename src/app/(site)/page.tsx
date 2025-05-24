@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import AnimatedHero from "@/components/ui/animated-hero";
 import PricingTable from "@/components/ui/pricing-table";
@@ -7,103 +8,44 @@ import { ServicesGrid } from "@/components/ui/services-grid";
 import { FAQAccordion } from "@/components/ui/faq-accordion";
 import { AnimatedCarousel } from "@/components/ui/animated-carousel";
 import CTASection from "@/components/common/CTASection";
+import { getServices } from "@/lib/services";
 import { GraduationCap, BookOpen, Clock, CheckCircle2, FileCheck, Users } from "lucide-react";
+import AnimatedTestimonials from "@/components/pages/home/TestimonialsSection";
 
 export default function HomePage() {
-  // Sample service data
-  const services = [
-    {
-      id: "essay-writing",
-      title: "Essay Writing",
-      description: "Professional essay writing services for all academic levels and subjects.",
-      slug: "/services/essay-writing",
-      category: "writing",
-      features: ["Professional writers", "Plagiarism-free", "On-time delivery"],
-      icon: <FileCheck className="h-6 w-6 text-primary" />,
-    },
-    {
-      id: "research-papers",
-      title: "Research Papers",
-      description: "Comprehensive research papers with thorough analysis and proper citations.",
-      slug: "/services/research-papers",
-      category: "writing",
-      features: ["In-depth research", "APA/MLA formatting", "Professional citations"],
-      icon: <BookOpen className="h-6 w-6 text-primary" />,
-      popular: true,
-    },
-    {
-      id: "dissertation",
-      title: "Dissertation Help",
-      description: "Expert guidance and writing assistance for dissertations and theses.",
-      slug: "/services/dissertation",
-      category: "advanced",
-      features: ["PhD experts", "Chapter-by-chapter help", "Editing & proofreading"],
-      icon: <GraduationCap className="h-6 w-6 text-primary" />,
-    },
-    {
-      id: "editing",
-      title: "Editing & Proofreading",
-      description: "Professional editing services to perfect your academic papers.",
-      slug: "/services/editing",
-      category: "editing",
-      features: ["Grammar correction", "Style improvement", "Quick turnaround"],
-      icon: <CheckCircle2 className="h-6 w-6 text-primary" />,
-    },
-    {
-      id: "tutoring",
-      title: "Online Tutoring",
-      description: "One-on-one tutoring sessions with subject matter experts.",
-      slug: "/services/tutoring",
-      category: "assistance",
-      features: ["Flexible scheduling", "Expert tutors", "All subjects"],
-      icon: <Users className="h-6 w-6 text-primary" />,
-    },
-    {
-      id: "homework",
-      title: "Homework Help",
-      description: "Get assistance with challenging homework assignments across all subjects.",
-      slug: "/services/homework-help",
-      category: "assistance",
-      features: ["Step-by-step solutions", "24/7 support", "All academic levels"],
-      icon: <Clock className="h-6 w-6 text-primary" />,
-    }
-  ];
+  const [services, setServices] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Sample testimonial data
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      role: "Graduate Student",
-      content: "The essay writing service was exceptional. My paper was delivered ahead of schedule and exceeded my expectations. The writer followed all my requirements perfectly.",
-      avatar: "https://randomuser.me/api/portraits/women/1.jpg",
-      rating: 5
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      role: "Undergraduate Student",
-      content: "I was struggling with my research paper until I found this service. The support team was very helpful, and the paper I received was thoroughly researched and well-written.",
-      avatar: "https://randomuser.me/api/portraits/men/2.jpg",
-      rating: 5
-    },
-    {
-      id: 3,
-      name: "Emma Williams",
-      role: "PhD Candidate",
-      content: "Their dissertation assistance was invaluable. My advisor was impressed with the quality of research and writing. I would highly recommend their services to any graduate student.",
-      avatar: "https://randomuser.me/api/portraits/women/3.jpg",
-      rating: 5
-    },
-    {
-      id: 4,
-      name: "James Taylor",
-      role: "MBA Student",
-      content: "The tutoring service helped me pass a challenging course I was struggling with. My tutor was knowledgeable, patient, and made complex concepts easy to understand.",
-      avatar: "https://randomuser.me/api/portraits/men/4.jpg",
-      rating: 4
+  // Fetch services from Sanity
+  useEffect(() => {
+    async function fetchServices() {
+      try {
+        const servicesData = await getServices();
+        setServices(servicesData);
+      } catch (error) {
+        console.error("Error fetching services:", error);
+        // If there's an error, the fallback data from the services library will be used
+      } finally {
+        setLoading(false);
+      }
     }
-  ];
+
+    fetchServices();
+  }, []);
+
+  // Format services for ServicesGrid component
+  const formattedServices = services.map(service => ({
+    id: service._id,
+    title: service.title,
+    description: service.shortDescription,
+    slug: service.slug.current,
+    category: service.category || "other",
+    features: service.features || [],
+    price: `$${service.basePrice}/${service.pricingUnit}`,
+    icon: service.icon,
+    popular: service.featured
+  }));
+
 
   // Sample pricing data
   const pricingPlans = [
@@ -246,7 +188,7 @@ export default function HomePage() {
             </p>
           </div>
           
-          <ServicesGrid services={services} />
+          <ServicesGrid services={formattedServices} />
           
           <div className="mt-12 text-center">
             <Link href="/services" className="inline-block px-6 py-3 rounded-xl border border-primary/40 hover:bg-primary/10 text-primary font-medium transition-colors duration-200">
@@ -266,23 +208,10 @@ export default function HomePage() {
             </p>
           </div>
           
-          <AnimatedCarousel testimonials={testimonials} />
+       <AnimatedTestimonials/>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-background/90 relative">
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Choose the plan that works best for your academic needs. All plans include our quality guarantee.
-            </p>
-          </div>
-          
-          <PricingTable plans={pricingPlans} />
-        </div>
-      </section>
 
       {/* FAQ Section */}
       <section className="py-20 bg-gradient-to-b from-background/90 to-background relative">

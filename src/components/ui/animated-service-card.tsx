@@ -4,7 +4,28 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, FileText, BookOpen, PenTool, FileCheck, Bookmark, HelpCircle } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+// Define a map of icon names to components
+const iconMap: Record<string, LucideIcon> = {
+  'file-text': FileText,
+  'book-open': BookOpen,
+  'pen-tool': PenTool,
+  'file-check': FileCheck,
+  'bookmark': Bookmark,
+  'help-circle': HelpCircle,
+};
+
+// Simple component to render icon by name
+const IconComponent = ({ name }: { name?: string }) => {
+  if (!name || !iconMap[name]) {
+    return <FileText className="w-6 h-6 text-primary" />;
+  }
+  
+  const Icon = iconMap[name];
+  return <Icon className="w-6 h-6 text-primary" />;
+};
 
 type ServiceCardProps = {
   id: string;
@@ -14,7 +35,7 @@ type ServiceCardProps = {
   slug: string;
   features?: string[];
   price?: string;
-  icon?: React.ReactNode;
+  icon?: string;
   popular?: boolean;
 };
 
@@ -79,19 +100,9 @@ export function AnimatedServiceCard({
       <div className="relative h-full flex flex-col z-10 p-6 backdrop-blur-sm">
         <div className="flex-1">
           {/* Icon */}
-          {icon ? (
-            <div className="w-12 h-12 mb-4 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary">
-              {icon}
-            </div>
-          ) : (
-            <div className="w-12 h-12 mb-4 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
-              <div className="w-6 h-6 text-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-            </div>
-          )}
+          <div className="w-12 h-12 mb-4 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary">
+            <IconComponent name={icon} />
+          </div>
 
           {/* Title */}
           <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors duration-200">

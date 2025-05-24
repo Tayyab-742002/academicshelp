@@ -15,7 +15,7 @@ type ServiceType = {
   price?: string;
   category: string;
   popular?: boolean;
-  icon?: React.ReactNode;
+  icon?: string;
 };
 
 export function ServicesGrid({
