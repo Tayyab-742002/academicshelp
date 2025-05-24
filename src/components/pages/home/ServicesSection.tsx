@@ -90,35 +90,7 @@ export default function ServicesSection() {
 
   return (
     <section className="py-20 md:py-32 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background to-background/80 dark:from-background dark:to-background/90 z-0" />
 
-      {/* Red gradient accent */}
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl z-0" />
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent/10 to-transparent rounded-full blur-3xl z-0" />
-
-      {/* Animated dots */}
-      <div className="absolute inset-0 z-0 opacity-30">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 rounded-full bg-primary/50"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              opacity: [0, 1, 0],
-              scale: [0, 1.5, 0],
-            }}
-            transition={{
-              duration: 5 + Math.random() * 5,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-            }}
-          />
-        ))}
-      </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
@@ -129,8 +101,8 @@ export default function ServicesSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="inline-block mb-3">
-            <div className="flex items-center justify-center space-x-2 bg-primary/5 dark:bg-primary/10 px-4 py-1.5 rounded-full ">
-              <span className="w-2 h-2 rounded-full  dark:bg-[#EC705E] bg-accent animate-pulse" />
+            <div className="flex items-center justify-center space-x-2 bg-primary/20 dark:bg-primary/10 px-4 py-1.5 rounded-full ">
+              <span className="w-2 h-2 rounded-full   bg-[#EC705E] animate-pulse" />
               <span className="text-sm font-medium  ">Premium Services</span>
             </div>
           </div>
@@ -195,8 +167,8 @@ export default function ServicesSection() {
                   </svg>
                 </motion.div>
               </Pointer>
-              <div className="bg-card/80 backdrop-blur-sm border border-border hover:border-primary/20 rounded-2xl p-8 h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(229,62,62,0.15)] relative z-10">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="bg-card/80 backdrop-blur-sm border border-primary/30  hover:border-primary/10 rounded-2xl p-8 h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(229,62,62,0.15)] relative z-10">
+                <div className="w-16 h-16 bg-accent/15 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-8 w-8 text-primary group-hover:text-[#EC705E] transition-colors duration-300"

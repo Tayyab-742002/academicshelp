@@ -1,128 +1,117 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { services } from "@/lib/services";
-import { useState } from "react";
 import { motion } from "framer-motion";
+import { getServices, Service } from "@/lib/services";
+import { ArrowRight } from "lucide-react";
+import dynamic from "next/dynamic";
 
 export default function ServicesGrid() {
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [isClient, setIsClient] = useState(false);
+
+  // Set isClient to true when component mounts
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Fetch services
+  useEffect(() => {
+    async function loadServices() {
+      try {
+        const allServices = await getServices();
+        setServices(allServices);
+      } catch (error) {
+        console.error("Error loading services:", error);
+      } finally {
+        setLoading(false);
       }
     }
+
+    loadServices();
+  }, []);
+
+  // Dynamically import icons to prevent SSR issues
+  const DynamicIcon = ({ name }: { name: string }) => {
+    const LucideIcon = dynamic(
+      () => import("lucide-react").then((mod) => mod[name as keyof typeof mod] as any),
+      {
+        loading: () => <div className="w-6 h-6 bg-primary/20 rounded-md animate-pulse" />,
+        ssr: false
+      }
+    );
+
+    return <LucideIcon className="w-6 h-6 text-primary" />;
   };
 
-  const cardVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15
-      }
-    }
-  };
-  
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="bg-card/50 rounded-xl p-8 h-64 animate-pulse">
+              <div className="w-12 h-12 rounded-full bg-primary/20 mb-4"></div>
+              <div className="h-6 bg-primary/20 rounded w-3/4 mb-3"></div>
+              <div className="h-4 bg-primary/10 rounded w-full mb-2"></div>
+              <div className="h-4 bg-primary/10 rounded w-5/6"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/90 to-background dark:from-background/95 dark:to-background z-0" />
-      
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 opacity-5 z-0" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e53e3e' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')" }}></div>
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {services.map((service, index) => (
-            <motion.div
-              key={service.id}
-              variants={cardVariants}
-              onHoverStart={() => setHoveredCard(service.id)}
-              onHoverEnd={() => setHoveredCard(null)}
-              whileHover={{ y: -8 }}
-              className="group relative"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
-              
-              <div className="bg-card/80 backdrop-blur-sm border border-card/20 hover:border-primary/20 dark:hover:border-primary/30 rounded-2xl overflow-hidden h-full transition-all duration-300 flex flex-col">
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                
-                <div className="p-6 flex-grow">
-                  <h3 className="text-xl font-semibold text-foreground mb-3">
-                    {service.title}
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    {service.description}
-                  </p>
-                </div>
-                
-                <div className="px-6 pb-6 mt-auto">
-                  <Link
-                    href={`/services/${service.id}`}
-                    className="inline-flex items-center relative overflow-hidden group/button rounded-full"
-                  >
-                    <span className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 dark:from-primary/30 dark:to-accent/30 rounded-full -z-10 opacity-0 group-hover/button:opacity-100 transition-opacity duration-300"></span>
-                    <span className="py-2 px-4 font-medium text-primary flex items-center gap-1.5 group-hover/button:gap-2.5 transition-all duration-300">
-                      Learn More
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 transform transition-transform duration-300 group-hover/button:translate-x-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </span>
-                  </Link>
-                </div>
-                
-                {/* Animated border when hovered */}
-                {hoveredCard === service.id && (
-                  <motion.div 
-                    className="absolute inset-0 rounded-2xl pointer-events-none"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    layoutId="serviceBorder"
-                  >
-                    <div className="absolute inset-0 rounded-2xl border-2 border-primary/30 animate-pulse" />
-                  </motion.div>
+    <div className="container mx-auto px-4 py-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map((service, index) => (
+          <motion.div
+            key={service._id}
+            initial={isClient ? { opacity: 0, y: 20 } : false}
+            animate={isClient ? { opacity: 1, y: 0 } : false}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="group relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+          >
+            {/* Subtle gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+            <div className="relative z-10">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                {service.icon ? (
+                  <DynamicIcon name={service.icon} />
+                ) : (
+                  <div className="w-6 h-6 bg-primary/20 rounded-md" />
                 )}
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+
+              <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300">
+                {service.title}
+              </h3>
+
+              <p className="text-muted-foreground mb-6 line-clamp-3">
+                {service.shortDescription}
+              </p>
+
+              <div className="flex items-center justify-between">
+                <div className="text-sm font-medium">
+                  From ${service.basePrice}/{service.pricingUnit}
+                </div>
+
+                <Link
+                  href={`/services/${service.slug.current}`}
+                  className="text-primary font-medium text-sm flex items-center group-hover:underline"
+                >
+                  Learn more
+                  <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }

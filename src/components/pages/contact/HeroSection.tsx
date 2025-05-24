@@ -76,6 +76,7 @@ export default function HeroSection() {
       ref={heroRef}
       className="relative min-h-[50vh] py-24 md:py-32 overflow-hidden"
     >
+      
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-background to-background/80 dark:from-background dark:to-background/90 z-0" />
 

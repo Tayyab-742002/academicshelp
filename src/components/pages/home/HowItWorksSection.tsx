@@ -76,18 +76,7 @@ export default function HowItWorksSection() {
       ref={sectionRef}
       className="py-24 md:py-32 relative overflow-hidden"
     >
-      {/* Background elements */}
-      {/* <div className="absolute inset-0 bg-gradient-to-b from-background to-background/90 dark:from-background dark:to-background/95 z-0" /> */}
-
-      {/* Animated background elements */}
-      <motion.div
-        className="absolute -top-40 -left-40 w-96 h-96 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-3xl z-0"
-        style={{ y: y1 }}
-      />
-      <motion.div
-        className="absolute -bottom-40 -right-40 w-96 h-96 bg-gradient-to-tr from-accent/5 to-transparent rounded-full blur-3xl z-0"
-        style={{ y: y2 }}
-      />
+ 
 
       <div className="container mx-auto px-4 relative z-10 ">
         <motion.div
@@ -98,8 +87,8 @@ export default function HowItWorksSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="inline-block mb-3">
-            <div className="flex items-center justify-center space-x-2 bg-primary/5 dark:bg-primary/10 px-4 py-1.5 rounded-full ">
-              <span className="w-2 h-2 rounded-full  dark:bg-[#EC705E] bg-accent animate-pulse" />
+            <div className="flex items-center justify-center space-x-2 bg-primary/15 dark:bg-primary/10 px-4 py-1.5 rounded-full ">
+              <span className="w-2 h-2 rounded-full  bg-[#EC705E]  animate-pulse" />
               <span className="text-sm font-medium  ">Simple Process</span>
             </div>
           </div>
@@ -130,18 +119,12 @@ export default function HowItWorksSection() {
               whileHover={{ y: -5 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              {/* Step number with gradient background */}
-              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 z-20 ">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20  rounded-full flex items-center justify-center   text-primary font-normal text-xl shadow-lg border-2 border-primary/20 ">
-                  {step.step}
-                </div>
-              </div>
+      
 
-              <div className="bg-card/80 backdrop-blur-sm border border-border hover:border-primary/20 rounded-2xl p-8 pt-12 text-center h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(229,62,62,0.15)] relative z-10">
-                {/* Hover glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500 -z-10" />
+              <div className="bg-card/80 backdrop-blur-sm border  border-primary/40 hover:border-primary/20 rounded-2xl p-8 pt-12 text-center h-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(229,62,62,0.15)] relative z-10">
+             
 
-                <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-8 w-8 text-primary group-hover:text-[#EC705E] transition-colors duration-300"

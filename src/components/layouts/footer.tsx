@@ -47,13 +47,6 @@ const Footer = () => {
     }
   };
 
-  // Footer links
-  // const companyLinks = [
-  //   { name: "About Us", href: "/about" },
-  //   { name: "Our Team", href: "/team" },
-  //   { name: "Careers", href: "/careers" },
-  //   { name: "Blog", href: "/blog" },
-  // ];
 
   const serviceLinks = [
     { name: "Essay Writing", href: "/services/essay-writing" },
@@ -83,7 +76,7 @@ const Footer = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="relative overflow-hidden border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950"
+      className="relative overflow-hidden border-t border-gray-200 dark:border-accent/80 bg-gray-50 dark:bg-background"
     >
       {/* Background decoration */}
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] dark:opacity-[0.05]"></div>
