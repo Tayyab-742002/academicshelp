@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle, AlertTriangle, Loader2, ChevronDown } from "lucide-react";
+import { getServices } from "@/lib/services";
+import { Service } from "@/lib/fallbackdata/service";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 type FormField = {
@@ -22,11 +24,23 @@ export function ContactForm({
   const [subject, setSubject] = useState<FormField>({ value: "", error: "", touched: false });
   const [message, setMessage] = useState<FormField>({ value: "", error: "", touched: false });
   const [service, setService] = useState<FormField>({ value: "", error: "", touched: false });
-  
+  const [servicesOptions, setServicesOptions] = useState<Service[]>([]);
+
   // Form status
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
-
+  useEffect(() => {
+    async function loadServices() {
+      try {
+        const servicesData = await getServices();
+        setServicesOptions(servicesData);
+      } catch (error) {
+        console.error("Error loading services:", error);
+      }
+    }
+    
+    loadServices();
+  }, []);
   // Validate an individual field
   const validateField = (field: FormField, fieldName: string): FormField => {
     let error = "";
@@ -307,9 +321,9 @@ export function ContactForm({
                     disabled={status === "submitting"}
                   >
                     <option value="">Select a service</option>
-                    {services.map((service) => (
-                      <option key={service.id || service.value} value={service.value || service.id}>
-                        {service.label || service.name}
+                    {servicesOptions.map((service) => (
+                      <option key={service._id || service.title} value={service.title || service._id}>
+                        {service?.title || service.title}
                       </option>
                     ))}
                   </select>

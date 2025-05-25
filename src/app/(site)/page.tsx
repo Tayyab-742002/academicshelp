@@ -3,14 +3,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import AnimatedHero from "@/components/ui/animated-hero";
-import PricingTable from "@/components/ui/pricing-table";
 import { ServicesGrid } from "@/components/ui/services-grid";
-import { FAQAccordion } from "@/components/ui/faq-accordion";
-import { AnimatedCarousel } from "@/components/ui/animated-carousel";
+
 import CTASection from "@/components/common/CTASection";
 import { getServices } from "@/lib/services";
 import { GraduationCap, BookOpen, Clock, CheckCircle2, FileCheck, Users } from "lucide-react";
 import AnimatedTestimonials from "@/components/pages/home/TestimonialsSection";
+import FAQSection from "@/components/ui/faq-accordion";
 
 export default function HomePage() {
   const [services, setServices] = useState<any[]>([]);
@@ -47,83 +46,6 @@ export default function HomePage() {
   }));
 
 
-  // Sample pricing data
-  const pricingPlans = [
-    {
-      id: "basic",
-      name: "Standard",
-      description: "Perfect for basic academic assignments",
-      price: {
-        monthly: "$19.99",
-        yearly: "$199.99"
-      },
-      features: [
-        { name: "Essay Writing", included: true },
-        { name: "Homework Help", included: true },
-        { name: "Basic Editing", included: true },
-        { name: "72-Hour Delivery", included: true },
-        { name: "Research Papers", included: false },
-        { name: "Dissertation Help", included: false },
-        { name: "Plagiarism Report", included: false },
-        { name: "Priority Support", included: false }
-      ],
-      cta: {
-        text: "Get Started",
-        href: "/contact"
-      },
-      discount: "Save $40 yearly"
-    },
-    {
-      id: "professional",
-      name: "Professional",
-      description: "For serious students needing comprehensive help",
-      price: {
-        monthly: "$39.99",
-        yearly: "$399.99"
-      },
-      features: [
-        { name: "Essay Writing", included: true, highlight: true },
-        { name: "Homework Help", included: true },
-        { name: "Advanced Editing", included: true },
-        { name: "48-Hour Delivery", included: true },
-        { name: "Research Papers", included: true, highlight: true },
-        { name: "Dissertation Help", included: false },
-        { name: "Plagiarism Report", included: true },
-        { name: "Priority Support", included: false }
-      ],
-      cta: {
-        text: "Choose Professional",
-        href: "/contact"
-      },
-      popular: true,
-      badge: "Most Popular",
-      discount: "Save $80 yearly"
-    },
-    {
-      id: "premium",
-      name: "Premium",
-      description: "Complete academic support for advanced needs",
-      price: {
-        monthly: "$59.99",
-        yearly: "$599.99"
-      },
-      features: [
-        { name: "Essay Writing", included: true },
-        { name: "Homework Help", included: true },
-        { name: "Premium Editing", included: true },
-        { name: "24-Hour Delivery", included: true, highlight: true },
-        { name: "Research Papers", included: true },
-        { name: "Dissertation Help", included: true, highlight: true },
-        { name: "Plagiarism Report", included: true },
-        { name: "Priority Support", included: true, highlight: true }
-      ],
-      cta: {
-        text: "Choose Premium",
-        href: "/contact"
-      },
-      discount: "Save $120 yearly"
-    }
-  ];
 
   // Sample FAQ data
   const faqs = [
@@ -224,7 +146,7 @@ export default function HomePage() {
           </div>
           
           <div className="max-w-3xl mx-auto">
-            <FAQAccordion items={faqs} />
+            <FAQSection faqs={faqs} />
           </div>
         </div>
       </section>

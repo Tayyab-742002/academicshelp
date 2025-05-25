@@ -24,13 +24,7 @@ export default function CTASection({
     <section className="py-20 md:py-28 relative overflow-hidden">
       {/* Enhanced gradient background with better light/dark compatibility */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-background/80 dark:from-primary/15 dark:via-accent/10 dark:to-background/90 z-0" />
-      
-      {/* Glass morphism card effect with improved visibility */}
-      {/* <div className="absolute inset-x-4 md:inset-x-12 lg:inset-x-24 top-8 bottom-8 rounded-3xl backdrop-blur-md bg-card/30 dark:bg-card/20 border border-primary/20 dark:border-primary/30 shadow-[0_8px_30px_rgba(var(--primary-rgb),0.1)] dark:shadow-[0_8px_30px_rgba(var(--primary-rgb),0.15)] z-0" /> */}
-      
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent dark:via-primary/60" />
-      {/* <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/40 to-transparent dark:via-accent/60" /> */}
+   
   
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <motion.div

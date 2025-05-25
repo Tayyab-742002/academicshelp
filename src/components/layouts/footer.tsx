@@ -126,7 +126,7 @@ const Footer = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="relative overflow-hidden border-t border-gray-200 dark:border-accent/80 bg-gray-50 dark:bg-background"
+      className="relative overflow-hidden border-t border-muted-foreground/60 dark:border-[#222222]/80 bg-primary/50 dark:bg-card/50"
     >
       {/* Background decoration */}
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] dark:opacity-[0.05]"></div>

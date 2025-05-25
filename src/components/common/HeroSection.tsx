@@ -162,6 +162,7 @@ export default function HeroSection() {
               assignments from our elite team of academic experts. Achieve the
               excellence you deserve.
             </motion.p>
+
             <motion.div
               className="flex flex-col sm:flex-row gap-5 mb-16"
               variants={itemVariants}

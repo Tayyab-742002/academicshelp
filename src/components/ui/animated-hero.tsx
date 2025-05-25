@@ -2,11 +2,14 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, Variant } from "framer-motion";
 import { ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 import { BorderBeam } from "@/components/magicui/border-beam";
+import TagLine from "./TagLine";
 
 export function AnimatedHero({
+  tagline = "Top-Rated Academic Services",
+  TagLineIcon = <Sparkles className="h-4 w-4 mr-2" />,
   title = "Excel in Your Academic Journey",
   subtitle = "Professional assistance with essays, research papers, and assignments to help you achieve academic success.",
   primaryCta = "Get Started",
@@ -93,7 +96,7 @@ export function AnimatedHero({
             left: `${10 + Math.random() * 80}%`,
           }}
           custom={i}
-          variants={sparkleVariants}
+          variants={sparkleVariants  as any}
           animate="animate"
         >
           <Sparkles 
@@ -112,13 +115,10 @@ export function AnimatedHero({
           variants={containerVariants}
         >
           {/* Tagline */}
-          <motion.div 
-            className="inline-flex items-center px-4 py-2 rounded-full bg-card/80 backdrop-blur-sm border border-primary/40 text-primary mb-6 shadow-md"
-            variants={itemVariants}
-          >
-            <Sparkles className="h-4 w-4 mr-2" />
-            <span className="text-sm font-medium">Top-Rated Academic Services</span>
-          </motion.div>
+          <TagLine
+            tagline={tagline}
+            TagLineIcon={TagLineIcon}
+          />
           
           {/* Main Title */}
           <motion.h1 
@@ -209,16 +209,15 @@ export function AnimatedHero({
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-          variants={floatingVariants}
-          animate="animate"
+          variants={floatingVariants as any}
+          // animate="animate"
         >
-          <div className="relative p-4 rounded-2xl bg-card/70 backdrop-blur-md border border-primary/20 dark:border-primary/30 shadow-xl overflow-hidden">
-            {/* Decorative elements */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+          <div className="relative p-4 rounded-2xl bg-card/70 backdrop-blur-md border border-primary/20 dark:border-primary/30 shadow-xl overflow-hidden z-10">
+        
+           
             
             {/* Content placeholder - replace with your actual illustration */}
-            <div className="h-[250px] w-full bg-gradient-to-br from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10 rounded-lg flex items-center justify-center">
+            <div className="h-[250px] w-full bg-gradient-to-br from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10 rounded-lg flex items-center justify-center ">
               <div className="text-center">
                 <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent mb-2">
                   Academic Excellence
@@ -232,7 +231,7 @@ export function AnimatedHero({
           
           {/* Decorative floating elements */}
           <motion.div
-            className="absolute -top-6 -right-6 w-20 h-20 rounded-lg bg-primary/20 dark:bg-primary/30"
+            className="absolute -top-6 -right-6 w-20 h-20 rounded-lg bg-primary/20 dark:bg-primary/30 z-0"
             animate={{
               rotate: [0, 90],
               scale: [1, 1.1, 1],
@@ -244,7 +243,7 @@ export function AnimatedHero({
             }}
           />
           <motion.div
-            className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-accent/30 dark:bg-accent/40"
+            className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-accent/30 dark:bg-accent/40 z-0"
             animate={{
               scale: [1, 1.2, 1],
             }}
