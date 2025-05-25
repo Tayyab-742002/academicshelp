@@ -7,12 +7,17 @@ import {
   PricingFAQ,
   CTASection
 } from "@/components/pages/pricing";
+import { PricingPlan } from "@/lib/pricing";
 
-export default function PricingPage() {
+interface PricingPageProps {
+  initialPlans?: PricingPlan[];
+}
+
+export default function PricingPage({ initialPlans = [] }: PricingPageProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <HeroSection />
-      <PricingPlans />
+      <PricingPlans initialPlans={initialPlans} />
       <CustomPricing />
       <PricingFAQ />
       <CTASection />

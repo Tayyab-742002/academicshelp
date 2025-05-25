@@ -7,7 +7,6 @@ import { ServicesGrid } from "@/components/ui/services-grid";
 
 import CTASection from "@/components/common/CTASection";
 import { getServices } from "@/lib/services";
-import { GraduationCap, BookOpen, Clock, CheckCircle2, FileCheck, Users } from "lucide-react";
 import AnimatedTestimonials from "@/components/pages/home/TestimonialsSection";
 import FAQSection from "@/components/ui/faq-accordion";
 
