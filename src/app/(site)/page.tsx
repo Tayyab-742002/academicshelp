@@ -9,10 +9,11 @@ import CTASection from "@/components/common/CTASection";
 import { getServices } from "@/lib/services";
 import AnimatedTestimonials from "@/components/pages/home/TestimonialsSection";
 import FAQSection from "@/components/ui/faq-accordion";
+import { Service } from "@/lib/fallbackdata/service";
 
 export default function HomePage() {
-  const [services, setServices] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [services, setServices] = useState<Service[]>([]);
+
 
   // Fetch services from Sanity
   useEffect(() => {
@@ -20,12 +21,11 @@ export default function HomePage() {
       try {
         const servicesData = await getServices();
         setServices(servicesData);
+        console.log(servicesData);
       } catch (error) {
         console.error("Error fetching services:", error);
-        // If there's an error, the fallback data from the services library will be used
-      } finally {
-        setLoading(false);
-      }
+       
+      } 
     }
 
     fetchServices();
@@ -41,7 +41,8 @@ export default function HomePage() {
     features: service.features || [],
     price: `$${service.basePrice}/${service.pricingUnit}`,
     icon: service.icon,
-    popular: service.featured
+    popular: service.featured,
+    image: service.mainImage?.asset.url || ""
   }));
 
 
@@ -51,7 +52,7 @@ export default function HomePage() {
     {
       id: 1,
       question: "How does your service work?",
-      answer: "Our process is simple: you place an order, provide detailed instructions, and we match you with an expert writer. You'll receive regular updates and can communicate directly with your writer. Once completed, you'll receive your paper for review and can request revisions if needed.",
+      answer: "Our process is simple: you place an order, provide detailed instructions, and we match you with an expert writer. You&apos;ll receive regular updates and can communicate directly with your writer. Once completed, you&apos;ll receive your paper for review and can request revisions if needed.",
       category: "general"
     },
     {
@@ -74,8 +75,8 @@ export default function HomePage() {
     },
     {
       id: 5,
-      question: "What if I'm not satisfied with the work?",
-      answer: "We strive for your complete satisfaction. If you're not happy with the delivered work, you can request revisions within the revision period. Our writers will address your concerns and make necessary changes according to your initial instructions.",
+      question: "What if I&apos;m not satisfied with the work?",
+      answer: "We strive for your complete satisfaction. If you&apos;re not happy with the delivered work, you can request revisions within the revision period. Our writers will address your concerns and make necessary changes according to your initial instructions.",
       category: "satisfaction"
     }
   ];
@@ -105,7 +106,7 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Academic Services</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive academic assistance services tailored to your needs. From essays to dissertations, we've got you covered.
+              Comprehensive academic assistance services tailored to your needs. From essays to dissertations, we&apos;ve got you covered.
             </p>
           </div>
           
@@ -125,7 +126,7 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Students Say</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Don't just take our word for it. See what students like you have to say about our services.
+              Don&apos;t just take our word for it. See what students like you have to say about our services.
             </p>
           </div>
           

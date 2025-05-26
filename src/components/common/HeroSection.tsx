@@ -1,31 +1,22 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
   motion,
-  useScroll,
-  useTransform,
+
+
 } from "framer-motion";
 import { Highlight } from "@/components/ui/hero-highlight";
+import { useRef } from "react";
 
 export default function HeroSection() {
-  const [isLoaded, setIsLoaded] = useState(false);
+
   const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
 
-  // Parallax effect values - reduced intensity for better content visibility
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, 50]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 70]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, 30]);
 
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+
+
 
   // Animation variants
   const containerVariants = {

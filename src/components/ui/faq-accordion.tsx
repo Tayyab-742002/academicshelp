@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TagLine from "./TagLine";
-import { FileQuestion, TagIcon } from "lucide-react";
+import { FileQuestion } from "lucide-react";
 interface FAQSectionProps {
   faqs: {
     question: string;

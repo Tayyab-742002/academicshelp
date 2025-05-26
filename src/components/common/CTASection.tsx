@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 type CTASectionProps = {
   title?: string;
@@ -131,10 +132,12 @@ export default function CTASection({
                   }}
                 />
                 <div className="relative p-4 rounded-2xl bg-card/70 dark:bg-card/40 backdrop-blur-sm border border-primary/20 dark:border-primary/30 shadow-[0_10px_30px_rgba(var(--primary-rgb),0.2)] dark:shadow-[0_10px_30px_rgba(var(--primary-rgb),0.25)]">
-                  <img 
+                  <Image 
                     src="/images/student-success.svg" 
                     alt="Student Success" 
                     className="w-full h-auto max-h-72 object-contain"
+                    width={600}
+                    height={400}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.onerror = null;

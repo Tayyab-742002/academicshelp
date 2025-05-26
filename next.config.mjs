@@ -2,8 +2,17 @@
 const nextConfig = {
   /* config options here */
 
-  images: {
-    domains: ["cdn.sanity.io","randomuser.me"],
+  // images: {
+  //   domains: ["cdn.sanity.io","randomuser.me"],
+  // },
+
+  images:{
+    remotePatterns:[
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+    ],
   },
 };
 

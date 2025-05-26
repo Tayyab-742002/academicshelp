@@ -9,7 +9,7 @@ export default function HeroSection() {
             About Us
           </h1>
           <p className="text-xl text-gray-700 dark:text-gray-300">
-            We're dedicated to helping students achieve academic excellence through professional support and guidance.
+            We&apos;re dedicated to helping students achieve academic excellence through professional support and guidance.
           </p>
         </div>
       </div>

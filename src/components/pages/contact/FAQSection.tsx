@@ -66,8 +66,7 @@ export default function FAQSection() {
       {/* Subtle decorative gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-primary/5 via-accent/5 to-transparent dark:from-primary/10 dark:via-accent/5 dark:to-transparent opacity-60 z-0" />
       
-      {/* Animated gradient line */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent dark:via-primary/60" />
+    
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 

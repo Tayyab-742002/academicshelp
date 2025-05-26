@@ -15,7 +15,7 @@ export default function MissionSection() {
               At Homework Help, we believe that every student deserves access to quality academic support. Our mission is to empower students to reach their full potential by providing expert assistance, valuable resources, and personalized guidance.
             </p>
             <p className="text-gray-700 dark:text-gray-300">
-              We're committed to maintaining the highest standards of academic integrity while helping students develop essential skills and knowledge for their future success.
+              We&apos;re committed to maintaining the highest standards of academic integrity while helping students develop essential skills and knowledge for their future success.
             </p>
           </div>
           <div className="relative h-[400px]">

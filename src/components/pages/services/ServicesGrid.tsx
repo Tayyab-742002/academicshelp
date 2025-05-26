@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { getServices } from "@/lib/services";
 import { ArrowRight, FileText, BookOpen, PenTool, FileCheck, Bookmark, HelpCircle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { Service } from "@/lib/fallbackdata/service";
 
 // Define a map of icon names to components
 const iconMap: Record<string, LucideIcon> = {
@@ -18,16 +19,12 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export default function ServicesGrid() {
-  const [services, setServices] = useState<any[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isClient, setIsClient] = useState(false);
   const [hoveredService, setHoveredService] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  // Set isClient to true when component mounts
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+
 
   // Fetch services
   useEffect(() => {
@@ -231,7 +228,7 @@ export default function ServicesGrid() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {services.map((service, index) => (
+          {services.map((service) => (
             <motion.div
               key={service._id}
               variants={cardVariants}

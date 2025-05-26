@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Home, Search, ArrowLeft, FileQuestion } from "lucide-react";
 
 export default function NotFound() {
@@ -62,7 +62,7 @@ export default function NotFound() {
             background: `rgba(var(--primary-rgb), ${0.1 + Math.random() * 0.2})`,
           }}
           custom={-10 + Math.random() * 20}
-          variants={floatingVariants}
+          variants={floatingVariants as Variants}
           animate="animate"
         />
       ))}
@@ -101,7 +101,7 @@ export default function NotFound() {
             className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto"
             variants={itemVariants}
           >
-            Oops! It seems the page you're looking for has been moved, deleted, or never existed.
+            Oops! It seems the page you&apos;re looking for has been moved, deleted, or never existed.
           </motion.p>
 
           {/* Action buttons */}

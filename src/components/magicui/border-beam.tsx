@@ -30,7 +30,7 @@ export function BorderBeam({
   useEffect(() => {
     if (!initialized.current && containerRef.current && borderRef.current) {
       initialized.current = true;
-      const container = containerRef.current;
+   
       const border = borderRef.current;
 
       // Initialize positions and animation
@@ -67,7 +67,7 @@ export function BorderBeam({
   // Helper function to get the current rotation value
   const getComputedRotation = (element: HTMLElement) => {
     const st = window.getComputedStyle(element);
-    const matrix = st.transform || st.webkitTransform || st.mozTransform;
+    const matrix = st.transform || st.webkitTransform;
     
     if (matrix === 'none' || typeof matrix === 'undefined') {
       return 0;

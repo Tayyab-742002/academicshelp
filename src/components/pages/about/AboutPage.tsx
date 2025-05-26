@@ -13,7 +13,7 @@ export default function AboutPage() {
               About Us
             </h1>
             <p className="text-xl text-gray-700 dark:text-gray-300">
-              We're dedicated to helping students achieve academic excellence through professional support and guidance.
+              We&apos;re dedicated to helping students achieve academic excellence through professional support and guidance.
             </p>
           </div>
         </div>
@@ -31,7 +31,7 @@ export default function AboutPage() {
                 At Academic Assist, we believe that every student deserves access to quality academic support. Our mission is to empower students to reach their full potential by providing expert assistance, valuable resources, and personalized guidance.
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                We're committed to maintaining the highest standards of academic integrity while helping students develop essential skills and knowledge for their future success.
+                We&apos;re committed to maintaining the highest standards of academic integrity while helping students develop essential skills and knowledge for their future success.
               </p>
             </div>
             <div className="relative h-[400px]">
@@ -127,7 +127,7 @@ export default function AboutPage() {
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">Michael Chen</h3>
                 <p className="text-blue-600 dark:text-blue-400 mb-2">Technical Lead</p>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Master's in Computer Science with expertise in educational technology and online learning platforms.
+                  Master&apos;s in Computer Science with expertise in educational technology and online learning platforms.
                 </p>
               </div>
             </div>
@@ -144,7 +144,7 @@ export default function AboutPage() {
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">Emily Rodriguez</h3>
                 <p className="text-blue-600 dark:text-blue-400 mb-2">Student Support Manager</p>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Bachelor's in Psychology with extensive experience in student counseling and academic support.
+                  Bachelor&apos;s in Psychology with extensive experience in student counseling and academic support.
                 </p>
               </div>
             </div>

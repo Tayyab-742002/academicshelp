@@ -9,15 +9,15 @@ export const FloatingContactButton = ({
   message = "Hello! I'd like to know more about your academic services.",
   threshold = 300, // Scroll threshold to show the button
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
+
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > threshold) {
-        setIsVisible(true);
+     
       } else {
-        setIsVisible(false);
+    
         setIsOpen(false);
       }
     };

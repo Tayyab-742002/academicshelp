@@ -2,10 +2,74 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { fallbackServices, type Service } from "./fallbackdata/service";
 
+// Type for raw Sanity service data
+interface SanityService {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  icon?: string;
+  category: string;
+  features?: string[];
+  shortDescription: string;
+  fullDescription?: {
+    _type: string;
+    style: string;
+    _key: string;
+    children: {
+      _type: string;
+      text: string;
+    }[];
+    markDefs: unknown[];
+  }[];
+  featured: boolean;
+  mainImage?: {
+    asset: {
+      _ref: string;
+    };
+  };
+  sampleWorks?: SanityWork[];
+  deliveryTimeframes?: {
+    name: string;
+    duration: string;
+    priceMultiplier: number;
+  }[];
+  academicLevels?: {
+    name: string;
+    priceMultiplier: number;
+  }[];
+  basePrice: number;
+  pricingUnit: string;
+  faqs?: {
+    question: string;
+    answer: {
+      _type: string;
+      style: string;
+      _key: string;
+      children: {
+        _type: string;
+        text: string;
+      }[];
+      markDefs: unknown[];
+    }[];
+  }[];
+  order: number;
+}
+
+interface SanityWork {
+  title: string;
+  description?: string;
+  image?: {
+    asset: {
+      _ref: string;
+    };
+  };
+  fileUrl?: string;
+}
+
 // Fetch all services from Sanity
 export async function getServices(): Promise<Service[]> {
   try {
-    const services = await client.fetch(`
+    const services = await client.fetch<SanityService[]>(`
       *[_type == "service"] | order(order asc) {
         _id,
         title,
@@ -28,7 +92,7 @@ export async function getServices(): Promise<Service[]> {
     `);
 
     // Process image URLs
-    return services.map((service: any) => ({
+    return services.map((service: SanityService) => ({
       ...service,
       mainImage: service.mainImage
         ? {
@@ -40,7 +104,7 @@ export async function getServices(): Promise<Service[]> {
           }
         : undefined,
       sampleWorks: service.sampleWorks
-        ? service.sampleWorks.map((work: any) => ({
+        ? service.sampleWorks.map((work: SanityWork) => ({
             ...work,
             image: work.image
               ? {
@@ -53,6 +117,9 @@ export async function getServices(): Promise<Service[]> {
               : undefined,
           }))
         : undefined,
+      deliveryTimeframes: service.deliveryTimeframes || [],
+      academicLevels: service.academicLevels || [],
+      faqs: service.faqs || []
     }));
   } catch (error) {
     console.error("Error fetching services from Sanity:", error);
@@ -63,7 +130,7 @@ export async function getServices(): Promise<Service[]> {
 // Get a single service by slug
 export async function getServiceBySlug(slug: string): Promise<Service | null> {
   try {
-    const service = await client.fetch(
+    const service = await client.fetch<SanityService>(
       `*[_type == "service" && slug.current == $slug][0]{
         _id,
         title,
@@ -107,7 +174,7 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
           }
         : undefined,
       sampleWorks: service.sampleWorks
-        ? service.sampleWorks.map((work: any) => ({
+        ? service.sampleWorks.map((work: SanityWork) => ({
             ...work,
             image: work.image
               ? {
@@ -120,6 +187,9 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
               : undefined,
           }))
         : undefined,
+      deliveryTimeframes: service.deliveryTimeframes || [],
+      academicLevels: service.academicLevels || [],
+      faqs: service.faqs || []
     };
   } catch (error) {
     console.error(`Error fetching service with slug ${slug}:`, error);
@@ -134,7 +204,7 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
 // Get featured services
 export async function getFeaturedServices(): Promise<Service[]> {
   try {
-    const services = await client.fetch(`
+    const services = await client.fetch<SanityService[]>(`
       *[_type == "service" && featured == true] | order(order asc) {
         _id,
         title,
@@ -152,7 +222,7 @@ export async function getFeaturedServices(): Promise<Service[]> {
     `);
 
     // Process image URLs
-    return services.map((service: any) => ({
+    return services.map((service: SanityService) => ({
       ...service,
       mainImage: service.mainImage
         ? {
@@ -163,7 +233,10 @@ export async function getFeaturedServices(): Promise<Service[]> {
             },
           }
         : undefined,
-    }));
+      deliveryTimeframes: [],
+      academicLevels: [],
+      faqs: []
+    })) as Service[];
   } catch (error) {
     console.error("Error fetching featured services from Sanity:", error);
     return fallbackServices.filter((service) => service.featured);

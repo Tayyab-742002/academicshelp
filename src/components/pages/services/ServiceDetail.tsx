@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import dynamic from "next/dynamic";
+import { motion, useInView } from "framer-motion";
+
 import { BoxReveal } from "@/components/magicui/box-reveal";
 
 interface ServiceDetail {
@@ -45,7 +45,6 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
   const [isClient, setIsClient] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const overviewRef = useRef<HTMLDivElement>(null);
-  const featuresRef = useRef<HTMLDivElement>(null);
   const benefitsRef = useRef<HTMLDivElement>(null);
 
   // Animation variants
@@ -83,17 +82,10 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
     setIsClient(true);
   }, []);
 
-  // Parallax scrolling effect - only used on client side
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
   // Section visibility
   const isOverviewVisible = useInView(overviewRef, { once: true, amount: 0.3 });
-  const isFeaturesVisible = useInView(featuresRef, { once: true, amount: 0.3 });
   const isBenefitsVisible = useInView(benefitsRef, { once: true, amount: 0.3 });
 
   const toggleFaq = (index: number) => {

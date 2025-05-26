@@ -14,7 +14,6 @@ type FormField = {
 };
 
 export function ContactForm({
-  services = [],
   withServicesSelect = true,
 }) {
   // Form fields state
@@ -100,7 +99,7 @@ export function ContactForm({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
     setField: React.Dispatch<React.SetStateAction<FormField>>
   ) => {
-    const { name, value } = e.target;
+    const {  value } = e.target;
     setField((prev) => ({ ...prev, value, touched: true }));
   };
 
@@ -147,8 +146,9 @@ export function ContactForm({
       }, 3000);
     } catch (error) {
       // If error
-      setStatus("error");
-      setErrorMessage("Something went wrong. Please try again later.");
+      setStatus( "error" as FormStatus);
+      console.log(error);
+      setErrorMessage("Something went wrong. Please try again later." );
       
       // Reset status after error
       setTimeout(() => {
@@ -175,7 +175,7 @@ export function ContactForm({
               Message Sent Successfully!
             </h3>
             <p className="text-green-700 dark:text-green-400">
-              Thank you for contacting us. We'll get back to you as soon as possible.
+              Thank you for contacting us. We&apos;ll get back to you as soon as possible.
             </p>
           </motion.div>
         ) : status === "error" ? (

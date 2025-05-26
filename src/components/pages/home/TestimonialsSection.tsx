@@ -1,17 +1,16 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
+
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Testimonial } from "@/lib/fallbackdata/testimonial";
 import { getFeaturedTestimonials } from "@/lib/testimonials";
-import { BorderBeam } from "@/components/magicui/border-beam";
+
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 
 export default function TestimonialsSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const sectionRef = useRef<HTMLElement>(null);
@@ -40,29 +39,8 @@ export default function TestimonialsSection() {
     loadTestimonials();
   }, []);
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
 
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-      },
-    },
-  };
+
 
   if (loading) {
     return (

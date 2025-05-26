@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { motion, Variant } from "framer-motion";
+import {  motion } from "framer-motion";
 import { ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import TagLine from "./TagLine";
@@ -25,8 +25,19 @@ export function AnimatedHero({
 }) {
   const [hovered, setHovered] = useState(false);
 
+  type ContainerVariants = {
+    hidden: { opacity: number };
+    visible: {
+      opacity: number;
+      transition: {
+        staggerChildren: number;
+        delayChildren: number;
+      };
+    };
+  };
+  
   // Animation variants
-  const containerVariants = {
+  const containerVariants: ContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -37,7 +48,19 @@ export function AnimatedHero({
     }
   };
 
-  const itemVariants = {
+  type ItemVariants = {
+    hidden: { opacity: number; y: number };
+    visible: {
+      opacity: number;
+      y: number;
+      transition: {
+        type: string;
+        stiffness: number;
+        damping: number;
+      };
+    };
+  };
+  const itemVariants: ItemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -50,32 +73,9 @@ export function AnimatedHero({
     }
   };
 
-  const floatingVariants = {
-    animate: {
-      y: [0, -10, 0],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        repeatType: "reverse",
-        ease: "easeInOut"
-      }
-    }
-  };
 
-  const sparkleVariants = {
-    animate: (i: number) => ({
-      scale: [1, 1.2, 1],
-      rotate: [0, 15, 0],
-      opacity: [0.5, 1, 0.5],
-      transition: {
-        duration: 3,
-        delay: i * 0.2,
-        repeat: Infinity,
-        repeatType: "reverse",
-        ease: "easeInOut"
-      }
-    })
-  };
+
+
 
   return (
     <section className="relative py-20 md:py-32 overflow-hidden">
@@ -96,8 +96,18 @@ export function AnimatedHero({
             left: `${10 + Math.random() * 80}%`,
           }}
           custom={i}
-          variants={sparkleVariants  as any}
-          animate="animate"
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 15, 0],
+            opacity: [0.5, 1, 0.5],
+          }}
+          transition={{
+            duration: 3,
+            delay: i * 0.2,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut"
+          }}
         >
           <Sparkles 
             className="text-primary/30 dark:text-primary/50" 
@@ -207,9 +217,17 @@ export function AnimatedHero({
         <motion.div
           className="mt-16 max-w-3xl mx-auto relative hidden md:block"
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-          variants={floatingVariants as any}
+          animate={{ 
+            opacity: 1, 
+            y: [0, -10, 0] 
+          }}
+          transition={{ 
+            delay: 0.5, 
+            duration: 4,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut"
+          }}
           // animate="animate"
         >
           <div className="relative p-4 rounded-2xl bg-card/70 backdrop-blur-md border border-primary/20 dark:border-primary/30 shadow-xl overflow-hidden z-10">

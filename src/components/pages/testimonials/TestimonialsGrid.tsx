@@ -271,7 +271,7 @@ export default function TestimonialsGrid() {
                   </div>
 
                   <p className="text-foreground/90 mb-4 italic text-base">
-                    "{testimonial.quote}"
+                  &quot;{testimonial.quote}&quot;
                   </p>
 
                   <div className="flex justify-between items-center mt-4 text-sm text-muted-foreground">

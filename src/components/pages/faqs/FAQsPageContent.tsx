@@ -335,7 +335,7 @@ export default function FAQsPageContent() {
               <div className="relative z-10">
                 <h3 className="text-2xl font-bold mb-4 text-white">Still have questions?</h3>
                 <p className="text-white/90 mb-6 max-w-xl mx-auto">
-                  Can't find the answer you're looking for? Our friendly support team is here to help you with any queries you might have.
+                  Can&apos;t find the answer you&apos;re looking for? Our friendly support team is here to help you with any queries you might have.
                 </p>
                 <motion.div
                   whileHover={{ scale: 1.05, y: -5 }}

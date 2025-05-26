@@ -2,12 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { PortableText } from "@portabletext/react";
 import Link from "next/link";
 
-import { ChevronDown, Check, ArrowRight, Calendar, Award, Clock, FileText } from "lucide-react";
-import dynamic from "next/dynamic";
+import {  ArrowRight, Calendar, Award, Clock, FileText } from "lucide-react";
 import { MotionProps } from "framer-motion";
 import { Service } from "@/lib/fallbackdata/service";
 import CTASection from "@/components/common/CTASection";
@@ -17,7 +16,6 @@ interface ServiceDetailPageProps {
 }
 
 export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [isClient, setIsClient] = useState(false);
   const [particles, setParticles] = useState<{ left: string; top: string; animY: number; duration: number; delay: number }[]>([]);
 
@@ -41,10 +39,6 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
     setParticles(newParticles);
   }, []);
 
-  // Toggle FAQ expansion
-  const toggleFaq = (index: number) => {
-    setExpandedFaq(expandedFaq === index ? null : index);
-  };
 
   // Helper function for conditional animations
   const conditionalAnimation = (props: MotionProps): MotionProps => {
@@ -279,12 +273,12 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               <div>
                 <h3 className="text-xl font-bold mb-4 text-foreground">Service Description</h3>
                 <div className="prose prose-sm dark:prose-invert mb-6 text-muted-foreground">
-                  {service.description && (
-                    <p>{service.description}</p>
+                  {service.shortDescription && (
+                    <p>{service.shortDescription}</p>
                   )}
                   {service.fullDescription && service.fullDescription.length > 0 && (
                     <div className="mt-4">
-                      <PortableText value={service.fullDescription} />
+                      <PortableText value={service.fullDescription } />
                     </div>
                     )}
                   </div>
@@ -641,9 +635,21 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               />
             </motion.div>
 
-            <div className="max-w-3xl mx-auto bg-card/60 backdrop-blur-sm border border-primary/20 dark:border-primary/30 rounded-2xl p-6 shadow-lg">
+            {/* <div className="max-w-3xl mx-auto bg-card/60 backdrop-blur-sm border border-primary/20 dark:border-primary/30 rounded-2xl p-6 shadow-lg">
               {service.faqs.map(
-                (faq: { question: string; answer: any[] }, index: number) => (
+                (faq: { 
+                  question: string; 
+                  answer: {
+                    _type: string;
+                    style: string;
+                    _key: string;
+                    children: {
+                      _type: string;
+                      text: string;
+                    }[];
+                    markDefs: unknown[];
+                  }[];
+                }, index: number) => (
                   <motion.div
                     key={index}
                     className="mb-4 last:mb-0"
@@ -692,7 +698,15 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                           className="overflow-hidden"
                         >
                           <div className="p-5 bg-card/50 rounded-xl border border-primary/10 prose prose-sm dark:prose-invert max-w-none">
-                            <PortableText value={faq.answer} />
+                            {Array.isArray(faq.answer) ? (
+                              <div className="prose prose-sm dark:prose-invert">
+                                {faq.answer.map((paragraph, i) => (
+                                  <p key={i}>{paragraph}</p>
+                                ))}
+                              </div>
+                            ) : (
+                              <PortableText value={faq.answer} />
+                            )}
                           </div>
                         </motion.div>
                       )}
@@ -700,7 +714,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                   </motion.div>
                 )
               )}
-            </div>
+            </div> */}
             
             <motion.div 
               className="text-center mt-10"
@@ -710,7 +724,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               transition={{ duration: 0.7, delay: 0.5 }}
             >
               <p className="text-muted-foreground mb-4">
-                Still have questions? We're here to help!
+                Still have questions? We&apos;re here to help!
               </p>
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -822,9 +836,13 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                 (
                   work: {
                     title: string;
-                    description: string;
-                    image: { asset: { url: string } };
-                    fileUrl: string;
+                    description?: string;
+                    image?: {
+                      asset: {
+                        url: string;
+                      };
+                    };
+                    fileUrl?: string;
                   },
                   index: number
                 ) => (
@@ -982,34 +1000,10 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           </motion.div>
 
           <div className="max-w-4xl mx-auto">
-            {service.process && service.process.map((step: {step: number; title: string; description: string}, index: number) => (
-              <motion.div
-                key={index}
-                className="flex items-start gap-6 mb-12 relative"
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.15 * index }}
-              >
-                {/* Line connecting steps */}
-                {index < (service.process?.length || 0) - 1 && (
-                  <div className="absolute left-[40px] top-[60px] w-[2px] h-[calc(100%+12px)] bg-gradient-to-b from-primary to-accent opacity-20"></div>
-                )}
-
-                <div className="w-20 h-20 rounded-full flex-shrink-0 bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                  {step.step}
-                </div>
-                <div className="bg-card/60 backdrop-blur-sm border border-primary/20 dark:border-primary/30 rounded-xl p-6 shadow-md flex-1">
-                  <h3 className="text-xl font-semibold mb-2 text-foreground">
-                    {step.title}
-                  </h3>
-                  <p className="text-muted-foreground">{step.description}</p>
-                </div>
-              </motion.div>
-            ))}
+          
 
             {/* If no process data is available, show a default process */}
-            {(!service.process || service.process.length === 0) && (
+           
               <>
                 <motion.div
                   className="flex items-start gap-6 mb-12 relative"
@@ -1094,7 +1088,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                   </div>
             </motion.div>
               </>
-            )}
+           
           </div>
         </div>
       </section>

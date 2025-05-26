@@ -43,7 +43,7 @@ export default function TermsOfService() {
   ];
 
   // Scroll to section function
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -159,7 +159,7 @@ export default function TermsOfService() {
                       <h2 className="text-2xl font-bold">Introduction</h2>
                     </div>
                     <p>
-                      Welcome to Academic Help Services. These Terms of Service ("Terms") govern your access to and use of our website, products, and services. By accessing or using our services, you agree to be bound by these Terms and our Privacy Policy.
+                      Welcome to Academic Help Services. These Terms of Service &quot;Terms&quot; govern your access to and use of our website, products, and services. By accessing or using our services, you agree to be bound by these Terms and our Privacy Policy.
                     </p>
                     <div className="p-4 my-4 border border-primary/20 rounded-lg bg-primary/5">
                       <p className="text-foreground mb-0 font-medium">
@@ -178,25 +178,25 @@ export default function TermsOfService() {
                     <p>In these Terms:</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                       <div className="bg-card/80 backdrop-blur-sm border border-primary/10 rounded-lg p-4 hover:shadow-md transition-shadow duration-300">
-                        <div className="font-medium text-primary">"Services"</div>
+                        <div className="font-medium text-primary">&quot;Services&quot;</div>
                         <p className="text-muted-foreground text-sm mt-1">
                           Refers to all products, services, content, features, technologies, or functions offered by Academic Help Services.
                         </p>
                       </div>
                       <div className="bg-card/80 backdrop-blur-sm border border-primary/10 rounded-lg p-4 hover:shadow-md transition-shadow duration-300">
-                        <div className="font-medium text-primary">"You" or "User"</div>
+                        <div className="font-medium text-primary">&quot;You&quot; or &quot;User&quot;</div>
                         <p className="text-muted-foreground text-sm mt-1">
                           Refers to the individual or entity that accesses or uses our Services.
                         </p>
                       </div>
                       <div className="bg-card/80 backdrop-blur-sm border border-primary/10 rounded-lg p-4 hover:shadow-md transition-shadow duration-300">
-                        <div className="font-medium text-primary">"Content"</div>
+                        <div className="font-medium text-primary">&quot;Content&quot;</div>
                         <p className="text-muted-foreground text-sm mt-1">
                           Refers to any text, data, information, images, videos, materials, or other content provided through our Services.
                         </p>
                       </div>
                       <div className="bg-card/80 backdrop-blur-sm border border-primary/10 rounded-lg p-4 hover:shadow-md transition-shadow duration-300">
-                        <div className="font-medium text-primary">"Academic Materials"</div>
+                        <div className="font-medium text-primary">&quot;Academic Materials&quot;</div>
                         <p className="text-muted-foreground text-sm mt-1">
                           Refers to essays, research papers, homework solutions, or other academic content delivered through our Services.
                         </p>
@@ -235,7 +235,7 @@ export default function TermsOfService() {
                     <div className="space-y-3 mt-4">
                       {[
                         "Submit any Academic Materials we provide as your own work without proper attribution",
-                        "Use our Services to engage in academic dishonesty or violate any academic institution's honor code or policies",
+                        "Use our Services to engage in academic dishonesty or violate any academic institution&apos;s honor code or policies",
                         "Distribute, publish, or sell any Academic Materials received through our Services",
                         "Use our Services for any illegal or unauthorized purpose",
                         "Attempt to access areas of our Services or systems that you are not authorized to access"
@@ -328,7 +328,7 @@ export default function TermsOfService() {
                     </div>
                     <div className="p-4 bg-card/70 backdrop-blur-sm rounded-lg border border-primary/20 font-medium">
                       <p>
-                        OUR SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT ANY WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+                        OUR SERVICES ARE PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; WITHOUT ANY WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
                       </p>
                       <p className="m-0">
                         WE DO NOT GUARANTEE THAT OUR SERVICES WILL MEET YOUR REQUIREMENTS, BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE.
@@ -373,7 +373,7 @@ export default function TermsOfService() {
                       <h2 className="text-2xl font-bold">Indemnification</h2>
                     </div>
                     <p>
-                      You agree to indemnify, defend, and hold harmless Academic Help Services, its directors, officers, employees, agents, and affiliates from and against any and all claims, liabilities, damages, losses, costs, expenses, or fees (including reasonable attorneys' fees) that such parties may incur as a result of or arising from your violation of these Terms.
+                      You agree to indemnify, defend, and hold harmless Academic Help Services, its directors, officers, employees, agents, and affiliates from and against any and all claims, liabilities, damages, losses, costs, expenses, or fees (including reasonable attorneys&apos; fees) that such parties may incur as a result of or arising from your violation of these Terms.
                     </p>
                   </motion.section>
                   
@@ -408,7 +408,7 @@ export default function TermsOfService() {
                       <h2 className="text-2xl font-bold">Changes to Terms</h2>
                     </div>
                     <p>
-                      We reserve the right to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.
+                      We reserve the right to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days&apos; notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.
                     </p>
                     <p>
                       By continuing to access or use our Services after those revisions become effective, you agree to be bound by the revised Terms.

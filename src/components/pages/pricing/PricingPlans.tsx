@@ -62,7 +62,7 @@ export default function PricingPlans({ initialPlans = [] }: PricingPlansProps) {
   const getIconComponent = (iconName?: string) => {
     if (!iconName) return null;
     
-    // @ts-ignore - dynamic icon name
+    //@ts-expect-error dynamic icon name
     const IconComponent = Icons[iconName];
     
     if (IconComponent) {
@@ -257,8 +257,7 @@ export default function PricingPlans({ initialPlans = [] }: PricingPlansProps) {
                         color: '#ffffff'
                       } : plan.color ? { 
                         borderColor: `${plan.color}50`,
-                        color: plan.color,
-                        '&:hover': { borderColor: plan.color, backgroundColor: `${plan.color}10` }
+                        color: plan.color
                       } : {}}
                     >
                       <span className="relative font-medium">{plan.ctaText || "Get Started"}</span>
@@ -269,7 +268,7 @@ export default function PricingPlans({ initialPlans = [] }: PricingPlansProps) {
                 <div className="bg-gradient-to-br from-card/90 to-card/50 dark:from-card/80 dark:to-card/40 px-8 py-6 border-t border-primary/20 dark:border-primary/30"
                      style={plan.color ? { borderColor: `${plan.color}20` } : {}}>
                   <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-foreground/80">
-                    What's included
+                    What&apos;s included
                   </h4>
                   
                   <ul className="space-y-3">

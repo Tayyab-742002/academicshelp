@@ -30,7 +30,7 @@ const Header = () => {
         setLoading(false);
       }
     }
-    
+
     loadServices();
   }, []);
 
@@ -101,19 +101,6 @@ const Header = () => {
     },
   };
 
-  const serviceItemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 24,
-      },
-    },
-  };
-
   return (
     <motion.header
       className={`fixed top-0 left-0 w-full z-50  ${
@@ -129,7 +116,7 @@ const Header = () => {
         damping: 20,
       }}
     >
-      <ScrollProgress className="top-[65px] md:top-[80px] bg-[#EC705E]" />
+      <ScrollProgress className="top-[65px] md:top-[80px] bg-accent" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -140,21 +127,19 @@ const Header = () => {
             transition={{ duration: 0.5 }}
           >
             <Link href="/" className="group flex items-center gap-2">
-              <div className="relative h-10 w-10 overflow-hidden rounded-full bg-gradient-to-tr from-primary to-accent p-0.5 transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/20">
-                <div className="absolute inset-0 rounded-full bg-gray-50 dark:bg-gray-950 m-[2px] flex items-center justify-center">
-                  <motion.div
-                    animate={{ rotate: theme === "dark" ? 360 : 0 }}
-                    transition={{ duration: 0.6, ease: "easeInOut" }}
-                  >
-                    <Image
-                      src="/logo.svg"
-                      alt="Academic Assist Logo"
-                      width={30}
-                      height={30}
-                      className="object-contain"
-                    />
-                  </motion.div>
-                </div>
+              <div className="relative  overflow-hidden rounded-full transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/20">
+                <motion.div
+                  animate={{ rotate: theme === "dark" ? 360 : 0 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                >
+                  <Image
+                    src="images/Logo.svg"
+                    alt="Academic Assist Logo"
+                    width={45}
+                    height={45}
+                    className="object-contain"
+                  />
+                </motion.div>
               </div>
               <span className="font-bold text-xl">
                 <span className="text-primary">Academic</span>

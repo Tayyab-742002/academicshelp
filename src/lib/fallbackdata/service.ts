@@ -315,7 +315,16 @@ export interface Service {
   icon?: string;
   category: string;
   shortDescription: string;
-  fullDescription: any[];
+  fullDescription?: {
+    _type: string;
+    style: string;
+    _key: string;
+    children: {
+      _type: string;
+      text: string;
+    }[];
+    markDefs: unknown[];
+  }[];
   features?: string[];
   featured: boolean;
   mainImage?: {
@@ -336,8 +345,26 @@ export interface Service {
   }[];
   faqs: {
     question: string;
-    answer: any[];
+    answer: {
+      _type: string;
+      style: string;
+      _key: string;
+      children: {
+        _type: string;
+        text: string;
+      }[];
+      markDefs: unknown[];
+    }[];
   }[];
   order: number;
-  sampleWorks?: any[];
+  sampleWorks?: {
+    title: string;
+    description?: string;
+    image?: {
+      asset: {
+        url: string;
+      };
+    };
+    fileUrl?: string;
+  }[];
 }

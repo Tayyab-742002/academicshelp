@@ -40,7 +40,7 @@ export default function TeamSection() {
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">Michael Chen</h3>
               <p className="text-blue-600 dark:text-blue-400 mb-2">Technical Lead</p>
               <p className="text-gray-600 dark:text-gray-300">
-                Master's in Computer Science with expertise in educational technology and online learning platforms.
+                Master&apos;s in Computer Science with expertise in educational technology and online learning platforms.
               </p>
             </div>
           </div>
@@ -57,7 +57,7 @@ export default function TeamSection() {
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">Emily Rodriguez</h3>
               <p className="text-blue-600 dark:text-blue-400 mb-2">Student Support Manager</p>
               <p className="text-gray-600 dark:text-gray-300">
-                Bachelor's in Psychology with extensive experience in student counseling and academic support.
+                Bachelor&apos;s in Psychology with extensive experience in student counseling and academic support.
               </p>
             </div>
           </div>

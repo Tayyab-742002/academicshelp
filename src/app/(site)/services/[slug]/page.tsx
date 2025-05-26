@@ -3,15 +3,14 @@ import { notFound } from "next/navigation";
 import { getServiceBySlug, getServices } from "@/lib/services";
 import ServiceDetailPage from "@/components/pages/services/ServiceDetailPage";
 
-type Props = {
-  params: {
-    slug: string;
-  };
-};
+interface PageProps {
+  params: Promise<{slug: string}>;
+}
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const service = await getServiceBySlug(params.slug);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const service = await getServiceBySlug(slug);
 
   if (!service) {
     return {
@@ -40,8 +39,11 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function ServicePage({ params }: Props) {
-  const service = await getServiceBySlug(params.slug);
+export default async function ServicePage({ params }: PageProps) {
+
+  const {slug} = await params;
+
+  const service = await getServiceBySlug(slug);
 
   if (!service) {
     notFound();

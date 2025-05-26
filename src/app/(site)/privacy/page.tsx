@@ -41,7 +41,7 @@ export default function PrivacyPolicy() {
   ];
 
   // Scroll to section function
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -321,7 +321,7 @@ export default function PrivacyPolicy() {
                       ))}
                     </div>
                     <p className="mt-4">
-                      To exercise these rights, please contact us using the information provided in the "Contact Us" section below.
+                      To exercise these rights, please contact us using the information provided in the &quot;Contact Us&quot; section below.
                     </p>
                   </motion.section>
                   
@@ -343,7 +343,7 @@ export default function PrivacyPolicy() {
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
                         <User className="h-5 w-5 text-primary" />
                       </div>
-                      <h2 className="text-2xl font-bold">Children's Privacy</h2>
+                      <h2 className="text-2xl font-bold">Children&apos;s Privacy</h2>
                     </div>
                     <p>
                       Our services are not intended for individuals under the age of 16. We do not knowingly collect personal information from children under 16. If we become aware that we have collected personal information from a child under 16, we will take steps to delete that information.
@@ -370,7 +370,7 @@ export default function PrivacyPolicy() {
                       <h2 className="text-2xl font-bold">Changes to This Privacy Policy</h2>
                     </div>
                     <p>
-                      We may update this Privacy Policy from time to time. The updated version will be indicated by an updated "Last Updated" date at the top of this page. We encourage you to review this Privacy Policy periodically for any changes.
+                      We may update this Privacy Policy from time to time. The updated version will be indicated by an updated &quot;Last Updated&quot; date at the top of this page. We encourage you to review this Privacy Policy periodically for any changes.
                     </p>
                   </motion.section>
                   

@@ -28,7 +28,14 @@ export async function getTestimonials(): Promise<Testimonial[]> {
     `);
 
     // Process image URLs if needed
-    return testimonials.map((testimonial: any) => ({
+    return testimonials.map((testimonial: {
+      image: {
+        asset: {
+          _ref: string;
+          url: string;
+        };
+      };
+    }) => ({
       ...testimonial,
       image: testimonial.image
         ? {

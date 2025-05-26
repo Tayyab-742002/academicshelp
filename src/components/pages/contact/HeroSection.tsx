@@ -1,30 +1,10 @@
 "use client";
 
 import AnimatedHero from "@/components/ui/animated-hero";
-import { motion } from "framer-motion";
-import Link from "next/link";
+
 
 export default function HeroSection() {
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.1,
-      },
-    },
-  };
 
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-    },
-  };
 
   return (
    
