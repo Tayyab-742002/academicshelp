@@ -3,13 +3,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useTheme } from "next-themes";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
   const footerRef = useRef<HTMLElement>(null);
   const [particles, setParticles] = useState<{ left: string; top: string; animY: number; duration: number; delay: number }[]>([]);
   const [isClient, setIsClient] = useState(false);
@@ -198,7 +197,7 @@ const Footer = () => {
            <Link href="/" className="group flex items-center gap-2">
               <div className="relative  overflow-hidden rounded-full transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/20">
                 <motion.div
-                  animate={{ rotate: theme === "dark" ? 360 : 0 }}
+                  // animate={{ rotate: theme === "dark" ? 360 : 0 }}
                   transition={{ duration: 0.6, ease: "easeInOut" }}
                 >
                   <Image

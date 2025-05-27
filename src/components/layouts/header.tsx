@@ -129,7 +129,7 @@ const Header = () => {
             <Link href="/" className="group flex items-center gap-2">
               <div className="relative  overflow-hidden rounded-full transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/20">
                 <motion.div
-                  animate={{ rotate: theme === "dark" ? 360 : 0 }}
+                  // animate={{ rotate: theme === "dark" ? 360 : 0 }}
                   transition={{ duration: 0.6, ease: "easeInOut" }}
                 >
                   <Image
@@ -204,7 +204,7 @@ const Header = () => {
                   <AnimatePresence>
                     {isServicesOpen && activeDropdown === idx && (
                       <motion.div
-                        className="absolute left-0 top-full mt-2 w-[550px] rounded-xl overflow-hidden bg-card/70 dark:bg-card/70 shadow-lg shadow-black/10 dark:shadow-black/20 border border-gray-200 dark:border-gray-800 z-50"
+                        className="absolute left-0 top-full mt-2 w-[550px] rounded-xl overflow-hidden bg-card/90 dark:bg-card/90 shadow-lg shadow-black/10 dark:shadow-black/20 border border-gray-200 dark:border-gray-800 z-50"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
@@ -289,7 +289,7 @@ const Header = () => {
             {/* Theme toggle */}
             <motion.button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-full p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              className="rounded-full p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-card transition-colors duration-200 cursor-pointer"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle theme"
@@ -308,7 +308,7 @@ const Header = () => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-yellow-400"
+                      className="text-accent"
                       initial={{ opacity: 0, rotate: -90 }}
                       animate={{ opacity: 1, rotate: 0 }}
                       exit={{ opacity: 0, rotate: 90 }}
@@ -351,17 +351,16 @@ const Header = () => {
             {/* CTA Button */}
             <div className="hidden md:block">
               <motion.button
-                className="relative inline-flex h-10 overflow-hidden rounded-full bg-gradient-to-r from-accent to-accent px-6 py-0 font-medium text-white shadow-md transition-all duration-300 hover:shadow-lg"
+                className="relative cursor-pointer inline-flex h-10 overflow-hidden rounded-full bg-gradient-to-r from-accent to-accent px-6 py-0 font-medium text-white shadow-md transition-all duration-300 hover:shadow-lg"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
-                <span className="relative z-10 flex h-full items-center justify-center">
+                <Link
+                  href="/contact"
+                  className="relative z-10 flex h-full items-center justify-center"
+                >
                   Get Quote
-                </span>
-                <motion.span
-                  className="absolute inset-0 -z-10 bg-gradient-to-r from-primary/80 to-accent/80 opacity-0"
-                  whileHover={{ opacity: 1 }}
-                />
+                </Link>
               </motion.button>
             </div>
 
