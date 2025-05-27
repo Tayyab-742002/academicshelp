@@ -154,13 +154,6 @@ export function AnimatedHero({
             variants={itemVariants}
           >
             <Link href={primaryCtaLink}>
-              <BorderBeam
-                duration={20}
-                className="relative"
-                containerClassName="bg-background dark:bg-background"
-                size={1}
-                delay={2}
-              >
                 <motion.div
                   className="px-8 py-4 rounded-xl bg-primary text-primary-foreground font-medium text-center transition-all duration-200 shadow-lg shadow-primary/20 inline-block"
                   whileHover={{ scale: 1.03 }}
@@ -179,12 +172,12 @@ export function AnimatedHero({
                     </motion.span>
                   </span>
                 </motion.div>
-              </BorderBeam>
+             
             </Link>
             
             <Link href={secondaryCtaLink}>
               <motion.div
-                className="px-8 py-4 rounded-xl bg-card border border-primary/30 dark:border-primary/40 text-foreground hover:bg-primary/10 dark:hover:bg-primary/20 font-medium text-center transition-all duration-200 shadow-md inline-block"
+                className="px-8 py-4 rounded-xl bg-card border border-primary/60 dark:border-primary/40 text-foreground hover:bg-primary/10 dark:hover:bg-primary/20 font-medium text-center transition-all duration-200 shadow-md inline-block"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -201,7 +194,7 @@ export function AnimatedHero({
             {benefits.map((benefit, index) => (
               <motion.div
                 key={index}
-                className="flex items-center px-4 py-2 rounded-full bg-card/50 backdrop-blur-sm border border-primary/20 shadow-sm"
+                className="flex items-center px-4 py-2 rounded-full bg-card/50 backdrop-blur-sm border border-primary/40 shadow-sm"
                 variants={itemVariants}
                 custom={index}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
@@ -230,7 +223,7 @@ export function AnimatedHero({
           }}
           // animate="animate"
         >
-          <div className="relative p-4 rounded-2xl bg-card/70 backdrop-blur-md border border-primary/20 dark:border-primary/30 shadow-xl overflow-hidden z-10">
+          <div className="relative p-4 rounded-2xl bg-card/70 backdrop-blur-md border border-primary/50 dark:border-primary/30 shadow-xl overflow-hidden z-10">
         
            
             

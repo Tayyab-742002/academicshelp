@@ -528,19 +528,21 @@ const Header = () => {
                 )
               )}
 
-              <motion.div
-                className="mt-6"
+              <motion.button
+                className="mt-6 w-full"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
+                
               >
-                <button
+                <Link
+                  href="/contact"
                   className="w-full rounded-lg bg-gradient-to-r from-accent to-accent py-3 px-4 font-medium text-white shadow-md"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Get Quote
-                </button>
-              </motion.div>
+                </Link>
+              </motion.button>
             </div>
           </motion.div>
         )}

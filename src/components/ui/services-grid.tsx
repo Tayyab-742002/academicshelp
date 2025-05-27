@@ -193,7 +193,7 @@ export function ServicesGrid({
             initial="hidden"
             animate="visible"
           >
-            <div className="sticky top-24 p-6 bg-card/50 backdrop-blur-sm rounded-xl border border-primary/20 shadow-sm">
+            <div className="sticky top-24 p-6 bg-card/50 backdrop-blur-sm rounded-xl border border-primary/50 shadow-sm">
               <div className="mb-6">
                 <h3 className="text-lg font-medium mb-3">Categories</h3>
                 <div className="space-y-2">
@@ -201,10 +201,10 @@ export function ServicesGrid({
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category)}
-                      className={`w-full px-4 py-2 rounded-lg text-left text-sm font-medium transition-all duration-200 ${
+                      className={`w-full px-4 py-2 rounded-lg text-left text-sm font-medium transition-all duration-200 cursor-pointer ${
                         selectedCategory === category
                           ? "bg-primary text-primary-foreground"
-                          : "bg-card/80 border border-primary/20 hover:border-primary/40"
+                          : "bg-card/80 border border-primary/40 hover:border-primary/60"
                       }`}
                     >
                       {category === "all" ? "All Services" : category.charAt(0).toUpperCase() + category.slice(1)}
@@ -223,7 +223,7 @@ export function ServicesGrid({
                       placeholder="Search services..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 pr-10 py-2 rounded-lg bg-card border border-primary/20 focus:outline-none focus:ring-2 focus:ring-primary/30 w-full text-sm"
+                      className="pl-10 pr-10 py-2 rounded-lg bg-card border border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/30 w-full text-sm"
                     />
                     {searchTerm && (
                       <button
