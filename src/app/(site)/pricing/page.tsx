@@ -13,7 +13,7 @@ export default async function Pricing() {
     <div className="min-h-screen bg-background text-foreground">
       <HeroSection />
       <PricingPlans initialPlans={pricingPlans} />
-      <CustomPricing />
+      {/* <CustomPricing /> */}
       <PricingFAQ />
       <CTASection />
     </div>

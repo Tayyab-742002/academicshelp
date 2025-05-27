@@ -6,6 +6,7 @@ import { getTestimonials } from "@/lib/testimonials";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Testimonial } from "@/lib/fallbackdata/testimonial";
+import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 
 export default function TestimonialsGrid() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -46,29 +47,34 @@ export default function TestimonialsGrid() {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5, 
+        duration: 0.5,
         ease: [0.22, 1, 0.36, 1],
       },
     },
   };
 
   const cardHoverVariants = {
-    rest: { 
+    rest: {
       scale: 1,
       y: 0,
-      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+      boxShadow:
+        "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
     },
-    hover: { 
-      scale: 1.03, 
+    hover: {
+      scale: 1.03,
       y: -10,
-      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-      transition: { type: "spring", stiffness: 400, damping: 17 }
-    }
+      boxShadow:
+        "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      transition: { type: "spring", stiffness: 400, damping: 17 },
+    },
   };
 
   if (loading) {
     return (
-      <section id="testimonials" className="py-16 md:py-24 relative overflow-hidden">
+      <section
+        id="testimonials"
+        className="py-16 md:py-24 relative overflow-hidden"
+      >
         <div className="absolute inset-0 bg-gradient-to-b from-muted/20 to-background dark:from-muted/10 dark:to-background z-0" />
         <div className="container mx-auto px-4 flex justify-center items-center min-h-[400px] relative z-10">
           <div className="flex flex-col items-center gap-4">
@@ -88,7 +94,7 @@ export default function TestimonialsGrid() {
     >
       {/* Enhanced background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-muted/20 to-background dark:from-muted/10 dark:to-background z-0" />
-      
+
       {/* Subtle decorative gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-primary/5 via-accent/5 to-transparent dark:from-primary/10 dark:via-accent/5 dark:to-transparent opacity-60 z-0" />
 
@@ -125,59 +131,72 @@ export default function TestimonialsGrid() {
         >
           <div className="text-center mb-12">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-card/90 backdrop-blur-sm border border-primary/40 text-primary mb-6 shadow-md dark:bg-card/60 dark:border-primary/40">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                />
               </svg>
-              <span className="text-sm font-medium">
-                Student Voices
-              </span>
+              <span className="text-sm font-medium">Student Voices</span>
             </div>
 
-            <motion.h2 
+            <motion.h2
               className="text-3xl md:text-5xl font-bold text-foreground mb-4"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ 
-                opacity: 1, 
+              whileInView={{
+                opacity: 1,
                 y: 0,
-                transition: { 
+                transition: {
                   duration: 0.7,
-                  ease: [0.22, 1, 0.36, 1] 
-                }
+                  ease: [0.22, 1, 0.36, 1],
+                },
               }}
               viewport={{ once: true }}
             >
-              What Our <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary dark:from-primary dark:via-accent dark:to-primary">Students Say</span>
+              What Our{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary dark:from-primary dark:via-accent dark:to-primary">
+                Students Say
+              </span>
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ 
-                opacity: 1, 
+              whileInView={{
+                opacity: 1,
                 y: 0,
-                transition: { 
+                transition: {
                   duration: 0.7,
                   delay: 0.1,
-                  ease: [0.22, 1, 0.36, 1] 
-                }
+                  ease: [0.22, 1, 0.36, 1],
+                },
               }}
               viewport={{ once: true }}
             >
-              Browse through feedback from students at different educational levels who have benefited from our services.
+              Browse through feedback from students at different educational
+              levels who have benefited from our services.
             </motion.p>
-            
+
             {/* Animated decoration */}
-            <motion.div 
+            <motion.div
               className="w-24 h-1 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60 rounded-full mx-auto"
               initial={{ width: 0, opacity: 0 }}
-              whileInView={{ 
-                width: 120, 
+              whileInView={{
+                width: 120,
                 opacity: 1,
-                transition: { 
+                transition: {
                   duration: 0.8,
                   delay: 0.2,
-                  ease: [0.22, 1, 0.36, 1] 
-                }
+                  ease: [0.22, 1, 0.36, 1],
+                },
               }}
               viewport={{ once: true }}
             />
@@ -199,7 +218,7 @@ export default function TestimonialsGrid() {
               custom={index}
               className="relative break-inside-avoid mb-8"
             >
-              <motion.div 
+              <motion.div
                 className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/20 dark:border-primary/30 shadow-lg overflow-hidden transition-all duration-300 h-full"
                 initial="rest"
                 whileHover="hover"
@@ -216,16 +235,17 @@ export default function TestimonialsGrid() {
                     exit={{ opacity: 0 }}
                   />
                 )}
-                
+
                 <div className="p-6 relative z-10">
                   <div className="flex items-center mb-5">
-                    <motion.div 
+                    <motion.div
                       className="relative w-16 h-16 rounded-full overflow-hidden mr-4 ring-2 ring-primary/20 p-0.5"
                       whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
                     >
                       <Image
                         src={
-                          testimonial.image?.asset.url || "/placeholder-avatar.png"
+                          testimonial.image?.asset.url ||
+                          "/placeholder-avatar.png"
                         }
                         alt={testimonial.name}
                         fill
@@ -247,38 +267,47 @@ export default function TestimonialsGrid() {
                       <motion.div
                         key={i}
                         initial={{ opacity: 0, scale: 0 }}
-                        animate={{ 
-                          opacity: 1, 
+                        animate={{
+                          opacity: 1,
                           scale: 1,
-                          transition: { 
+                          transition: {
                             delay: 0.1 * i,
                             duration: 0.3,
-                            type: "spring"
-                          }
+                            type: "spring",
+                          },
                         }}
                       >
                         <Star
                           className={`h-5 w-5 ${
                             i < testimonial.rating
-                              ? "text-yellow-400"
+                              ? "text-accent"
                               : "text-muted-foreground/30"
                           }`}
                           strokeWidth={i < testimonial.rating ? 0 : 1.5}
-                          fill={i < testimonial.rating ? "currentColor" : "none"}
+                          fill={
+                            i < testimonial.rating ? "currentColor" : "none"
+                          }
                         />
                       </motion.div>
                     ))}
                   </div>
 
-                  <p className="text-foreground/90 mb-4 italic text-base">
-                  &quot;{testimonial.quote}&quot;
+                  <p className="text-foreground/90 mb-4 italic text-sm">
+                    &quot;{testimonial.quote}&quot;
                   </p>
 
                   <div className="flex justify-between items-center mt-4 text-sm text-muted-foreground">
                     <span>{new Date().toLocaleDateString()}</span>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/20 text-xs font-medium text-primary">
+                    {/* <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/20 text-xs font-medium text-primary">
                       {testimonial.serviceType?.title || "Other Service"}
-                    </span>
+                    </span> */}
+                    <AnimatedShinyText className="inline-flex items-center justify-center  py-1 transition ease-out  hover:duration-300 !text-[#A97CF8]/80">
+                      <span>
+                        Service -{" "}
+                        {testimonial.serviceType?.title ||
+                          "Other Service"}
+                      </span>
+                    </AnimatedShinyText>
                   </div>
                 </div>
               </motion.div>
@@ -298,39 +327,39 @@ export default function TestimonialsGrid() {
             </p>
           </motion.div>
         )}
-        
+
         {/* Animated decoration at the bottom */}
         <motion.div
           className="flex justify-center mt-16"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ 
-            opacity: 1, 
+          whileInView={{
+            opacity: 1,
             y: 0,
-            transition: { duration: 0.7 }
+            transition: { duration: 0.7 },
           }}
           viewport={{ once: true }}
         >
           <div className="w-24 h-24 rounded-full border-2 border-primary/20 flex items-center justify-center relative">
-            <motion.div 
+            <motion.div
               className="w-16 h-16 rounded-full border-2 border-accent/20 absolute"
-              animate={{ 
+              animate={{
                 rotate: 360,
-                transition: { 
-                  duration: 20, 
-                  ease: "linear", 
-                  repeat: Infinity 
-                }
+                transition: {
+                  duration: 20,
+                  ease: "linear",
+                  repeat: Infinity,
+                },
               }}
             />
-            <motion.div 
+            <motion.div
               className="w-8 h-8 rounded-full bg-gradient-to-r from-primary/30 to-accent/30 absolute"
-              animate={{ 
+              animate={{
                 rotate: -360,
-                transition: { 
-                  duration: 15, 
-                  ease: "linear", 
-                  repeat: Infinity 
-                }
+                transition: {
+                  duration: 15,
+                  ease: "linear",
+                  repeat: Infinity,
+                },
               }}
             />
           </div>
