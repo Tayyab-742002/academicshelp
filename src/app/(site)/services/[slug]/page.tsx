@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getServiceBySlug, getServices } from "@/lib/services";
 import ServiceDetailPage from "@/components/pages/services/ServiceDetailPage";
 import ComingSoonModal from "@/components/common/ComingSoonModal";
+import { Service } from "@/lib/fallbackdata/service";
 
 interface PageProps {
   params: Promise<{slug: string}>;
@@ -57,5 +58,5 @@ export default async function ServicePage({ params }: PageProps) {
     notFound();
   }
 
-  return <ServiceDetailPage service={service} />;
+  return <ServiceDetailPage service={service as Service} />;
 }

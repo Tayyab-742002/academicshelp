@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
-  ChevronDown,
   HelpCircle,
   DollarSign,
   Clock,
@@ -11,7 +10,7 @@ import {
   BookOpen,
   FileQuestion,
 } from "lucide-react";
-import Link from "next/link";
+
 import FAQSchema from "@/components/structured-data/FAQSchema";
 import CTASection from "@/components/common/CTASection";
 import FAQSection from "@/components/ui/faq-accordion";
@@ -26,11 +25,9 @@ interface FaqItem {
 
 export default function FAQsPageContent() {
   const [selectedCategory, setSelectedCategory] = useState<string>("general");
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
-  const toggleFaq = (index: number) => {
-    setOpenFaqIndex(openFaqIndex === index ? null : index);
-  };
+
+
 
   const faqItems: FaqItem[] = [
     // General Questions

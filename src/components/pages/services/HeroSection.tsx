@@ -1,5 +1,5 @@
 import AnimatedHero from "@/components/ui/animated-hero";
-import { ArrowRight, FileQuestion } from "lucide-react";
+import {  FileQuestion } from "lucide-react";
 import React from "react";
 
 const HeroSection = () => {

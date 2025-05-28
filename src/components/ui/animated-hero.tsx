@@ -21,7 +21,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 type AcademicQuote = {
   text: string;
   author: string;
-  LottieAnimation: any;
+  LottieAnimation: React.ReactNode;
   icon: React.ReactNode;
 };
 
@@ -43,7 +43,6 @@ export function AnimatedHero({
 }) {
   const [hovered, setHovered] = useState(false);
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
   
   // Animation cycle duration (in seconds)
   const ANIMATION_CYCLE = 5000; // 5 seconds total cycle
@@ -103,9 +102,6 @@ export function AnimatedHero({
   // Synchronized animation cycle
   useEffect(() => {
     const interval = setInterval(() => {
-      // Start animation
-      setIsAnimating(true);
-      
       // Wait half the cycle to change the quote (when container is at its peak)
       const quoteTimer = setTimeout(() => {
         setCurrentQuoteIndex((prevIndex) => 
@@ -117,7 +113,7 @@ export function AnimatedHero({
     }, ANIMATION_CYCLE);
     
     return () => clearInterval(interval);
-  }, []);
+  }, [ANIMATION_CYCLE, academicQuotes.length]);
 
   const currentQuote = academicQuotes[currentQuoteIndex];
 
@@ -306,7 +302,7 @@ export function AnimatedHero({
                         </div>
                       </div>
                       <p className="text-sm sm:text-base md:text-lg text-muted-foreground italic">
-                        "{currentQuote.text}"
+                      &quot;{currentQuote.text}&quot;
                       </p>
                       <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-right font-medium text-primary">
                         — {currentQuote.author}

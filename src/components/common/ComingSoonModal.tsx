@@ -2,28 +2,24 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Timer, CalendarClock } from "lucide-react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { Timer, CalendarClock } from "lucide-react";
 
 interface ComingSoonModalProps {
+  isVisible?: boolean;
   title?: string;
   message?: string;
   estimatedTime?: string;
-  navigateToHomeOnClose?: boolean;
 }
 
 export function ComingSoonModal({
+  isVisible = true,
   title = "Coming Soon",
   message = "This feature is currently under development and will be available shortly.",
   estimatedTime,
-  navigateToHomeOnClose = true,
 }: ComingSoonModalProps) {
-  const router = useRouter();
-
   return (
     <AnimatePresence>
-      {
+      {isVisible && (
         <div
           className="fixed inset-0 z-40 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm pointer-events-auto"
           aria-modal="true"
@@ -40,8 +36,6 @@ export function ComingSoonModal({
           >
             {/* Modal content */}
             <div className="p-6">
-              {/* Close button */}
-
               {/* Visual indicator */}
               <div className="mb-6 flex justify-center">
                 <motion.div
@@ -96,7 +90,7 @@ export function ComingSoonModal({
             <div className="h-1 w-full bg-gradient-to-r from-primary via-accent to-primary" />
           </motion.div>
         </div>
-      }
+      )}
     </AnimatePresence>
   );
 }

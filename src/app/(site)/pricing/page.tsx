@@ -1,7 +1,6 @@
 import { getPricingPlans } from "@/lib/pricing";
 import { HeroSection } from "@/components/pages/pricing";
 import { PricingPlans } from "@/components/pages/pricing";
-import { CustomPricing } from "@/components/pages/pricing";
 import { PricingFAQ } from "@/components/pages/pricing";
 import { CTASection } from "@/components/pages/pricing";
 import ComingSoonModal from "@/components/common/ComingSoonModal";

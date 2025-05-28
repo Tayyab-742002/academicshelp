@@ -7,7 +7,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Testimonial } from "@/lib/fallbackdata/testimonial";
 import { getFeaturedTestimonials } from "@/lib/testimonials";
 
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 
 export default function TestimonialsSection() {

@@ -11,7 +11,7 @@ import AnimatedTestimonials from "@/components/pages/home/TestimonialsSection";
 import FAQSection from "@/components/ui/faq-accordion";
 import { Service } from "@/lib/fallbackdata/service";
 import TagLine from "@/components/ui/TagLine";
-import { BookOpenIcon, NotebookPen } from "lucide-react";
+import {  NotebookPen } from "lucide-react";
 
 export default function HomePage() {
   const [services, setServices] = useState<Service[]>([]);

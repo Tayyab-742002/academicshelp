@@ -41,7 +41,9 @@ export const FileUpload = ({
 
   const handleFileChange = (newFiles: File[]) => {
     setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-    onChange && onChange([...files, ...newFiles]);
+    if (onChange) {
+      onChange([...files, ...newFiles]);
+    }
   };
 
   const handleClick = () => {
@@ -52,6 +54,8 @@ export const FileUpload = ({
     multiple: true,
     noClick: true,
     onDrop: handleFileChange,
+    maxFiles: maxFiles,
+    maxSize: maxSize * 1024 * 1024, // Convert MB to bytes
     onDropRejected: (error) => {
       console.log(error);
     },
