@@ -1,6 +1,5 @@
 "use client";
 
-import ComingSoonModal from "@/components/common/ComingSoonModal";
 import CTASection from "@/components/common/CTASection";
 import {
   HeroSection,

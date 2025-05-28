@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServiceBySlug, getServices } from "@/lib/services";
 import ServiceDetailPage from "@/components/pages/services/ServiceDetailPage";
-import ComingSoonModal from "@/components/common/ComingSoonModal";
 import { Service } from "@/lib/fallbackdata/service";
 
 interface PageProps {

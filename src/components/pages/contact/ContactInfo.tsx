@@ -6,19 +6,13 @@ import { motion } from "framer-motion";
 import { Facebook, Instagram, Linkedin, Mail, MapPinned, PhoneCall, PhoneOutgoing, Twitter, Globe, MessageSquare } from "lucide-react";
 import { getContactInfo } from "@/lib/contactinfo";
 import Loading from "@/components/common/loading";
-
-// Type for social media links
-interface SocialLink {
-  platform: string;
-  url: string;
-  handle?: string;
-}
+import { ContactInfo as ContactInfoType, SocialMedia, ContactMethod, Email, PhoneNumber, BusinessHour } from "@/types/contact";
 
 // Create a simple cache mechanism to store the contact info
-let contactInfoCache: any = null;
+let contactInfoCache: ContactInfoType | null = null;
 
 export default function ContactInfo() {
-  const [contactInfo, setContactInfo] = useState<any>(contactInfoCache);
+  const [contactInfo, setContactInfo] = useState<ContactInfoType | null>(contactInfoCache);
   const [isLoading, setIsLoading] = useState(!contactInfoCache);
   const [error, setError] = useState<string | null>(null);
 
@@ -89,15 +83,15 @@ export default function ContactInfo() {
   };
 
   // Generate contact methods from Sanity data
-  const getContactMethods = () => {
+  const getContactMethods = (): ContactMethod[] => {
     if (!contactInfo) {
       return [];
     }
 
-    const methods = [];
+    const methods: ContactMethod[] = [];
 
     // Primary email
-    const primaryEmail = contactInfo?.emails?.find((email: any) => email.primary) || contactInfo?.emails?.[0];
+    const primaryEmail = contactInfo?.emails?.find((email: Email) => email.primary) || contactInfo?.emails?.[0];
     if (primaryEmail) {
       methods.push({
         title: primaryEmail.emailType.charAt(0).toUpperCase() + primaryEmail.emailType.slice(1) + " Email",
@@ -108,9 +102,9 @@ export default function ContactInfo() {
     }
 
     // Primary phone
-    const primaryPhone = contactInfo?.phoneNumbers?.find((phone: any) => 
+    const primaryPhone = contactInfo?.phoneNumbers?.find((phone: PhoneNumber) => 
       phone.primary && (phone.phoneType === 'office' || phone.phoneType === 'mobile')
-    ) || contactInfo?.phoneNumbers?.find((phone: any) => 
+    ) || contactInfo?.phoneNumbers?.find((phone: PhoneNumber) => 
       phone.phoneType === 'office' || phone.phoneType === 'mobile'
     );
     
@@ -124,7 +118,7 @@ export default function ContactInfo() {
     }
     
     // Messaging app (WhatsApp, Telegram, etc.)
-    const messagingApp = contactInfo?.phoneNumbers?.find((phone: any) => 
+    const messagingApp = contactInfo?.phoneNumbers?.find((phone: PhoneNumber) => 
       phone.phoneType === 'whatsapp' || phone.phoneType === 'telegram' || phone.phoneType === 'signal'
     );
     
@@ -166,12 +160,12 @@ export default function ContactInfo() {
   const contactMethods = getContactMethods();
 
   // Get social media links from Sanity data
-  const getSocialLinks = (): SocialLink[] => {
+  const getSocialLinks = (): SocialMedia[] => {
     if (!contactInfo?.socialMedia?.length) {
       return [];
     }
     
-    return contactInfo.socialMedia.map((social: any) => ({
+    return contactInfo.socialMedia.map((social: SocialMedia) => ({
       platform: social.platform,
       url: social.url,
       handle: social.handle,
@@ -199,7 +193,7 @@ export default function ContactInfo() {
   // Render a loading state during initial load
   if (isLoading) {
     return (
-     <Loading />
+      <Loading />
     );
   }
 
@@ -319,7 +313,7 @@ export default function ContactInfo() {
               className="flex flex-col items-center"
             >
               <div className="flex justify-center space-x-5">
-                {socialLinks.map((social: SocialLink, i: number) => (
+                {socialLinks.map((social: SocialMedia, i: number) => (
                   <motion.a
                     key={social.platform}
                     href={social.url}
@@ -346,7 +340,7 @@ export default function ContactInfo() {
             >
               <h3 className="text-lg font-semibold mb-3 text-center">Business Hours</h3>
               <div className="grid grid-cols-2 gap-2">
-                {contactInfo.businessHours.map((hours: any) => (
+                {contactInfo.businessHours.map((hours: BusinessHour) => (
                   <div key={hours.day} className="flex justify-between py-1">
                     <span className="font-medium capitalize">{hours.day}:</span>
                     <span className="text-muted-foreground">

@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
+
 import { motion } from "framer-motion";
-import { FileText, ChevronRight, BookOpen, UserPlus, FileCheck, CreditCard, Copyright, AlertTriangle, ShieldAlert, XCircle, RefreshCw, Scale, MailCheck, Feather, Users, BookMarked } from "lucide-react";
-import ComingSoonModal from "@/components/common/ComingSoonModal";
+import { FileText,  FileCheck, CreditCard, Copyright, AlertTriangle, Scale, MailCheck, Feather } from "lucide-react";
+
 
 export default function TermsOfService() {
   const fadeIn = {
@@ -157,7 +157,7 @@ export default function TermsOfService() {
                       Disclaimer
                     </h2>
                     <p className="text-sm font-medium">
-                      OUR SERVICES ARE PROVIDED "AS IS" WITHOUT ANY WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. WE DO NOT GUARANTEE THAT OUR SERVICES WILL BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE.
+                      OUR SERVICES ARE PROVIDED &quot;AS IS&quot; WITHOUT ANY WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. WE DO NOT GUARANTEE THAT OUR SERVICES WILL BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE.
                     </p>
                   </motion.section>
                   

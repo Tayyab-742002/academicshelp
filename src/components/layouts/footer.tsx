@@ -16,6 +16,8 @@ import {
   Globe,
 } from "lucide-react";
 import { getContactInfo } from "@/lib/contactinfo";
+import { ContactInfo as ContactInfoType, Email, PhoneNumber, SocialMedia } from "@/types/contact";
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const footerRef = useRef<HTMLElement>(null);
@@ -29,7 +31,7 @@ const Footer = () => {
     }[]
   >([]);
   const [isClient, setIsClient] = useState(false);
-  const [contactInfo, setContactInfo] = useState<any>(null);
+  const [contactInfo, setContactInfo] = useState<ContactInfoType | null>(null);
 
   // Fetch contact info
   useEffect(() => {
@@ -116,8 +118,7 @@ const Footer = () => {
     const details = [];
 
     // Primary email
-    const primaryEmail =
-      contactInfo?.emails?.[0];
+    const primaryEmail = contactInfo?.emails?.find((email: Email) => email.primary) || contactInfo?.emails?.[0];
     if (primaryEmail) {
       details.push({
         icon: <Mail className="h-5 w-5" />,
@@ -130,9 +131,7 @@ const Footer = () => {
     }
 
     // Primary phone
-    const primaryPhone =
-      contactInfo?.phoneNumbers?.find((phone: any) => phone.primary) ||
-      contactInfo?.phoneNumbers?.[0];
+    const primaryPhone = contactInfo?.phoneNumbers?.find((phone: PhoneNumber) => phone.primary) || contactInfo?.phoneNumbers?.[0];
     if (primaryPhone) {
       details.push({
         icon: <Phone className="h-5 w-5" />,
@@ -145,9 +144,7 @@ const Footer = () => {
     }
 
     // WhatsApp if available
-    const whatsapp = contactInfo?.phoneNumbers?.find(
-      (phone: any) => phone.phoneType === "whatsapp"
-    );
+    const whatsapp = contactInfo?.phoneNumbers?.find((phone: PhoneNumber) => phone.phoneType === "whatsapp");
     if (whatsapp) {
       details.push({
         icon: <MessageCircle className="h-5 w-5" />,
@@ -185,10 +182,10 @@ const Footer = () => {
   const contactDetails = contactInfo ? getContactDetails() : [];
 
   // Get social media links from Sanity
-  const getSocialLinks = () => {
+  const getSocialLinks = (): SocialMedia[] => {
     if (!contactInfo?.socialMedia?.length) return [];
-
-    return contactInfo.socialMedia.map((social: any) => ({
+    
+    return contactInfo.socialMedia.map((social: SocialMedia) => ({
       platform: social.platform,
       url: social.url,
       handle: social.handle,
@@ -327,14 +324,7 @@ const Footer = () => {
             >
               <div className="flex flex-wrap gap-3">
                 {socialLinks.map(
-                  (
-                    social: {
-                      platform: string;
-                      url: string;
-                      handle: string;
-                    },
-                    i: number
-                  ) => (
+                  (social, i) => (
                     <motion.a
                       key={social.platform}
                       href={social.url}

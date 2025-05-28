@@ -3,7 +3,7 @@ import { HeroSection } from "@/components/pages/pricing";
 import { PricingPlans } from "@/components/pages/pricing";
 import { PricingFAQ } from "@/components/pages/pricing";
 import { CTASection } from "@/components/pages/pricing";
-import ComingSoonModal from "@/components/common/ComingSoonModal";
+
 
 export default async function Pricing() {
 

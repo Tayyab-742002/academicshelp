@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
+
 import { motion } from "framer-motion";
-import { Shield, ChevronRight, Info, FileText, Lock, Server, Users, Bell, MailCheck, Globe, Clock, Book, User, Phone, Mail } from "lucide-react";
-import ComingSoonModal from "@/components/common/ComingSoonModal";
+import { Shield, ChevronRight, Info, FileText, Lock, Server, Users,  MailCheck, Phone, Mail } from "lucide-react";
+
 
 export default function PrivacyPolicy() {
   const fadeIn = {
