@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, CheckCircle, AlertTriangle, Loader2, ChevronDown } from "lucide-react";
+import { Send, CheckCircle, AlertTriangle, Loader2, ChevronDown, FileText } from "lucide-react";
 import { getServices } from "@/lib/services";
 import { Service } from "@/lib/fallbackdata/service";
+import { FileUpload } from "./file-upload";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 type FormField = {
@@ -24,10 +25,13 @@ export function ContactForm({
   const [message, setMessage] = useState<FormField>({ value: "", error: "", touched: false });
   const [service, setService] = useState<FormField>({ value: "", error: "", touched: false });
   const [servicesOptions, setServicesOptions] = useState<Service[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [fileError, setFileError] = useState("");
 
   // Form status
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  
   useEffect(() => {
     async function loadServices() {
       try {
@@ -40,6 +44,7 @@ export function ContactForm({
     
     loadServices();
   }, []);
+  
   // Validate an individual field
   const validateField = (field: FormField, fieldName: string): FormField => {
     let error = "";
@@ -84,6 +89,12 @@ export function ContactForm({
       }
     }
     
+    // Check if file is required
+    // For this implementation, we'll make file upload optional
+    if (fileError) {
+      return false;
+    }
+    
     // Check if all required fields are valid
     return (
       !validatedName.error &&
@@ -99,7 +110,7 @@ export function ContactForm({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
     setField: React.Dispatch<React.SetStateAction<FormField>>
   ) => {
-    const {  value } = e.target;
+    const { value } = e.target;
     setField((prev) => ({ ...prev, value, touched: true }));
   };
 
@@ -115,6 +126,12 @@ export function ContactForm({
     }
   };
 
+  // Handle file change
+  const handleFileChange = (files: File[]) => {
+    setUploadedFiles(files);
+    setFileError("");
+  };
+
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,9 +143,20 @@ export function ContactForm({
     // Update status
     setStatus("submitting");
     
-    // Simulate API call with timeout
+    // Create form data for submission
+    const formData = {
+      name: name.value,
+      email: email.value,
+      phone: phone.value,
+      subject: subject.value,
+      message: message.value,
+      service: service.value,
+      files: uploadedFiles
+    };
+    
     try {
       // Simulate API call
+      console.log("Form data to submit:", formData);
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       // If successful
@@ -142,13 +170,14 @@ export function ContactForm({
         setSubject({ value: "", error: "", touched: false });
         setMessage({ value: "", error: "", touched: false });
         setService({ value: "", error: "", touched: false });
+        setUploadedFiles([]);
         setStatus("idle");
       }, 3000);
     } catch (error) {
       // If error
-      setStatus( "error" as FormStatus);
-      console.log(error);
-      setErrorMessage("Something went wrong. Please try again later." );
+      setStatus("error");
+      console.error(error);
+      setErrorMessage("Something went wrong. Please try again later.");
       
       // Reset status after error
       setTimeout(() => {
@@ -225,7 +254,7 @@ export function ContactForm({
                 className={`w-full px-4 py-3 rounded-lg border ${
                   name.error
                     ? "border-red-500 dark:border-red-500"
-                    : "border-gray-300 dark:border-gray-700"
+                    : "border-accent/70"
                 } bg-card focus:outline-none focus:ring-2 focus:ring-primary/50`}
                 placeholder="Your name"
                 disabled={status === "submitting"}
@@ -255,7 +284,7 @@ export function ContactForm({
                 className={`w-full px-4 py-3 rounded-lg border ${
                   email.error
                     ? "border-red-500 dark:border-red-500"
-                    : "border-gray-300 dark:border-gray-700"
+                    : "border-accent/70"
                 } bg-card focus:outline-none focus:ring-2 focus:ring-primary/50`}
                 placeholder="your.email@example.com"
                 disabled={status === "submitting"}
@@ -285,7 +314,7 @@ export function ContactForm({
                 className={`w-full px-4 py-3 rounded-lg border ${
                   phone.error
                     ? "border-red-500 dark:border-red-500"
-                    : "border-gray-300 dark:border-gray-700"
+                    : "border-accent/70"
                 } bg-card focus:outline-none focus:ring-2 focus:ring-primary/50`}
                 placeholder="+1 (555) 123-4567"
                 disabled={status === "submitting"}
@@ -316,7 +345,7 @@ export function ContactForm({
                     className={`w-full px-4 py-3 rounded-lg border appearance-none ${
                       service.error
                         ? "border-red-500 dark:border-red-500"
-                        : "border-gray-300 dark:border-gray-700"
+                        : "border-accent/70"
                     } bg-card focus:outline-none focus:ring-2 focus:ring-primary/50`}
                     disabled={status === "submitting"}
                   >
@@ -357,7 +386,7 @@ export function ContactForm({
                 className={`w-full px-4 py-3 rounded-lg border ${
                   subject.error
                     ? "border-red-500 dark:border-red-500"
-                    : "border-gray-300 dark:border-gray-700"
+                    : "border-accent/70"
                 } bg-card focus:outline-none focus:ring-2 focus:ring-primary/50`}
                 placeholder="How can we help you?"
                 disabled={status === "submitting"}
@@ -386,8 +415,8 @@ export function ContactForm({
                 className={`w-full px-4 py-3 rounded-lg border ${
                   message.error
                     ? "border-red-500 dark:border-red-500"
-                    : "border-gray-300 dark:border-gray-700"
-                } bg-card focus:outline-none focus:ring-2 focus:ring-primary/50 min-h-[120px]`}
+                    : "border-accent/70"
+                } bg-card focus:outline-none focus:ring-2 focus:ring-primary/80 min-h-[120px]`}
                 placeholder="Please provide details about your inquiry..."
                 disabled={status === "submitting"}
               />
@@ -396,12 +425,36 @@ export function ContactForm({
               )}
             </motion.div>
 
+            {/* File Upload */}
+            <motion.div
+              className="relative md:col-span-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+            >
+              <div className="flex items-center mb-1">
+                <label htmlFor="file" className="block text-sm font-medium">
+                  Upload Files <span className="text-gray-500">(Optional)</span>
+                </label>
+                <div className="ml-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs px-2 py-0.5 rounded-full flex items-center">
+                  <FileText className="h-3 w-3 mr-1" />
+                  Supported: PDF, DOC, JPG, PNG
+                </div>
+              </div>
+              <FileUpload 
+                onChange={handleFileChange}
+                maxFiles={3}
+                maxSize={10}
+                acceptedFileTypes=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+              />
+            </motion.div>
+
             {/* Submit button */}
             <motion.div
               className="md:col-span-2 mt-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
+              transition={{ delay: 0.8 }}
             >
               <button
                 type="submit"

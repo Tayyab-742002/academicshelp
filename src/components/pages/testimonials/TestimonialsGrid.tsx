@@ -92,35 +92,7 @@ export default function TestimonialsGrid() {
       ref={sectionRef}
       className="py-16 md:py-24 relative overflow-hidden"
     >
-      {/* Enhanced background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-muted/20 to-background dark:from-muted/10 dark:to-background z-0" />
-
-      {/* Subtle decorative gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-primary/5 via-accent/5 to-transparent dark:from-primary/10 dark:via-accent/5 dark:to-transparent opacity-60 z-0" />
-
-      {/* Animated particles with improved visibility */}
-      <div className="absolute inset-0 opacity-40 dark:opacity-40 z-0">
-        {Array.from({ length: 15 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 rounded-full bg-primary/90 dark:bg-primary/90"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, Math.random() * 100 - 50],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 5 + Math.random() * 10,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-            }}
-          />
-        ))}
-      </div>
-
+   
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
           className="mb-16"
@@ -219,7 +191,7 @@ export default function TestimonialsGrid() {
               className="relative break-inside-avoid mb-8"
             >
               <motion.div
-                className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/20 dark:border-primary/30 shadow-lg overflow-hidden transition-all duration-300 h-full"
+                className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/50 dark:border-primary/30 shadow-lg overflow-hidden transition-all duration-300 h-full"
                 initial="rest"
                 whileHover="hover"
                 variants={cardHoverVariants}
