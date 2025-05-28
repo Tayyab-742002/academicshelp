@@ -6,13 +6,7 @@ import { CTASection } from "@/components/pages/pricing";
 import ComingSoonModal from "@/components/common/ComingSoonModal";
 
 export default async function Pricing() {
-  return(
-    <ComingSoonModal
-      title="Pricing Page"
-      message="This page is currently under construction."
-      estimatedTime="Q3 2025"
-    />
-  )
+
   // Pre-fetch pricing plans to pass as props
   const pricingPlans = await getPricingPlans();
 

@@ -42,13 +42,7 @@ export async function generateStaticParams() {
 }
 
 export default async function ServicePage({ params }: PageProps) {
-  return(
-    <ComingSoonModal
-      title="Service Page"
-      message="This page is currently under construction."
-      estimatedTime="Q3 2025"
-    />
-  )
+
 
   const {slug} = await params;
 

@@ -166,7 +166,7 @@ export function AnimatedHero({
   };
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative  mt-12">
       {/* Main Content */}
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <motion.div
@@ -268,7 +268,7 @@ export function AnimatedHero({
               ease: "easeInOut",
               repeat: Infinity,
               times: [0, 0.5, 1],
-              delay: 0.8, // Delay the floating animation until after initial appearance
+              delay: 0.8, 
             }}
           >
             <div className="relative p-3 sm:p-4 rounded-2xl bg-card/70 backdrop-blur-md border border-primary/50 dark:border-primary/30 shadow-xl overflow-hidden z-10">
@@ -319,7 +319,6 @@ export function AnimatedHero({
               </div>
             </div>
 
-            {/* Decorative floating elements synced with the same animation cycle */}
             <motion.div
               className="absolute -top-4 sm:-top-6 -right-4 sm:-right-6 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg bg-primary/20 dark:bg-primary/30 z-0"
               animate={{
@@ -327,11 +326,11 @@ export function AnimatedHero({
                 scale: [1, 1.1, 1],
               }}
               transition={{
-                duration: ANIMATION_CYCLE / 1000 * 2, // 2x the main animation cycle
+                duration: ANIMATION_CYCLE / 1000 * 2,
                 repeat: Infinity,
                 ease: "easeInOut",
                 times: [0, 0.5, 1],
-                delay: 0.8, // Match the delay with the main animation
+                delay: 0.8, 
               }}
             />
             <motion.div
@@ -340,11 +339,11 @@ export function AnimatedHero({
                 scale: [1, 1.2, 1],
               }}
               transition={{
-                duration: ANIMATION_CYCLE / 1000 * 1.5, // 1.5x the main animation cycle
+                duration: ANIMATION_CYCLE / 1000 * 1.5, 
                 repeat: Infinity,
                 ease: "easeInOut",
                 times: [0, 0.5, 1],
-                delay: 0.8, // Match the delay with the main animation
+                delay: 0.8, 
               }}
             />
           </motion.div>
