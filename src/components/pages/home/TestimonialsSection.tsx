@@ -8,6 +8,7 @@ import { Testimonial } from "@/lib/fallbackdata/testimonial";
 import { getFeaturedTestimonials } from "@/lib/testimonials";
 
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import Loading from "@/components/common/loading";
 
 export default function TestimonialsSection() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -39,13 +40,7 @@ export default function TestimonialsSection() {
   }, []);
 
   if (loading) {
-    return (
-      <section className="py-24 md:py-32 relative overflow-hidden">
-        <div className="container mx-auto px-4 flex justify-center items-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-        </div>
-      </section>
-    );
+    return <Loading />;
   }
 
   // If no featured testimonials, don't render the section

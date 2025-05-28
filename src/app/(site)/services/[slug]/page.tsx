@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServiceBySlug, getServices } from "@/lib/services";
 import ServiceDetailPage from "@/components/pages/services/ServiceDetailPage";
-import ComingSoonModal from "@/components/common/ComingSoonModal";
 import { Service } from "@/lib/fallbackdata/service";
 
 interface PageProps {
@@ -42,13 +41,7 @@ export async function generateStaticParams() {
 }
 
 export default async function ServicePage({ params }: PageProps) {
-  return(
-    <ComingSoonModal
-      title="Service Page"
-      message="This page is currently under construction."
-      estimatedTime="Q3 2025"
-    />
-  )
+
 
   const {slug} = await params;
 

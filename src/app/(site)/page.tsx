@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import AnimatedHero from "@/components/ui/animated-hero";
 import { ServicesGrid } from "@/components/ui/services-grid";
-
 import CTASection from "@/components/common/CTASection";
 import { getServices } from "@/lib/services";
 import AnimatedTestimonials from "@/components/pages/home/TestimonialsSection";

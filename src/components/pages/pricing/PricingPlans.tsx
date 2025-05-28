@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { PricingPlan, getPricingPlans, calculateAnnualPrice } from "@/lib/pricing";
 import { Icons } from "@/components/ui/icons";
+import Loading from "@/components/common/loading";
 
 interface PricingPlansProps {
   initialPlans?: PricingPlan[];
@@ -75,35 +76,7 @@ export default function PricingPlans({ initialPlans = [] }: PricingPlansProps) {
   // Loading skeleton
   if (loading) {
     return (
-      <section id="pricing-plans" className="py-16 md:py-24 relative overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex justify-center mb-16">
-            <div className="bg-card/90 backdrop-blur-sm p-1.5 rounded-full inline-flex animate-pulse w-64 h-12"></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-card/80 rounded-2xl border border-primary/20 shadow-lg overflow-hidden h-96 animate-pulse">
-                <div className="p-8">
-                  <div className="h-6 bg-muted/50 rounded mb-4 w-1/3"></div>
-                  <div className="h-10 bg-muted/50 rounded mb-4 w-1/2"></div>
-                  <div className="h-4 bg-muted/50 rounded mb-2 w-full"></div>
-                  <div className="h-4 bg-muted/50 rounded mb-8 w-2/3"></div>
-                  <div className="h-12 bg-muted/50 rounded w-full"></div>
-                </div>
-                <div className="px-8 py-6 bg-muted/10 border-t border-primary/20">
-                  <div className="h-4 bg-muted/50 rounded mb-4 w-1/2"></div>
-                  {[1, 2, 3, 4].map((j) => (
-                    <div key={j} className="flex items-start mb-3">
-                      <div className="w-5 h-5 rounded-full bg-muted/50 mr-3"></div>
-                      <div className="h-4 bg-muted/50 rounded w-full"></div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Loading />
     );
   }
 

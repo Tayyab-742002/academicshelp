@@ -7,6 +7,7 @@ import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Testimonial } from "@/lib/fallbackdata/testimonial";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
+import Loading from "@/components/common/loading";
 
 export default function TestimonialsGrid() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -71,18 +72,7 @@ export default function TestimonialsGrid() {
 
   if (loading) {
     return (
-      <section
-        id="testimonials"
-        className="py-16 md:py-24 relative overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-muted/20 to-background dark:from-muted/10 dark:to-background z-0" />
-        <div className="container mx-auto px-4 flex justify-center items-center min-h-[400px] relative z-10">
-          <div className="flex flex-col items-center gap-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-            <p className="text-muted-foreground">Loading testimonials...</p>
-          </div>
-        </div>
-      </section>
+      <Loading  />
     );
   }
 
