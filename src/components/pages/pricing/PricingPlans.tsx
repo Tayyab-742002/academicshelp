@@ -109,37 +109,8 @@ export default function PricingPlans({ initialPlans = [] }: PricingPlansProps) {
 
   return (
     <section id="pricing-plans" className="py-16 md:py-24 relative overflow-hidden">
-      {/* Enhanced background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-muted/20 to-background dark:from-muted/10 dark:to-background z-0" />
-      
-      {/* Subtle decorative gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/5 via-accent/5 to-transparent dark:from-primary/10 dark:via-accent/5 dark:to-transparent opacity-60 z-0" />
-      
-      {/* Animated gradient line */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent dark:via-primary/60" />
-      
-      {/* Animated particles */}
-      <div className="absolute inset-0 opacity-40 dark:opacity-40 z-0">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 rounded-full bg-primary/90 dark:bg-primary/90"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, Math.random() * 100 - 50],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 5 + Math.random() * 10,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-            }}
-          />
-        ))}
-      </div>
+
+    
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Billing toggle */}
@@ -197,10 +168,11 @@ export default function PricingPlans({ initialPlans = [] }: PricingPlansProps) {
               className="relative"
               onMouseEnter={() => setHoveredPlan(index)}
               onMouseLeave={() => setHoveredPlan(null)}
+              
             >
               <motion.div 
-                className={`relative bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border ${plan.featured ? 'border-primary/30' : 'border-primary/20 dark:border-primary/30'} shadow-lg overflow-hidden transition-all duration-300 h-full flex flex-col`}
-                style={plan.color ? { borderColor: `${plan.color}30` } : {}}
+                className={`relative bg-gradient-to-br  from-card/95 to-card/80 backdrop-blur-md rounded-2xl  border  ${plan.featured ? 'border-primary/80' : 'border-primary/20 dark:border-primary/20'} shadow-lg overflow-hidden transition-all duration-300 h-full flex flex-col`}
+                // style={plan.color ? { borderColor: `${plan.color}30` } : {}}
                 whileHover={{ 
                   y: -10, 
                   boxShadow: "0 20px 30px -10px rgba(0, 0, 0, 0.1)",
@@ -336,31 +308,7 @@ export default function PricingPlans({ initialPlans = [] }: PricingPlansProps) {
           ))}
         </motion.div>
         
-        <motion.div 
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.7 }}
-        >
-          <p className="text-muted-foreground mb-4">All plans include unlimited revisions and 24/7 support</p>
-          
-          {/* Animated decoration */}
-          <motion.div 
-            className="w-24 h-1 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60 rounded-full mx-auto mt-8"
-            initial={{ width: 0, opacity: 0 }}
-            whileInView={{ 
-              width: 120, 
-              opacity: 1,
-              transition: { 
-                duration: 0.8,
-                delay: 0.2,
-                ease: [0.22, 1, 0.36, 1] 
-              }
-            }}
-            viewport={{ once: true }}
-          />
-        </motion.div>
+       
       </div>
     </section>
   );

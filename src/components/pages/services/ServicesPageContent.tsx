@@ -1,5 +1,6 @@
 "use client";
 
+import CTASection from "@/components/common/CTASection";
 import {
   HeroSection,
   ServicesGrid,
@@ -13,6 +14,7 @@ export default function ServicesPageContent() {
       <ServiceSchema />
       <HeroSection />
       <ServicesGrid />
+      <CTASection />
     
     </div>
   );

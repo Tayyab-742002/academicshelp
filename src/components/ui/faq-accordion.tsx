@@ -9,8 +9,9 @@ interface FAQSectionProps {
     question: string;
     answer: string;
   }[];
+  header?: boolean;
 }
-export default function FAQSection({ faqs }: FAQSectionProps) {
+export default function FAQSection({ faqs, header = true }: FAQSectionProps) {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   
 
@@ -63,25 +64,32 @@ export default function FAQSection({ faqs }: FAQSectionProps) {
           viewport={{ once: true, amount: 0.3 }}
           variants={containerVariants}
         >
-          <motion.div
+          {header &&<motion.div
             variants={itemVariants}
             custom={0}
             className="text-center mb-12"
           >
-            <TagLine
+            {header && (
+              <>
+                <TagLine
+                  tagline="Frequently Asked Questions"
+                  TagLineIcon={<FileQuestion className="h-4 w-4 mr-2" />}
+                />
+              </>
+            )}
             
-              tagline="Frequently Asked Questions"
-              TagLineIcon={<FileQuestion className="h-4 w-4 mr-2" />}
-            />
-            
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Common Questions
-            </h2>
-            
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-              Find answers to the most common questions about our services and support options.
-            </p>
-          </motion.div>
+            {header && (
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Common Questions
+              </h2>
+            )}
+
+            {header && (
+              <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+                Find answers to the most common questions about our services and support options.
+              </p>
+            )}
+          </motion.div>}
           
           <div className="space-y-5">
             {faqs.map((faq, index) => (
@@ -89,10 +97,10 @@ export default function FAQSection({ faqs }: FAQSectionProps) {
                 key={index}
                 variants={itemVariants}
                 custom={index + 1}
-                className="bg-gradient-to-br from-card/95 to-card/70 backdrop-blur-md rounded-xl border border-primary/20 dark:border-primary/30 shadow-md overflow-hidden"
+                className="bg-gradient-to-br from-card/95 to-card/70 backdrop-blur-md rounded-xl border border-primary/20 dark:border-primary/30 shadow-md overflow-hidden "
               >
                 <motion.button
-                  className="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none"
+                  className="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none cursor-pointer"
                   onClick={() => toggleFaq(index)}
                   whileHover={{ backgroundColor: "rgba(var(--primary-rgb), 0.05)" }}
                   whileTap={{ scale: 0.995 }}

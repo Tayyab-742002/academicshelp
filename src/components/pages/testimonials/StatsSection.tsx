@@ -35,8 +35,7 @@ export default function StatsSection() {
       {/* Subtle decorative gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/5 via-accent/5 to-transparent dark:from-primary/10 dark:via-accent/5 dark:to-transparent opacity-60 z-0" />
       
-      {/* Animated gradient line */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent dark:via-primary/60" />
+  
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 
@@ -47,7 +46,7 @@ export default function StatsSection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.div 
-            className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/20 dark:border-primary/30 p-8 text-center shadow-lg"
+            className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/30 dark:border-primary/30 p-8 text-center shadow-lg"
             variants={itemVariants}
             whileHover={{ y: -5, boxShadow: "0 15px 30px -5px rgba(0, 0, 0, 0.1)" }}
             transition={{ type: "spring", stiffness: 400 }}
@@ -60,7 +59,7 @@ export default function StatsSection() {
           </motion.div>
           
           <motion.div 
-            className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/20 dark:border-primary/30 p-8 text-center shadow-lg"
+            className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/30 dark:border-primary/30 p-8 text-center shadow-lg"
             variants={itemVariants}
             whileHover={{ y: -5, boxShadow: "0 15px 30px -5px rgba(0, 0, 0, 0.1)" }}
             transition={{ type: "spring", stiffness: 400 }}
@@ -73,7 +72,7 @@ export default function StatsSection() {
           </motion.div>
           
           <motion.div 
-            className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/20 dark:border-primary/30 p-8 text-center shadow-lg"
+            className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/30 dark:border-primary/30 p-8 text-center shadow-lg"
             variants={itemVariants}
             whileHover={{ y: -5, boxShadow: "0 15px 30px -5px rgba(0, 0, 0, 0.1)" }}
             transition={{ type: "spring", stiffness: 400 }}
@@ -86,7 +85,7 @@ export default function StatsSection() {
           </motion.div>
           
           <motion.div 
-            className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/20 dark:border-primary/30 p-8 text-center shadow-lg"
+            className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/30 dark:border-primary/30 p-8 text-center shadow-lg"
             variants={itemVariants}
             whileHover={{ y: -5, boxShadow: "0 15px 30px -5px rgba(0, 0, 0, 0.1)" }}
             transition={{ type: "spring", stiffness: 400 }}

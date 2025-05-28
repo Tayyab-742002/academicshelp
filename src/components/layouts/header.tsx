@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ScrollProgress } from "../magicui/scroll-progress";
 import { getServices } from "@/lib/services";
 import type { Service } from "@/lib/fallbackdata/service";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -17,6 +18,20 @@ const Header = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  // Check if a route is active (either exact match or starts with for nested routes)
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return pathname === "/";
+    }
+    return path !== "/" && pathname.startsWith(path);
+  };
+
+  // Check if services route is active
+  const isServicesActive = () => {
+    return pathname.startsWith("/services");
+  };
 
   // Fetch services from Sanity
   useEffect(() => {
@@ -60,7 +75,7 @@ const Header = () => {
     },
     {
       name: "Services",
-      link: "#",
+      link: "/services",
       dropdown: true,
     },
     {
@@ -116,9 +131,9 @@ const Header = () => {
         damping: 20,
       }}
     >
-      <ScrollProgress className="top-[65px] md:top-[80px] bg-accent" />
+      <ScrollProgress className="top-[65px] lg:top-[80px] bg-accent" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <motion.div
             className="flex shrink-0 items-center"
@@ -127,13 +142,13 @@ const Header = () => {
             transition={{ duration: 0.5 }}
           >
             <Link href="/" className="group flex items-center gap-2">
-              <div className="relative  overflow-hidden rounded-full transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/20">
+              <div className="relative overflow-hidden rounded-full transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/20">
                 <motion.div
-                  animate={{ rotate: theme === "dark" ? 360 : 0 }}
+                  // animate={{ rotate: theme === "dark" ? 360 : 0 }}
                   transition={{ duration: 0.6, ease: "easeInOut" }}
                 >
                   <Image
-                    src="images/Logo.svg"
+                    src="/images/Logo.svg"
                     alt="Academic Assist Logo"
                     width={45}
                     height={45}
@@ -148,9 +163,9 @@ const Header = () => {
             </Link>
           </motion.div>
 
-          {/* Desktop navigation */}
+          {/* Desktop navigation - only visible on large screens */}
           <motion.nav
-            className="hidden md:flex  items-center space-x-1 lg:space-x-2"
+            className="hidden lg:flex items-center space-x-1 lg:space-x-2"
             variants={navContainerVariants}
             initial="hidden"
             animate="visible"
@@ -171,14 +186,16 @@ const Header = () => {
                   }}
                 >
                   <button
-                    className="flex items-center space-x-1 px-4 py-2 rounded-full text-gray-800 dark:text-gray-100 font-medium transition-all duration-200"
+                    className={`flex items-center space-x-1 px-4 py-2 rounded-full text-gray-800 dark:text-gray-100 font-medium transition-all duration-200 ${
+                      isServicesActive() ? "bg-primary/10 text-primary dark:text-primary" : ""
+                    }`}
                     onClick={(e) => {
                       e.preventDefault();
                       setIsServicesOpen(!isServicesOpen);
                       setActiveDropdown(isServicesOpen ? null : idx);
                     }}
                   >
-                    <span>{item.name}</span>
+                    <Link href={item.link}>{item.name}</Link>
                     <motion.svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -204,7 +221,7 @@ const Header = () => {
                   <AnimatePresence>
                     {isServicesOpen && activeDropdown === idx && (
                       <motion.div
-                        className="absolute left-0 top-full mt-2 w-[550px] rounded-xl overflow-hidden bg-card/70 dark:bg-card/70 shadow-lg shadow-black/10 dark:shadow-black/20 border border-gray-200 dark:border-gray-800 z-50"
+                        className="absolute left-0 top-full mt-2 w-[550px] rounded-xl overflow-hidden bg-card/90 dark:bg-card/90 shadow-lg shadow-black/10 dark:shadow-black/20 border border-gray-200 dark:border-gray-800 z-50"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
@@ -225,34 +242,47 @@ const Header = () => {
                             </div>
                           ) : services && services.length > 0 ? (
                             <div className="grid grid-cols-2 gap-4">
-                              {services.map((service, serviceIdx) => (
-                                <motion.div
-                                  key={`service-item-${serviceIdx}`}
-                                  initial={{ opacity: 0, y: 10 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{
-                                    delay: 0.05 * serviceIdx,
-                                    duration: 0.2,
-                                  }}
-                                  className="group"
-                                >
-                                  <Link
-                                    href={`/services/${service.slug.current}`}
-                                    onClick={() => {
-                                      setIsServicesOpen(false);
-                                      setActiveDropdown(null);
+                              {services.map((service, serviceIdx) => {
+                                const serviceUrl = `/services/${service.slug.current}`;
+                                const isServiceActive = pathname === serviceUrl;
+                                
+                                return (
+                                  <motion.div
+                                    key={`service-item-${serviceIdx}`}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                      delay: 0.05 * serviceIdx,
+                                      duration: 0.2,
                                     }}
-                                    className="block rounded-lg p-3 hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200"
+                                    className="group"
                                   >
-                                    <div className="font-medium text-gray-800 dark:text-gray-200 group-hover:text-primary dark:group-hover:text-primary transition-colors duration-200">
-                                      {service.title}
-                                    </div>
-                                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                                      {service.shortDescription}
-                                    </p>
-                                  </Link>
-                                </motion.div>
-                              ))}
+                                    <Link
+                                      href={serviceUrl}
+                                      onClick={() => {
+                                        setIsServicesOpen(false);
+                                        setActiveDropdown(null);
+                                      }}
+                                      className={`block rounded-lg p-3 ${
+                                        isServiceActive
+                                          ? "bg-primary/10 dark:bg-primary/20"
+                                          : "hover:bg-primary/5 dark:hover:bg-primary/10"
+                                      } transition-all duration-200`}
+                                    >
+                                      <div className={`font-medium ${
+                                        isServiceActive
+                                          ? "text-primary dark:text-primary"
+                                          : "text-gray-800 dark:text-gray-200 group-hover:text-primary dark:group-hover:text-primary"
+                                      } transition-colors duration-200`}>
+                                        {service.title}
+                                      </div>
+                                      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                                        {service.shortDescription}
+                                      </p>
+                                    </Link>
+                                  </motion.div>
+                                );
+                              })}
                             </div>
                           ) : (
                             <div className="p-4 text-center text-gray-500">
@@ -271,11 +301,15 @@ const Header = () => {
                 >
                   <Link
                     href={item.link}
-                    className="relative px-4 py-2 rounded-full text-gray-800 dark:text-gray-100 font-medium   group inline-block"
+                    className={`relative px-4 py-2 rounded-full text-gray-800 dark:text-gray-100 font-medium group inline-block ${
+                      isActive(item.link) ? "bg-accent/20 text-primary dark:text-primary" : ""
+                    }`}
                   >
                     <span>{item.name}</span>
                     <motion.span
-                      className="absolute bottom-1.5 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-gradient-to-r bg-accent opacity-0 group-hover:w-1/2 group-hover:opacity-100 transition-all duration-300"
+                      className={`absolute bottom-1.5 left-1/2 h-0.5 -translate-x-1/2 bg-gradient-to-r from-accent to-primary transition-all duration-300 ${
+                        isActive(item.link) ? "" : "w-0 opacity-0 group-hover:w-1/2 group-hover:opacity-100"
+                      }`}
                       transition={{ duration: 0.3 }}
                     />
                   </Link>
@@ -289,7 +323,7 @@ const Header = () => {
             {/* Theme toggle */}
             <motion.button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-full p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              className="rounded-full p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-card transition-colors duration-200 cursor-pointer"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle theme"
@@ -308,7 +342,7 @@ const Header = () => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-yellow-400"
+                      className="text-accent"
                       initial={{ opacity: 0, rotate: -90 }}
                       animate={{ opacity: 1, rotate: 0 }}
                       exit={{ opacity: 0, rotate: 90 }}
@@ -348,25 +382,24 @@ const Header = () => {
               </AnimatePresence>
             </motion.button>
 
-            {/* CTA Button */}
-            <div className="hidden md:block">
+            {/* CTA Button - visible only on large screens */}
+            <div className="hidden lg:block">
               <motion.button
-                className="relative inline-flex h-10 overflow-hidden rounded-full bg-gradient-to-r from-accent to-accent px-6 py-0 font-medium text-white shadow-md transition-all duration-300 hover:shadow-lg"
+                className="relative cursor-pointer inline-flex h-10 overflow-hidden rounded-full bg-gradient-to-r from-accent to-accent px-6 py-0 font-medium text-white shadow-md transition-all duration-300 hover:shadow-lg"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
-                <span className="relative z-10 flex h-full items-center justify-center">
+                <Link
+                  href="/contact"
+                  className="relative z-10 flex h-full items-center justify-center"
+                >
                   Get Quote
-                </span>
-                <motion.span
-                  className="absolute inset-0 -z-10 bg-gradient-to-r from-primary/80 to-accent/80 opacity-0"
-                  whileHover={{ opacity: 1 }}
-                />
+                </Link>
               </motion.button>
             </div>
 
-            {/* Mobile menu button */}
-            <div className="flex md:hidden">
+            {/* Mobile and tablet menu button - visible on anything smaller than large screens */}
+            <div className="flex lg:hidden">
               <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="inline-flex items-center justify-center rounded-md p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none"
@@ -424,11 +457,11 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile menu, show/hide based on menu state */}
+      {/* Mobile and tablet menu - hidden on large screens */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="md:hidden bg-card/80 dark:bg-card/80 border-t border-gray-200 dark:border-gray-800"
+            className="lg:hidden bg-card/80 dark:bg-card/80 border-t border-gray-200 dark:border-gray-800"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -439,7 +472,11 @@ const Header = () => {
                 item.dropdown ? (
                   <div key={`mobile-dropdown-${idx}`}>
                     <motion.button
-                      className="flex w-full items-center justify-between rounded-lg py-3 px-4 text-base font-medium text-gray-800 dark:text-gray-100 hover:bg-primary/10 dark:hover:bg-primary/20"
+                      className={`flex w-full items-center justify-between rounded-lg py-3 px-4 text-base font-medium ${
+                        isServicesActive()
+                          ? "bg-primary/10 text-primary dark:text-primary dark:bg-primary/20"
+                          : "text-gray-800 dark:text-gray-100 hover:bg-primary/10 dark:hover:bg-primary/20"
+                      }`}
                       onClick={() => {
                         setActiveDropdown(activeDropdown === idx ? null : idx);
                       }}
@@ -483,25 +520,34 @@ const Header = () => {
                               <div className="animate-pulse h-4 bg-gray-200 dark:bg-gray-700 rounded w-4/6"></div>
                             </div>
                           ) : services && services.length > 0 ? (
-                            services.map((service, serviceIdx) => (
-                              <motion.div
-                                key={`mobile-service-${serviceIdx}`}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.05 * serviceIdx }}
-                              >
-                                <Link
-                                  href={`/services/${service.slug.current}`}
-                                  className="block py-2 px-3 text-base text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary rounded-md hover:bg-primary/5 dark:hover:bg-primary/10"
-                                  onClick={() => {
-                                    setIsMobileMenuOpen(false);
-                                    setActiveDropdown(null);
-                                  }}
+                            services.map((service, serviceIdx) => {
+                              const serviceUrl = `/services/${service.slug.current}`;
+                              const isServiceActive = pathname === serviceUrl;
+                              
+                              return (
+                                <motion.div
+                                  key={`mobile-service-${serviceIdx}`}
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: 0.05 * serviceIdx }}
                                 >
-                                  {service.title}
-                                </Link>
-                              </motion.div>
-                            ))
+                                  <Link
+                                    href={serviceUrl}
+                                    className={`block py-2 px-3 text-base ${
+                                      isServiceActive
+                                        ? "bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary font-medium rounded-md"
+                                        : "text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary rounded-md hover:bg-primary/5 dark:hover:bg-primary/10"
+                                    }`}
+                                    onClick={() => {
+                                      setIsMobileMenuOpen(false);
+                                      setActiveDropdown(null);
+                                    }}
+                                  >
+                                    {service.title}
+                                  </Link>
+                                </motion.div>
+                              );
+                            })
                           ) : (
                             <div className="py-2 px-3 text-gray-500">
                               No services available
@@ -520,7 +566,11 @@ const Header = () => {
                   >
                     <Link
                       href={item.link}
-                      className="block rounded-lg py-3 px-4 text-base font-medium text-gray-800 dark:text-gray-100 "
+                      className={`block rounded-lg py-3 px-4 text-base font-medium ${
+                        isActive(item.link)
+                          ? "bg-accent/20 dark:bg-accent/20 text-primary dark:text-primary"
+                          : "text-gray-800 dark:text-gray-100"
+                      }`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.name}
@@ -529,19 +579,22 @@ const Header = () => {
                 )
               )}
 
-              <motion.div
-                className="mt-6"
+              <motion.button
+                className="mt-6 w-full"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <button
-                  className="w-full rounded-lg bg-gradient-to-r from-accent to-accent py-3 px-4 font-medium text-white shadow-md"
+                <Link
+                  href="/contact"
+                  className={`w-full rounded-lg bg-gradient-to-r from-accent to-accent py-3 px-4 font-medium text-white shadow-md ${
+                    isActive("/contact") ? "ring-2 ring-primary/30" : ""
+                  }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Get Quote
-                </button>
-              </motion.div>
+                </Link>
+              </motion.button>
             </div>
           </motion.div>
         )}
