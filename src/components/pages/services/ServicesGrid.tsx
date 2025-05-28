@@ -7,6 +7,7 @@ import { getServices } from "@/lib/services";
 import { ArrowRight, FileText, BookOpen, PenTool, FileCheck, Bookmark, HelpCircle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Service } from "@/lib/fallbackdata/service";
+import TagLine from "@/components/ui/TagLine";
 
 // Define a map of icon names to components
 const iconMap: Record<string, LucideIcon> = {
@@ -113,34 +114,7 @@ export default function ServicesGrid() {
       ref={sectionRef} 
       className="py-16 md:py-24 relative overflow-hidden"
     >
-      {/* Enhanced background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-muted/20 to-background dark:from-muted/10 dark:to-background z-0" />
-      
-      {/* Subtle decorative gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-primary/5 via-accent/5 to-transparent dark:from-primary/10 dark:via-accent/5 dark:to-transparent opacity-60 z-0" />
-      
-      {/* Animated particles */}
-      <div className="absolute inset-0 opacity-40 dark:opacity-40 z-0">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 rounded-full bg-primary/90 dark:bg-primary/90"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, Math.random() * 100 - 50],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 5 + Math.random() * 10,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-            }}
-          />
-        ))}
-      </div>
+   
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
@@ -150,42 +124,24 @@ export default function ServicesGrid() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-card/90 backdrop-blur-sm border border-primary/40 text-primary mb-8 shadow-md dark:bg-card/60 dark:border-primary/40">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-              />
-            </svg>
-            <span className="text-sm font-medium">
-              Our Offerings
-            </span>
-          </div>
+         <TagLine
+         tagline="Our Offerings"
+         TagLineIcon={ <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-4 w-4 mr-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+          />
+        </svg>} />
           
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-foreground mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ 
-              opacity: 1, 
-              y: 0,
-              transition: { 
-                duration: 0.7,
-                delay: 0.1,
-                ease: [0.22, 1, 0.36, 1] 
-              }
-            }}
-            viewport={{ once: true }}
-          >
-            Our <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary dark:from-primary dark:via-accent dark:to-primary">Services</span>
-          </motion.h2>
+        
           
           <motion.p 
             className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8"
@@ -237,7 +193,7 @@ export default function ServicesGrid() {
               onMouseLeave={() => setHoveredService(null)}
             >
               <motion.div 
-                className="relative bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/20 dark:border-primary/30 shadow-lg overflow-hidden transition-all duration-300 h-full flex flex-col p-8"
+                className="relative bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/50 dark:border-primary/30 shadow-lg overflow-hidden transition-all duration-300 h-full flex flex-col p-8"
                 whileHover={{ 
                   y: -10, 
                   boxShadow: "0 20px 30px -10px rgba(0, 0, 0, 0.1)",
