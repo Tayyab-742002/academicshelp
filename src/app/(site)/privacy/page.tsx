@@ -3,8 +3,16 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Shield, ChevronRight, Info, FileText, Lock, Server, Users, Bell, MailCheck, Globe, Clock, Book, User, Phone, Mail } from "lucide-react";
+import ComingSoonModal from "@/components/common/ComingSoonModal";
 
 export default function PrivacyPolicy() {
+  return(
+    <ComingSoonModal
+      title="Privacy Policy Page"
+      message="This page is currently under construction."
+      estimatedTime="Q3 2025"
+    />
+  )
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { 

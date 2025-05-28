@@ -3,8 +3,16 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FileText, ChevronRight, BookOpen, UserPlus, FileCheck, CreditCard, Copyright, AlertTriangle, ShieldAlert, XCircle, RefreshCw, Scale, MailCheck, Feather, Users, BookMarked } from "lucide-react";
+import ComingSoonModal from "@/components/common/ComingSoonModal";
 
 export default function TermsOfService() {
+  return(
+    <ComingSoonModal
+      title="Terms of Service Page"
+      message="This page is currently under construction."
+      estimatedTime="Q3 2025"
+    />
+  )
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
