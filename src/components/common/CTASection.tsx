@@ -45,7 +45,7 @@ export default function CTASection({
               transition={{ duration: 0.7, delay: 0.2 }}
             >
               <motion.h2
-                className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+                className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-center md:text-left"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -55,7 +55,7 @@ export default function CTASection({
               </motion.h2>
 
               <motion.p
-                className="text-lg md:text-xl text-muted-foreground mb-8"
+                className="text-lg md:text-xl text-muted-foreground mb-8 text-center md:text-left "
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -65,20 +65,22 @@ export default function CTASection({
               </motion.p>
 
               <motion.div
-                className="flex flex-col sm:flex-row gap-4"
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center md:justify-start"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.5 }}
+
               >
                 <motion.div
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400 }}
+                
                 >
                   <Link
                     href={primaryCtaLink}
-                    className="px-8 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-center transition-all duration-300 shadow-lg shadow-primary/20 dark:shadow-primary/15 inline-block"
+                    className="px-8 py-4 w-[250px] sm:w-auto rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-center transition-all duration-300 shadow-lg shadow-primary/20 dark:shadow-primary/15 inline-block"
                   >
                     {primaryCta}
                   </Link>
@@ -91,7 +93,7 @@ export default function CTASection({
                 >
                   <Link
                     href={secondaryCtaLink}
-                    className="px-8 py-4 rounded-xl bg-card border border-primary/30 dark:border-primary/40 text-foreground hover:bg-primary/10 dark:hover:bg-primary/20 font-medium text-center transition-all duration-300 shadow-md inline-block"
+                    className="px-8 py-4 w-[250px] sm:w-auto rounded-xl bg-card border border-primary/30 dark:border-primary/40 text-foreground hover:bg-primary/10 dark:hover:bg-primary/20 font-medium text-center transition-all duration-300 shadow-md inline-block"
                   >
                     {secondaryCta}
                   </Link>

@@ -28,20 +28,20 @@ export default function ContactInfo() {
         setIsLoading(true);
         setError(null);
         
-        console.log("ContactInfo component: Fetching contact info...");
+        // console.log("ContactInfo component: Fetching contact info...");
         const info = await getContactInfo();
         
         if (info) {
-          console.log("ContactInfo component: Successfully fetched contact info");
+          // console.log("ContactInfo component: Successfully fetched contact info");
           setContactInfo(info);
           contactInfoCache = info; // Cache the data
         } else {
-          console.log("ContactInfo component: No contact info returned");
+          // console.log("ContactInfo component: No contact info returned");
           setError("Unable to load contact information");
         }
       } catch (error) {
-        console.error("Error fetching contact info:", error);
-        setError("Error loading contact information. Please try again later.");
+        // console.error("Error fetching contact info:", error);
+        setError("Error loading contact information. Please try again later. " + error);
       } finally {
         setIsLoading(false);
       }

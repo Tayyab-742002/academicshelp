@@ -198,12 +198,12 @@ export function AnimatedHero({
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+            className="flex flex-col items-center md:px-0 sm:flex-row gap-4 justify-center mb-12"
             variants={itemVariants}
           >
-            <Link href={primaryCtaLink}>
+            <Link href={primaryCtaLink} className="w-[250px] sm:w-auto">
               <motion.div
-                className="px-8 py-4 rounded-xl bg-primary text-primary-foreground font-medium text-center transition-all duration-200 shadow-lg shadow-primary/20 inline-block"
+                className="w-full px-8 py-4 rounded-xl bg-primary text-primary-foreground font-medium text-center transition-all duration-200 shadow-lg shadow-primary/20 inline-block"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
                 onHoverStart={() => setHovered(true)}
@@ -222,9 +222,9 @@ export function AnimatedHero({
               </motion.div>
             </Link>
 
-            <Link href={secondaryCtaLink}>
+            <Link href={secondaryCtaLink} className="w-[250px] sm:w-auto">
               <motion.div
-                className="px-8 py-4 rounded-xl bg-card border border-primary/60 dark:border-primary/40 text-foreground hover:bg-primary/10 dark:hover:bg-primary/20 font-medium text-center transition-all duration-200 shadow-md inline-block"
+                className="w-full px-8 py-4 rounded-xl bg-card border border-primary/60 dark:border-primary/40 text-foreground hover:bg-primary/10 dark:hover:bg-primary/20 font-medium text-center transition-all duration-200 shadow-md inline-block"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -320,7 +320,7 @@ export function AnimatedHero({
             </div>
 
             <motion.div
-              className="absolute -top-4 sm:-top-6 -right-4 sm:-right-6 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg bg-primary/20 dark:bg-primary/30 z-0"
+              className="absolute -top-4 sm:-top-6 -right-1 sm:-right-6 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg bg-primary/20 dark:bg-primary/30 z-0"
               animate={{
                 rotate: [0, 90],
                 scale: [1, 1.1, 1],
