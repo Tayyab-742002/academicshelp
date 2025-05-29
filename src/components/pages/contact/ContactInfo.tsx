@@ -41,7 +41,7 @@ export default function ContactInfo() {
         }
       } catch (error) {
         // console.error("Error fetching contact info:", error);
-        setError("Error loading contact information. Please try again later.");
+        setError("Error loading contact information. Please try again later. " + error);
       } finally {
         setIsLoading(false);
       }
