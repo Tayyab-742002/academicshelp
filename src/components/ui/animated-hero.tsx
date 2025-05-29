@@ -258,7 +258,7 @@ export function AnimatedHero({
           initial="hidden"
           animate="visible"
           variants={itemVariants}
-          className="mt-8 sm:mt-12 md:mt-16 max-w-3xl mx-auto relative"
+          className="mt-8 sm:mt-12 md:mt-16 max-w-3xl mx-auto relative flex flex-col items-center justify-center"
         >
           <motion.div
             className="relative"
@@ -320,7 +320,7 @@ export function AnimatedHero({
             </div>
 
             <motion.div
-              className="absolute -top-4 sm:-top-6 -right-4 sm:-right-6 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg bg-primary/20 dark:bg-primary/30 z-0"
+              className="absolute -top-4 sm:-top-6 -right-1 sm:-right-6 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg bg-primary/20 dark:bg-primary/30 z-0"
               animate={{
                 rotate: [0, 90],
                 scale: [1, 1.1, 1],
