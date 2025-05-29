@@ -21,7 +21,7 @@ export default function HomePage() {
       try {
         const servicesData = await getServices();
         setServices(servicesData);
-        console.log(servicesData);
+        
       } catch (error) {
         console.error("Error fetching services:", error);
       }
