@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-// Generate static paths for all services
+
 export async function generateStaticParams() {
   const services = await getServices();
 
