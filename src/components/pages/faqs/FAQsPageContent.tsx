@@ -26,9 +26,6 @@ interface FaqItem {
 export default function FAQsPageContent() {
   const [selectedCategory, setSelectedCategory] = useState<string>("general");
 
-
-
-
   const faqItems: FaqItem[] = [
     // General Questions
     {
@@ -42,7 +39,7 @@ export default function FAQsPageContent() {
       id: 2,
       question: "How do I place an order?",
       answer:
-        "To place an order, simply navigate to the specific service page you're interested in, fill out the order form with your requirements, and proceed to checkout. You can also contact our customer support team for assistance with placing your order.",
+        "To place an order, simply fill out the contact form and send us your requirements. We will get back to you within 24 hours to discuss your order and provide a personalized quote.",
       category: "general",
     },
     {
@@ -70,9 +67,9 @@ export default function FAQsPageContent() {
     },
     {
       id: 6,
-      question: "What payment methods do you accept?",
+      question: "What is the minimum order amount?",
       answer:
-        "We accept major credit and debit cards, including Visa, MasterCard, American Express, and Discover. All payments are processed securely through industry-standard encryption and secure payment gateways.",
+        "The minimum order amount varies depending on the service and complexity. For most services, the minimum order amount is $10. However, for complex projects like dissertations or research papers, the minimum order amount may be higher. Please contact our customer support team for more information.",
       category: "pricing",
     },
     {
@@ -100,9 +97,9 @@ export default function FAQsPageContent() {
     },
     {
       id: 10,
-      question: "Can I communicate with my writer?",
+      question: "what if i need to cancel my order?",
       answer:
-        "Yes, you can communicate with your assigned writer through our messaging system. This allows you to provide additional information, ask questions, and receive updates on the progress of your assignment.",
+        "You can cancel your order at any time before the task is assigned. If the task has already been assigned, you can request a refund through our refund policy.",
       category: "process",
     },
     {
@@ -323,7 +320,6 @@ export default function FAQsPageContent() {
                 {categories.find((cat) => cat.id === selectedCategory)?.name}
               </h2>
               <FAQSection faqs={filteredFaqs} header={false} />
-              
             </motion.div>
           </motion.div>
         </div>
