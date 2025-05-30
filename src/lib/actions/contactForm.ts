@@ -15,121 +15,7 @@ const ContactFormSchema = z.object({
 
 export type ContactFormData = z.infer<typeof ContactFormSchema>;
 
-// Define attachment type
-type FileAttachment = {
-  name: string;
-  type: string;
-  content: string;
-};
-
-// Helper function to chunk the request if needed
-const sendFormData = async (
-  apiUrl: string,
-  validatedData: z.infer<typeof ContactFormSchema>,
-  fileAttachments: FileAttachment[] = []
-) => {
-  // Maximum payload size (approximately 4MB to be safe)
-  const MAX_PAYLOAD_SIZE = 4 * 1024 * 1024; 
-  
-  // If no attachments or small payload, send normally
-  if (fileAttachments.length === 0) {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...validatedData,
-        attachments: [],
-      }),
-    });
-    
-    return await response.json();
-  }
-
-  // For requests with attachments, calculate payload size
-  // Estimate the size of the JSON payload (rough approximation)
-  const baseDataSize = JSON.stringify({
-    ...validatedData,
-    attachments: [],
-  }).length;
-  
-  // Check if we need to split the attachments
-  const needsChunking = fileAttachments.some(attachment => {
-    // Base64 encoding adds approximately 33% overhead
-    const estimatedSize = (attachment.content.length * 4/3) + 
-                          attachment.name.length + 
-                          attachment.type.length + 50; // 50 for JSON formatting
-    
-    return baseDataSize + estimatedSize > MAX_PAYLOAD_SIZE;
-  });
-  
-  if (!needsChunking) {
-    // Send all attachments in one request
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...validatedData,
-        attachments: fileAttachments,
-      }),
-    });
-    
-    return await response.json();
-  }
-  
-  // If we need to chunk, send each attachment separately
-  // First send the form data with no attachments
-  const initialResponse = await fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      ...validatedData,
-      attachments: [],
-    }),
-  });
-  
-  if (!initialResponse.ok) {
-    return await initialResponse.json();
-  }
-  
-  // Then send each attachment individually
-  for (const attachment of fileAttachments) {
-    try {
-      await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Attachment-Only': 'true',
-          'X-Original-Subject': validatedData.subject,
-          'X-Sender-Email': validatedData.email,
-        },
-        body: JSON.stringify({
-          name: validatedData.name,
-          email: validatedData.email,
-          subject: `Attachment for: ${validatedData.subject}`,
-          message: `This is an attachment for the message from ${validatedData.name} (${validatedData.email})`,
-          attachments: [attachment],
-        }),
-      });
-    } catch (error) {
-      console.error('Error sending attachment:', error);
-      // Continue with other attachments even if one fails
-    }
-  }
-  
-  // Return success from the initial request
-  return await initialResponse.json();
-};
-
-export async function submitContactForm(
-  formData: ContactFormData, 
-  fileAttachments: FileAttachment[] = []
-) {
+export async function submitContactForm(formData: ContactFormData) {
   try {
     // Validate form data
     const validatedData = ContactFormSchema.parse(formData);
@@ -142,11 +28,20 @@ export async function submitContactForm(
     // Build absolute URL for API endpoint
     const apiUrl = `${protocol}://${host}/api/contact`;
     
-    // Send data to the API route using our helper function
-    const result = await sendFormData(apiUrl, validatedData, fileAttachments);
+    // Send data to the API route
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(validatedData),
+    });
+    
+    // Parse the response
+    const result = await response.json();
     
     // Check if the request was successful
-    if (result.error) {
+    if (!response.ok) {
       throw new Error(result.error || 'Failed to submit contact form');
     }
     

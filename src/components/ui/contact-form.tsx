@@ -8,12 +8,10 @@ import {
   AlertTriangle,
   Loader2,
   ChevronDown,
-  FileText,
   Sparkles,
 } from "lucide-react";
 import { getServices } from "@/lib/services";
 import { Service } from "@/lib/fallbackdata/service";
-import { FileUpload } from "./file-upload";
 import { submitContactForm, ContactFormData } from "@/lib/actions/contactForm";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
@@ -57,8 +55,6 @@ export function ContactForm({ withServicesSelect = true }) {
     touched: false,
   });
   const [servicesOptions, setServicesOptions] = useState<Service[]>([]);
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  const [fileError, setFileError] = useState("");
 
   // Form status
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -170,23 +166,6 @@ export function ContactForm({ withServicesSelect = true }) {
     );
   };
 
-  // Handle file change
-  const handleFileChange = (files: File[]) => {
-    // Calculate total size of all files
-    const totalSize = files.reduce((sum, file) => sum + file.size, 0);
-    const maxTotalSize = 20 * 1024 * 1024; // 20MB in bytes
-
-    if (totalSize > maxTotalSize) {
-      setFileError(
-        `Total file size exceeds the 20MB limit. Please reduce the size or number of files.`
-      );
-      return;
-    }
-
-    setUploadedFiles(files);
-    setFileError("");
-  };
-
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -209,24 +188,8 @@ export function ContactForm({ withServicesSelect = true }) {
     };
 
     try {
-      // Process files (convert to base64) if they exist
-      const fileAttachments = [];
-      if (uploadedFiles.length > 0) {
-        for (const file of uploadedFiles) {
-          try {
-            const attachment = await fileToBase64(file);
-            fileAttachments.push(attachment);
-          } catch (error) {
-            console.error("Error converting file to base64:", error);
-            setStatus("error");
-            setErrorMessage("Error processing file uploads. Please try again.");
-            return;
-          }
-        }
-      }
-
       // Submit form using server action
-      const result = await submitContactForm(formData, fileAttachments);
+      const result = await submitContactForm(formData);
 
       if (result.success) {
         // If successful
@@ -240,7 +203,6 @@ export function ContactForm({ withServicesSelect = true }) {
           setSubject({ value: "", error: "", touched: false });
           setMessage({ value: "", error: "", touched: false });
           setService({ value: "", error: "", touched: false });
-          setUploadedFiles([]);
           setStatus("idle");
         }, 3000);
       } else {
@@ -297,108 +259,6 @@ export function ContactForm({ withServicesSelect = true }) {
         setStatus("idle");
       }, 3000);
     }
-  };
-
-  // Helper to convert File to base64
-  const fileToBase64 = (
-    file: File
-  ): Promise<{ name: string; type: string; content: string }> => {
-    return new Promise((resolve, reject) => {
-      // For image files, compress them first
-      if (file.type.startsWith("image/")) {
-        const img = new Image();
-        const reader = new FileReader();
-        
-        reader.onload = (e) => {
-          if (!e.target?.result) {
-            reject(new Error("Failed to read file"));
-            return;
-          }
-          
-          img.onload = () => {
-            // Create canvas for compression
-            const canvas = document.createElement("canvas");
-            // Max dimensions for the image (reduces file size)
-            const MAX_WIDTH = 1200;
-            const MAX_HEIGHT = 1200;
-            
-            let width = img.width;
-            let height = img.height;
-            
-            // Calculate new dimensions
-            if (width > height) {
-              if (width > MAX_WIDTH) {
-                height *= MAX_WIDTH / width;
-                width = MAX_WIDTH;
-              }
-            } else {
-              if (height > MAX_HEIGHT) {
-                width *= MAX_HEIGHT / height;
-                height = MAX_HEIGHT;
-              }
-            }
-            
-            // Set canvas dimensions
-            canvas.width = width;
-            canvas.height = height;
-            
-            // Draw image on canvas
-            const ctx = canvas.getContext("2d");
-            if (!ctx) {
-              reject(new Error("Failed to get canvas context"));
-              return;
-            }
-            
-            ctx.drawImage(img, 0, 0, width, height);
-            
-            // Get compressed image data (0.7 quality - good balance)
-            const quality = 0.7;
-            const dataUrl = canvas.toDataURL(file.type, quality);
-            
-            // Convert data URL to base64 content
-            const base64Content = dataUrl.split(",")[1];
-            
-            resolve({
-              name: file.name,
-              type: file.type,
-              content: base64Content,
-            });
-          };
-          
-          img.src = e.target.result as string;
-        };
-        
-        reader.onerror = () => {
-          reject(new Error("Error reading file"));
-        };
-        
-        reader.readAsDataURL(file);
-      } else {
-        // For non-image files, use standard base64 conversion
-        const reader = new FileReader();
-        
-        reader.onload = (e) => {
-          if (!e.target?.result) {
-            reject(new Error("Failed to read file"));
-            return;
-          }
-          
-          const base64Content = (e.target.result as string).split(",")[1];
-          
-          resolve({
-            name: file.name,
-            type: file.type,
-            content: base64Content,
-          });
-        };
-        
-        reader.onerror = () => {
-          reject(new Error("Error reading file"));
-        };
-        
-        reader.readAsDataURL(file);
-      }
-    });
   };
 
   return (
@@ -692,34 +552,6 @@ export function ContactForm({ withServicesSelect = true }) {
               />
               {message.error && (
                 <p className="mt-1 text-sm text-red-500">{message.error}</p>
-              )}
-            </motion.div>
-
-            {/* File Upload */}
-            <motion.div
-              className="relative md:col-span-2"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-            >
-              <div className="flex items-center mb-1">
-                <label htmlFor="file" className="block text-sm font-medium">
-                  Upload Files <span className="text-gray-500">(Optional)</span>
-                </label>
-                <div className="ml-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs px-2 py-0.5 rounded-full flex items-center">
-                  <FileText className="h-3 w-3 mr-1" />
-                  Max 20MB total
-                </div>
-              </div>
-              <FileUpload
-                onChange={handleFileChange}
-                maxFiles={3}
-                maxSize={20}
-                maxTotalSize={20}
-                acceptedFileTypes=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-              />
-              {fileError && (
-                <p className="mt-1 text-sm text-red-500">{fileError}</p>
               )}
             </motion.div>
 

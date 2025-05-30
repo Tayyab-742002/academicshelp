@@ -8,7 +8,6 @@ interface ContactFormEmailProps {
   subject: string;
   message: string;
   service?: string;
-  hasAttachments?: boolean;
 }
 
 export const ContactFormEmail = ({
@@ -18,7 +17,6 @@ export const ContactFormEmail = ({
   subject = 'Contact Form Submission',
   message = 'No message provided',
   service = 'Not specified',
-  hasAttachments = false,
 }: ContactFormEmailProps) => {
   return (
     <Html>
@@ -91,14 +89,6 @@ export const ContactFormEmail = ({
             <Section style={messageBox}>
               <Text style={messageText}>{message}</Text>
             </Section>
-            
-            {hasAttachments && (
-              <Section style={attachmentSection}>
-                <Text style={attachmentText}>
-                  📎 This message includes file attachments. Please check the attached files.
-                </Text>
-              </Section>
-            )}
           </Section>
           
           {/* Action section */}
@@ -239,71 +229,59 @@ const messageText = {
   margin: '0',
 };
 
-const attachmentSection = {
-  backgroundColor: '#eff6ff',
-  padding: '12px 16px',
-  borderRadius: '6px',
-  marginTop: '16px',
-  border: '1px solid #bfdbfe',
-};
-
-const attachmentText = {
-  fontSize: '14px',
-  color: '#2563eb',
-  margin: '0',
-};
-
-const ctaSection = {
-  padding: '0 24px 24px',
-  textAlign: 'center' as const,
-};
-
-const ctaText = {
-  fontSize: '16px',
-  color: '#475569',
-  fontStyle: 'italic',
-  margin: '0',
-};
-
-const footer = {
-  backgroundColor: '#f1f5f9',
-  padding: '24px',
-  borderTop: '1px solid #e2e8f0',
-  textAlign: 'center' as const,
-};
-
-const footerText = {
-  fontSize: '14px',
-  color: '#64748b',
-  margin: '0 0 16px',
-};
-
-const footerLinks = {
-  fontSize: '14px',
-  color: '#64748b',
-  margin: '0 0 16px',
-};
-
-const footerLink = {
-  color: '#3b82f6',
-  textDecoration: 'none',
-  margin: '0 8px',
-};
-
-const copyright = {
-  fontSize: '12px',
-  color: '#94a3b8',
-  margin: '0',
-};
-
 const hr = {
   borderColor: '#e2e8f0',
   margin: '16px 0',
 };
 
 const link = {
-  color: '#3b82f6',
+  color: '#0891b2',
   textDecoration: 'none',
+};
+
+const ctaSection = {
+  padding: '24px',
+  textAlign: 'center' as const,
+};
+
+const ctaText = {
+  fontSize: '16px',
+  lineHeight: '24px',
+  color: '#64748b',
+  margin: '0 0 16px',
+};
+
+const footer = {
+  backgroundColor: '#f1f5f9',
+  padding: '24px',
+  textAlign: 'center' as const,
+};
+
+const footerText = {
+  fontSize: '14px',
+  lineHeight: '22px',
+  color: '#64748b',
+  margin: '0 0 16px',
+};
+
+const footerLinks = {
+  fontSize: '14px',
+  lineHeight: '22px',
+  color: '#64748b',
+  margin: '0 0 16px',
+};
+
+const footerLink = {
+  color: '#0891b2',
+  textDecoration: 'none',
+  margin: '0 8px',
+};
+
+const copyright = {
+  fontSize: '12px',
+  lineHeight: '20px',
+  color: '#94a3b8',
+  margin: '0',
 };
 
 export default ContactFormEmail; 

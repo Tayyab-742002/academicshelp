@@ -18,14 +18,10 @@ export async function POST(request: Request) {
   try {
     // Parse the request body
     const body = await request.json();
-    const { name, email, phone, subject, message, service, attachments } = body;
+    const { name, email, phone, subject, message, service } = body;
 
-    // Get headers to check if this is an attachment-only request
-    const headers = request.headers;
-    const isAttachmentOnly = headers.get('X-Attachment-Only') === 'true';
-    
-    // Validate required fields for normal requests
-    if (!isAttachmentOnly && (!name || !email || !message)) {
+    // Validate required fields
+    if (!name || !email || !message) {
       return NextResponse.json(
         { error: 'Name, email, and message are required fields' },
         { status: 400 }
@@ -33,23 +29,10 @@ export async function POST(request: Request) {
     }
 
     // Prepare email options
-    const emailOptions: {
-      from: string;
-      to: string[];
-      subject: string;
-      react: React.ReactNode;
-      attachments?: {
-        filename: string;
-        content: string;
-        encoding: string;
-        type: string;
-      }[];
-    } = {
+    const emailOptions = {
       from: `Contact Form <onboarding@resend.dev>`,
       to: [process.env.TO_EMAIL!],
-      subject: isAttachmentOnly 
-        ? subject 
-        : `New Contact Form Submission: ${subject || 'No Subject'}`,
+      subject: `New Contact Form Submission: ${subject || 'No Subject'}`,
       react: ContactFormEmail({
         name,
         email,
@@ -57,19 +40,9 @@ export async function POST(request: Request) {
         subject: subject || 'No Subject',
         message,
         service: service || 'Not specified',
-        hasAttachments: attachments && attachments.length > 0
+      
       }),
     };
-
-    // Add file attachments if they exist
-    if (attachments && attachments.length > 0) {
-      emailOptions.attachments = attachments.map((attachment: { name: string, content: string, type: string }) => ({
-        filename: attachment.name,
-        content: attachment.content,
-        encoding: 'base64',
-        type: attachment.type,
-      }));
-    }
 
     // Use Resend to send email
     const { data, error } = await resend.emails.send(emailOptions);
