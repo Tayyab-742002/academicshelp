@@ -304,19 +304,100 @@ export function ContactForm({ withServicesSelect = true }) {
     file: File
   ): Promise<{ name: string; type: string; content: string }> => {
     return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const base64 = reader.result as string;
-        // Remove the data URL prefix (e.g., "data:application/pdf;base64,")
-        const content = base64.split(",")[1];
-        resolve({
-          name: file.name,
-          type: file.type,
-          content,
-        });
-      };
-      reader.onerror = (error) => reject(error);
+      // For image files, compress them first
+      if (file.type.startsWith("image/")) {
+        const img = new Image();
+        const reader = new FileReader();
+        
+        reader.onload = (e) => {
+          if (!e.target?.result) {
+            reject(new Error("Failed to read file"));
+            return;
+          }
+          
+          img.onload = () => {
+            // Create canvas for compression
+            const canvas = document.createElement("canvas");
+            // Max dimensions for the image (reduces file size)
+            const MAX_WIDTH = 1200;
+            const MAX_HEIGHT = 1200;
+            
+            let width = img.width;
+            let height = img.height;
+            
+            // Calculate new dimensions
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            }
+            
+            // Set canvas dimensions
+            canvas.width = width;
+            canvas.height = height;
+            
+            // Draw image on canvas
+            const ctx = canvas.getContext("2d");
+            if (!ctx) {
+              reject(new Error("Failed to get canvas context"));
+              return;
+            }
+            
+            ctx.drawImage(img, 0, 0, width, height);
+            
+            // Get compressed image data (0.7 quality - good balance)
+            const quality = 0.7;
+            const dataUrl = canvas.toDataURL(file.type, quality);
+            
+            // Convert data URL to base64 content
+            const base64Content = dataUrl.split(",")[1];
+            
+            resolve({
+              name: file.name,
+              type: file.type,
+              content: base64Content,
+            });
+          };
+          
+          img.src = e.target.result as string;
+        };
+        
+        reader.onerror = () => {
+          reject(new Error("Error reading file"));
+        };
+        
+        reader.readAsDataURL(file);
+      } else {
+        // For non-image files, use standard base64 conversion
+        const reader = new FileReader();
+        
+        reader.onload = (e) => {
+          if (!e.target?.result) {
+            reject(new Error("Failed to read file"));
+            return;
+          }
+          
+          const base64Content = (e.target.result as string).split(",")[1];
+          
+          resolve({
+            name: file.name,
+            type: file.type,
+            content: base64Content,
+          });
+        };
+        
+        reader.onerror = () => {
+          reject(new Error("Error reading file"));
+        };
+        
+        reader.readAsDataURL(file);
+      }
     });
   };
 

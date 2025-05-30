@@ -5,14 +5,27 @@ import ContactFormEmail from '@/components/templates/emailTemplate/ContactFormEm
 // Initialize Resend with API key
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Configure body parser for the API route
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+};
+
 export async function POST(request: Request) {
   try {
     // Parse the request body
     const body = await request.json();
     const { name, email, phone, subject, message, service, attachments } = body;
 
-    // Validate required fields
-    if (!name || !email || !message) {
+    // Get headers to check if this is an attachment-only request
+    const headers = request.headers;
+    const isAttachmentOnly = headers.get('X-Attachment-Only') === 'true';
+    
+    // Validate required fields for normal requests
+    if (!isAttachmentOnly && (!name || !email || !message)) {
       return NextResponse.json(
         { error: 'Name, email, and message are required fields' },
         { status: 400 }
@@ -34,7 +47,9 @@ export async function POST(request: Request) {
     } = {
       from: `Contact Form <onboarding@resend.dev>`,
       to: [process.env.TO_EMAIL!],
-      subject: `New Contact Form Submission: ${subject || 'No Subject'}`,
+      subject: isAttachmentOnly 
+        ? subject 
+        : `New Contact Form Submission: ${subject || 'No Subject'}`,
       react: ContactFormEmail({
         name,
         email,
