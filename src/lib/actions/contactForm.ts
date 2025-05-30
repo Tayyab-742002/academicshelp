@@ -47,6 +47,20 @@ const sendFormData = async (
     return await response.json();
   }
 
+  // Estimate total attachment size
+  let totalAttachmentSize = 0;
+  for (const attachment of fileAttachments) {
+    // Base64 size estimation (4/3 of the base64 length)
+    totalAttachmentSize += Math.ceil(attachment.content.length * 0.75);
+  }
+  
+  // Show warning if total size is over 8MB
+  if (totalAttachmentSize > 8 * 1024 * 1024) {
+    return {
+      error: `Total attachment size (${Math.round(totalAttachmentSize/1024/1024)}MB) exceeds the 8MB limit. Please reduce file sizes.`
+    };
+  }
+
   // For requests with attachments, calculate payload size
   // Estimate the size of the JSON payload (rough approximation)
   const baseDataSize = JSON.stringify({
@@ -66,64 +80,80 @@ const sendFormData = async (
   
   if (!needsChunking) {
     // Send all attachments in one request
-    const response = await fetch(apiUrl, {
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...validatedData,
+          attachments: fileAttachments,
+        }),
+      });
+      
+      if (!response.ok) {
+        if (response.status === 413) {
+          return { error: 'The files you are trying to upload are too large. Please reduce the file size or number of files.' };
+        }
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Error sending contact form:', error);
+      return { error: 'Failed to submit form. The files may be too large.' };
+    }
+  }
+  
+  // If we need to chunk, send each attachment separately
+  // First send the form data with no attachments
+  try {
+    const initialResponse = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         ...validatedData,
-        attachments: fileAttachments,
+        attachments: [],
       }),
     });
     
-    return await response.json();
-  }
-  
-  // If we need to chunk, send each attachment separately
-  // First send the form data with no attachments
-  const initialResponse = await fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      ...validatedData,
-      attachments: [],
-    }),
-  });
-  
-  if (!initialResponse.ok) {
-    return await initialResponse.json();
-  }
-  
-  // Then send each attachment individually
-  for (const attachment of fileAttachments) {
-    try {
-      await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Attachment-Only': 'true',
-          'X-Original-Subject': validatedData.subject,
-          'X-Sender-Email': validatedData.email,
-        },
-        body: JSON.stringify({
-          name: validatedData.name,
-          email: validatedData.email,
-          subject: `Attachment for: ${validatedData.subject}`,
-          message: `This is an attachment for the message from ${validatedData.name} (${validatedData.email})`,
-          attachments: [attachment],
-        }),
-      });
-    } catch (error) {
-      console.error('Error sending attachment:', error);
-      // Continue with other attachments even if one fails
+    if (!initialResponse.ok) {
+      return await initialResponse.json();
     }
+    
+    // Then send each attachment individually
+    for (const attachment of fileAttachments) {
+      try {
+        await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Attachment-Only': 'true',
+            'X-Original-Subject': validatedData.subject,
+            'X-Sender-Email': validatedData.email,
+          },
+          body: JSON.stringify({
+            name: validatedData.name,
+            email: validatedData.email,
+            subject: `Attachment for: ${validatedData.subject}`,
+            message: `This is an attachment for the message from ${validatedData.name} (${validatedData.email})`,
+            attachments: [attachment],
+          }),
+        });
+      } catch (error) {
+        console.error('Error sending attachment:', error);
+        // Continue with other attachments even if one fails
+      }
+    }
+    
+    // Return success from the initial request
+    return await initialResponse.json();
+  } catch (error) {
+    console.error('Error with chunked form submission:', error);
+    return { error: 'Failed to submit form. The files may be too large.' };
   }
-  
-  // Return success from the initial request
-  return await initialResponse.json();
 };
 
 export async function submitContactForm(

@@ -11,8 +11,46 @@ export const config = {
     bodyParser: {
       sizeLimit: '10mb',
     },
+    responseLimit: false,
   },
 };
+
+// Helper function to validate attachment sizes
+function validateAttachments(attachments: any[]) {
+  if (!attachments || !Array.isArray(attachments)) return { valid: true };
+  
+  const MAX_INDIVIDUAL_SIZE = 2 * 1024 * 1024; // 2MB per attachment
+  const MAX_TOTAL_SIZE = 8 * 1024 * 1024; // 8MB total
+  
+  let totalSize = 0;
+  let oversizedAttachments: string[] = [];
+  
+  for (const attachment of attachments) {
+    // Base64 size estimation (4/3 of the base64 length)
+    const estimatedSize = attachment.content ? Math.ceil(attachment.content.length * 0.75) : 0;
+    totalSize += estimatedSize;
+    
+    if (estimatedSize > MAX_INDIVIDUAL_SIZE) {
+      oversizedAttachments.push(attachment.name);
+    }
+  }
+  
+  if (oversizedAttachments.length > 0) {
+    return {
+      valid: false,
+      error: `Some attachments exceed the 2MB limit: ${oversizedAttachments.join(', ')}`
+    };
+  }
+  
+  if (totalSize > MAX_TOTAL_SIZE) {
+    return {
+      valid: false,
+      error: `Total attachment size (${Math.round(totalSize/1024/1024)}MB) exceeds the 8MB limit`
+    };
+  }
+  
+  return { valid: true };
+}
 
 export async function POST(request: Request) {
   try {
@@ -30,6 +68,17 @@ export async function POST(request: Request) {
         { error: 'Name, email, and message are required fields' },
         { status: 400 }
       );
+    }
+    
+    // Validate attachments if present
+    if (attachments && attachments.length > 0) {
+      const validation = validateAttachments(attachments);
+      if (!validation.valid) {
+        return NextResponse.json(
+          { error: validation.error },
+          { status: 413 }
+        );
+      }
     }
 
     // Prepare email options
@@ -92,6 +141,15 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.error('Error processing contact form:', error);
+    
+    // Check if error might be related to payload size
+    if (error instanceof Error && error.message.includes('body exceeded')) {
+      return NextResponse.json(
+        { error: 'Attachment size too large. Please reduce file sizes to under 8MB total.' },
+        { status: 413 }
+      );
+    }
+    
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

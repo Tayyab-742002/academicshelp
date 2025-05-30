@@ -21,8 +21,8 @@ interface FileUploadProps {
 export function FileUpload({
   onChange,
   maxFiles = 5,
-  maxSize = 10, // Default 10MB
-  maxTotalSize = 20, // Default 20MB total
+  maxSize = 5, // Changed from 10MB to 5MB
+  maxTotalSize = 10, // Changed from 20MB to 10MB
   acceptedFileTypes = ".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png",
 }: FileUploadProps) {
   const [files, setFiles] = useState<FileWithPreview[]>([]);

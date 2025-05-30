@@ -174,11 +174,11 @@ export function ContactForm({ withServicesSelect = true }) {
   const handleFileChange = (files: File[]) => {
     // Calculate total size of all files
     const totalSize = files.reduce((sum, file) => sum + file.size, 0);
-    const maxTotalSize = 20 * 1024 * 1024; // 20MB in bytes
+    const maxTotalSize = 10 * 1024 * 1024; // 10MB in bytes (reduced from 20MB)
 
     if (totalSize > maxTotalSize) {
       setFileError(
-        `Total file size exceeds the 20MB limit. Please reduce the size or number of files.`
+        `Total file size exceeds the 10MB limit. Please reduce the size or number of files.`
       );
       return;
     }
@@ -319,8 +319,8 @@ export function ContactForm({ withServicesSelect = true }) {
             // Create canvas for compression
             const canvas = document.createElement("canvas");
             // Max dimensions for the image (reduces file size)
-            const MAX_WIDTH = 1200;
-            const MAX_HEIGHT = 1200;
+            const MAX_WIDTH = 800; // Reduced from 1200
+            const MAX_HEIGHT = 800; // Reduced from 1200
             
             let width = img.width;
             let height = img.height;
@@ -351,8 +351,8 @@ export function ContactForm({ withServicesSelect = true }) {
             
             ctx.drawImage(img, 0, 0, width, height);
             
-            // Get compressed image data (0.7 quality - good balance)
-            const quality = 0.7;
+            // Get compressed image data (0.5 quality - more compression)
+            const quality = 0.5; // Reduced from 0.7
             const dataUrl = canvas.toDataURL(file.type, quality);
             
             // Convert data URL to base64 content
@@ -374,7 +374,13 @@ export function ContactForm({ withServicesSelect = true }) {
         
         reader.readAsDataURL(file);
       } else {
-        // For non-image files, use standard base64 conversion
+        // For non-image files, check size before processing
+        if (file.size > 5 * 1024 * 1024) { // 5MB limit for non-image files
+          reject(new Error(`File ${file.name} exceeds the 5MB limit`));
+          return;
+        }
+        
+        // Use standard base64 conversion
         const reader = new FileReader();
         
         reader.onload = (e) => {
@@ -708,14 +714,14 @@ export function ContactForm({ withServicesSelect = true }) {
                 </label>
                 <div className="ml-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs px-2 py-0.5 rounded-full flex items-center">
                   <FileText className="h-3 w-3 mr-1" />
-                  Max 20MB total
+                  Max 10MB total
                 </div>
               </div>
               <FileUpload
                 onChange={handleFileChange}
                 maxFiles={3}
-                maxSize={20}
-                maxTotalSize={20}
+                maxSize={10}
+                maxTotalSize={10}
                 acceptedFileTypes=".pdf,.doc,.docx,.jpg,.jpeg,.png"
               />
               {fileError && (
