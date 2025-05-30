@@ -167,7 +167,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             </motion.div>
 
             <motion.div
-              className="lg:w-1/2"
+              className="lg:w-1/2 w-full"
               {...conditionalAnimation({
                 initial: { opacity: 0, x: 20 },
                 animate: { opacity: 1, x: 0 },
@@ -175,7 +175,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               })}
             >
               {service.mainImage ? (
-                <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-xl">
+                <div className="relative w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-xl">
                   <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-xl opacity-70 -z-10"></div>
                   <motion.div
                     className="relative h-full w-full overflow-hidden rounded-2xl shadow-2xl border border-primary/10 dark:border-primary/20"
@@ -186,7 +186,10 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                     src={service.mainImage.asset.url}
                     alt={service.title}
                     fill
-                      className="object-cover transition-transform duration-500 hover:scale-110"
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 hover:scale-110"
+                    style={{ display: 'block', width: '100%', height: '100%' }}
                   />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent"></div>
                   </motion.div>
@@ -859,13 +862,16 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                     }}
                   >
                     {work.image && (
-                      <div className="relative h-48 w-full">
+                      <div className="relative h-[200px] w-full">
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30 z-10" />
                         <Image
                           src={work.image.asset.url}
                           alt={work.title}
                           fill
+                          loading="lazy"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           className="object-cover transition-transform duration-500 hover:scale-110"
+                          style={{ display: 'block', width: '100%', height: '100%' }}
                         />
                       </div>
                     )}
