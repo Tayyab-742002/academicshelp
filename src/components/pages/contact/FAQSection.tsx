@@ -25,14 +25,15 @@ export default function FAQSection() {
     },
     {
       id: 4,
-      question: "Can I schedule a video consultation?",
-      answer: "Absolutely! You can request a video consultation through our contact form. Our team will follow up within 24 hours to schedule a convenient time. Video consultations are available for complex assignments and tutoring sessions.",
+      // Add a question about the pricing
+      question: "What is the pricing for your services?",
+      answer: "Our pricing is based on the complexity of the assignment and the deadline. We offer a range of services, including essay writing, research papers, and dissertations. Please contact us for a personalized quote.",
       category: "general"
     },
     {
       id: 5,
       question: "What are your response time guarantees?",
-      answer: "For standard inquiries, we guarantee a response within 24 hours. Premium support subscribers receive priority response within 4 hours during business hours.",
+      answer: "For standard inquiries, we guarantee a response within 24 hours. ",
       category: "general"
     }
   ];

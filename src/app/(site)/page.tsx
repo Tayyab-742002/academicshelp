@@ -50,7 +50,7 @@ export default function HomePage() {
       id: 1,
       question: "How does your service work?",
       answer:
-        "Our process is simple: you place an order, provide detailed instructions, and we match you with an expert writer. You&apos;ll receive regular updates and can communicate directly with your writer. Once completed, you&apos;ll receive your paper for review and can request revisions if needed.",
+        "Our process is simple: you place an order, provide detailed instructions, and we match you with an expert writer. You will receive regular updates and can communicate directly with your writer. Once completed, you will receive your paper for review and can request revisions if needed.",
       category: "general",
     },
     {
@@ -76,9 +76,9 @@ export default function HomePage() {
     },
     {
       id: 5,
-      question: "What if I&apos;m not satisfied with the work?",
+      question: "What if I am not satisfied with the work?",
       answer:
-        "We strive for your complete satisfaction. If you&apos;re not happy with the delivered work, you can request revisions within the revision period. Our writers will address your concerns and make necessary changes according to your initial instructions.",
+        "We strive for your complete satisfaction. If you are not happy with the delivered work, you can request revisions within the revision period. Our writers will address your concerns and make necessary changes according to your initial instructions.",
       category: "satisfaction",
     },
   ];

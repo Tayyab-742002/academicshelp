@@ -14,6 +14,14 @@ const nextConfig = {
       },
     ],
   },
+  experimental:{
+    serverActions:{
+      bodySizeLimit: "2mb",
+      fileSizeLimit: "2mb",
+      allowedOrigins: ["https://academic-help-service.com","http://localhost:3000"],
+
+    }
+  }
 };
 
 export default nextConfig;

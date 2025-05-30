@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.academicassist.com';
+  const baseUrl = 'https://academic-help-service.com';
   
   return [
     {

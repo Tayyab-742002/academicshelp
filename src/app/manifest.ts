@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Academic Assist',
-    short_name: 'AcademicAssist',
+    name: 'Academic Help Services',
+    short_name: 'AcademicHelp',
     description: 'Professional Academic Services for Students',
     start_url: '/',
     display: 'standalone',
@@ -16,12 +16,12 @@ export default function manifest(): MetadataRoute.Manifest {
         type: 'image/x-icon',
       },
       {
-        src: '/icon-192x192.png',
+        src: '/web-app-manifest-192x192.png',
         sizes: '192x192',
         type: 'image/png',
       },
       {
-        src: '/icon-512x512.png',
+        src: '/web-app-manifest-512x512.png',
         sizes: '512x512',
         type: 'image/png',
       },
