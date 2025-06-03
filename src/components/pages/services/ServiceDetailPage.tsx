@@ -10,6 +10,7 @@ import {  ArrowRight, Calendar, Award, Clock, FileText } from "lucide-react";
 import { MotionProps } from "framer-motion";
 import { Service } from "@/lib/fallbackdata/service";
 import CTASection from "@/components/common/CTASection";
+import FAQSection from "@/components/ui/faq-accordion";
 
 interface ServiceDetailPageProps {
   service: Service;
@@ -553,12 +554,8 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       {/* FAQs Section */}
       {service.faqs && service.faqs.length > 0 && (
         <section id="faq" className="py-16 relative overflow-hidden">
-          {/* Background elements */}
-          <div className="absolute inset-0 bg-gradient-to-b from-muted/20 to-background dark:from-muted/10 dark:to-background z-0" />
-          
-          {/* Subtle decorative gradient */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-primary/5 via-accent/5 to-transparent dark:from-primary/10 dark:via-accent/5 dark:to-transparent opacity-60 z-0" />
-          
+
+
           <div className="container mx-auto px-4 relative z-10">
             <motion.div
               className="text-center mb-12"
@@ -621,127 +618,21 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                 Find answers to common questions about our {service.title.toLowerCase()} service
               </motion.p>
               
-              {/* Animated decoration */}
-              <motion.div 
-                className="w-24 h-1 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60 rounded-full mx-auto"
-                initial={{ width: 0, opacity: 0 }}
-                whileInView={{ 
-                  width: 120, 
-                  opacity: 1,
-                  transition: { 
-                    duration: 0.8,
-                    delay: 0.3,
-                    ease: [0.22, 1, 0.36, 1] 
-                  }
-                }}
-                viewport={{ once: true }}
-              />
+          
             </motion.div>
 
-            {/* <div className="max-w-3xl mx-auto bg-card/60 backdrop-blur-sm border border-primary/20 dark:border-primary/30 rounded-2xl p-6 shadow-lg">
-              {service.faqs.map(
-                (faq: { 
-                  question: string; 
-                  answer: {
-                    _type: string;
-                    style: string;
-                    _key: string;
-                    children: {
-                      _type: string;
-                      text: string;
-                    }[];
-                    markDefs: unknown[];
-                  }[];
-                }, index: number) => (
-                  <motion.div
-                    key={index}
-                    className="mb-4 last:mb-0"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                  >
-                    <motion.button
-                      onClick={() => toggleFaq(index)}
-                      className={`w-full flex items-center justify-between p-5 rounded-xl text-left transition-all duration-300 ${
-                        expandedFaq === index
-                          ? "bg-primary/10 text-primary"
-                          : "bg-card/80 hover:bg-card/90"
-                      } border border-primary/10 hover:border-primary/30`}
-                      whileHover={{ 
-                        scale: 1.01,
-                        transition: { type: "spring", stiffness: 400, damping: 17 }
-                      }}
-                    >
-                      <span className="font-medium">{faq.question}</span>
-                      <motion.div
-                        animate={{ rotate: expandedFaq === index ? 180 : 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 ml-2"
-                      >
-                        <ChevronDown className="w-4 h-4 text-primary" />
-                      </motion.div>
-                    </motion.button>
-
-                    <AnimatePresence>
-                      {expandedFaq === index && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                          animate={{ 
-                            height: "auto", 
-                            opacity: 1,
-                            marginTop: 8
-                          }}
-                          exit={{ 
-                            height: 0, 
-                            opacity: 0,
-                            marginTop: 0
-                          }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
-                        >
-                          <div className="p-5 bg-card/50 rounded-xl border border-primary/10 prose prose-sm dark:prose-invert max-w-none">
-                            {Array.isArray(faq.answer) ? (
-                              <div className="prose prose-sm dark:prose-invert">
-                                {faq.answer.map((paragraph, i) => (
-                                  <p key={i}>{paragraph}</p>
-                                ))}
-                              </div>
-                            ) : (
-                              <PortableText value={faq.answer} />
-                            )}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                )
-              )}
-            </div> */}
+             
+            <section className="bg-gradient-to-b from-background/90 to-background relative">  
+          <div className="max-w-3xl mx-auto">
+            <FAQSection faqs={service.faqs.map((faq)=>({
+              question: faq.question,
+              answer: faq.answer.map((answer)=>answer.children[0].text).join(' ')
+            }))} header={false} />
+          </div> 
+      </section>
+           
             
-            <motion.div 
-              className="text-center mt-10"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-            >
-              <p className="text-muted-foreground mb-4">
-                Still have questions? We&apos;re here to help!
-              </p>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-block"
-              >
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-card border-2 border-primary/50 text-foreground font-medium transition-all duration-200 hover:border-primary hover:bg-primary/10 shadow-sm"
-                >
-                  Contact Us
-                </Link>
-              </motion.div>
-            </motion.div>
+           
           </div>
         </section>
       )}

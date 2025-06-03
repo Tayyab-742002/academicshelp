@@ -32,7 +32,7 @@ const Footer = () => {
   >([]);
   const [isClient, setIsClient] = useState(false);
   const [contactInfo, setContactInfo] = useState<ContactInfoType | null>(null);
-
+  
   // Fetch contact info
   useEffect(() => {
     const fetchContactInfo = async () => {
@@ -130,27 +130,33 @@ const Footer = () => {
       });
     }
 
-    // Primary phone
-    const primaryPhone = contactInfo?.phoneNumbers?.find((phone: PhoneNumber) => phone.primary) || contactInfo?.phoneNumbers?.[0];
-    if (primaryPhone) {
-      details.push({
-        icon: <Phone className="h-5 w-5" />,
-        label:
-          primaryPhone.phoneType.charAt(0).toUpperCase() +
-          primaryPhone.phoneType.slice(1),
-        value: primaryPhone.number,
-        href: `tel:${primaryPhone.number.replace(/\s+/g, "")}`,
-      });
-    }
-
-    // WhatsApp if available
-    const whatsapp = contactInfo?.phoneNumbers?.find((phone: PhoneNumber) => phone.phoneType === "whatsapp");
-    if (whatsapp) {
+    // WhatsApp numbers - group them together
+    const whatsappNumbers = contactInfo?.phoneNumbers?.filter(
+      (phone: PhoneNumber) => phone.phoneType === "whatsapp"
+    );
+    
+    if (whatsappNumbers && whatsappNumbers.length > 0) {
       details.push({
         icon: <MessageCircle className="h-5 w-5" />,
         label: "WhatsApp",
-        value: whatsapp.number,
-        href: `https://wa.me/${whatsapp.number.replace(/\+|\s+|-|\(|\)/g, "")}`,
+        value: whatsappNumbers.map(phone => phone.number).join(", "),
+        href: `https://wa.me/${whatsappNumbers[0].number.replace(/\+|\s+|-|\(|\)/g, "")}`,
+        allNumbers: whatsappNumbers,
+      });
+    }
+    
+    // Mobile numbers - group them together
+    const mobileNumbers = contactInfo?.phoneNumbers?.filter(
+      (phone: PhoneNumber) => phone.phoneType === "mobile"
+    );
+    
+    if (mobileNumbers && mobileNumbers.length > 0) {
+      details.push({
+        icon: <Phone className="h-5 w-5" />,
+        label: "Mobile",
+        value: mobileNumbers.map(phone => phone.number).join(", "),
+        href: `tel:${mobileNumbers[0].number.replace(/\s+/g, "")}`,
+        allNumbers: mobileNumbers,
       });
     }
 
@@ -368,28 +374,56 @@ const Footer = () => {
                   viewport={{ once: true }}
                   className="flex items-start group"
                 >
-                  <a
-                    href={contact.href}
-                    className="flex items-start group"
-                    target={contact.label === "Address" ? "_blank" : undefined}
-                    rel={
-                      contact.label === "Address"
-                        ? "noopener noreferrer"
-                        : undefined
-                    }
-                  >
-                    <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary mr-2 sm:mr-3 group-hover:bg-primary/20 transition-colors duration-300">
-                      {contact.icon}
+                  {contact.allNumbers ? (
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary mr-2 sm:mr-3 group-hover:bg-primary/20 transition-colors duration-300">
+                        {contact.icon}
+                      </div>
+                      <div>
+                        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                          {contact.label}
+                        </p>
+                        <div className="flex flex-col">
+                          {contact.allNumbers.map((phone: PhoneNumber, idx: number) => (
+                            <a
+                              key={`${contact.label}-${idx}`}
+                              href={contact.label === "WhatsApp" 
+                                ? `https://wa.me/${phone.number.replace(/\+|\s+|-|\(|\)/g, "")}` 
+                                : `tel:${phone.number.replace(/\s+/g, "")}`}
+                              className="text-sm md:text-base text-gray-900 dark:text-gray-200 font-medium group-hover:text-primary transition-colors duration-200"
+                              target={contact.label === "WhatsApp" ? "_blank" : undefined}
+                              rel={contact.label === "WhatsApp" ? "noopener noreferrer" : undefined}
+                            >
+                              {phone.number}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                        {contact.label}
-                      </p>
-                      <p className="text-sm md:text-base text-gray-900 dark:text-gray-200 font-medium group-hover:text-primary transition-colors duration-200">
-                        {contact.value}
-                      </p>
-                    </div>
-                  </a>
+                  ) : (
+                    <a
+                      href={contact.href}
+                      className="flex items-start group"
+                      target={contact.label === "Address" ? "_blank" : undefined}
+                      rel={
+                        contact.label === "Address"
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                    >
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary mr-2 sm:mr-3 group-hover:bg-primary/20 transition-colors duration-300">
+                        {contact.icon}
+                      </div>
+                      <div>
+                        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                          {contact.label}
+                        </p>
+                        <p className="text-sm md:text-base text-gray-900 dark:text-gray-200 font-medium group-hover:text-primary transition-colors duration-200">
+                          {contact.value}
+                        </p>
+                      </div>
+                    </a>
+                  )}
                 </motion.li>
               ))}
             </ul>
@@ -477,22 +511,50 @@ const Footer = () => {
               </motion.p>
 
               <motion.div
-                className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xs sm:text-sm"
+                className="flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.7 }}
               >
-                {contactInfo &&
-                  contactInfo.phoneNumbers &&
-                  contactInfo.phoneNumbers[0] && (
-                    <a
-                      href={`tel:${contactInfo.phoneNumbers[0].number.replace(/\s+/g, "")}`}
-                      className="hover:text-primary transition-colors duration-300"
-                    >
-                      <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 inline-block mr-1 mb-0.5" />{" "}
-                      {contactInfo.phoneNumbers[0].number}
-                    </a>
-                  )}
+                {contactInfo && contactInfo.phoneNumbers && (
+                  <div className="flex items-center">
+                    <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 inline-block mr-1 mb-0.5" />{" "}
+                    <span className="flex flex-wrap gap-2">
+                      {contactInfo.phoneNumbers
+                        ?.filter(phone => phone.phoneType === "mobile")
+                        .map((phone, index, filteredArray) => (
+                          <a
+                            key={`mobile-${index}`}
+                            href={`tel:${phone.number.replace(/\s+/g, "")}`}
+                            className="hover:text-primary transition-colors duration-300"
+                          >
+                            {phone.number}{index < filteredArray.length - 1 ? "," : ""}
+                          </a>
+                        ))}
+                    </span>
+                  </div>
+                )}
+                <span className="hidden sm:inline mx-2">•</span>
+                {contactInfo && contactInfo.phoneNumbers && (
+                  <div className="flex items-center">
+                    <MessageCircle className="h-3 w-3 sm:h-3.5 sm:w-3.5 inline-block mr-1 mb-0.5" />{" "}
+                    <span className="flex flex-wrap gap-2">
+                      {contactInfo.phoneNumbers
+                        ?.filter(phone => phone.phoneType === "whatsapp")
+                        .map((phone, index, filteredArray) => (
+                          <a
+                            key={`whatsapp-${index}`}
+                            href={`https://wa.me/${phone.number.replace(/\+|\s+|-|\(|\)/g, "")}`}
+                            className="hover:text-primary transition-colors duration-300"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {phone.number}{index < filteredArray.length - 1 ? "," : ""}
+                          </a>
+                        ))}
+                    </span>
+                  </div>
+                )}
                 <span className="hidden sm:inline mx-2">•</span>
                 {contactInfo && contactInfo.emails && contactInfo.emails[0] && (
                   <a
