@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, Variants } from "framer-motion";
 
 import { BoxReveal } from "@/components/magicui/box-reveal";
 
@@ -59,20 +59,24 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
     },
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
-      y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-    },
+      y: 0,
+      transition: { 
+        type: "spring" as const, 
+        stiffness: 100, 
+        damping: 10 
+      }
+    }
   };
 
   const buttonVariants = {
     hover: {
       scale: 1.05,
       y: -2,
-      transition: { type: "spring", stiffness: 400 },
+      transition: { type: "spring" as const, stiffness: 400 },
     },
     tap: { scale: 0.98 },
   };
@@ -179,7 +183,7 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
                   variants={itemVariants}
                 >
                   <motion.div
-                    whileHover={buttonVariants.hover}
+                    whileHover={buttonVariants.hover }
                     whileTap={buttonVariants.tap}
                     className="relative group"
                   >

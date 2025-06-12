@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
     // Prepare email options
     const emailOptions = {
-      from: `Contact Form <onboarding@resend.dev>`,
+      from: `Contact Form <contact@academicshelp.com>`,
       to: [process.env.TO_EMAIL!],
       subject: `New Contact Form Submission: ${subject || 'No Subject'}`,
       react: ContactFormEmail({

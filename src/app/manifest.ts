@@ -2,9 +2,9 @@ import { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Academic Help Services',
-    short_name: 'AcademicHelp',
-    description: 'Professional Academic Services for Students',
+    name: 'AcademicsHelp',
+    short_name: 'AcademicsHelp',
+    description: 'Expert Academic Assistance and Homework Help for Students',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',

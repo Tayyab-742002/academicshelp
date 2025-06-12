@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, cubicBezier, Variants } from "framer-motion";
 import { getServices } from "@/lib/services";
 import { ArrowRight, FileText, BookOpen, PenTool, FileCheck, Bookmark, HelpCircle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -45,7 +45,7 @@ export default function ServicesGrid() {
   }, []);
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -56,14 +56,14 @@ export default function ServicesGrid() {
     },
   };
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: { 
         duration: 0.6, 
-        ease: [0.22, 1, 0.36, 1] 
+        ease: cubicBezier(0.22, 1, 0.36, 1)
       },
     },
   };

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { getTestimonials } from "@/lib/testimonials";
 import { Star } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Testimonial } from "@/lib/fallbackdata/testimonial";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import Loading from "@/components/common/loading";
@@ -42,16 +42,17 @@ export default function TestimonialsGrid() {
     },
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
-      y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
+      y: 0,
+      transition: { 
+        type: "spring" as const, 
+        stiffness: 100, 
+        damping: 10 
+      }
+    }
   };
 
   const cardHoverVariants = {
@@ -176,7 +177,7 @@ export default function TestimonialsGrid() {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial._id}
-              variants={itemVariants}
+              variants={itemVariants }
               custom={index}
               className="relative break-inside-avoid mb-8"
             >
@@ -184,7 +185,7 @@ export default function TestimonialsGrid() {
                 className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/50 dark:border-primary/30 shadow-lg overflow-hidden transition-all duration-300 h-full"
                 initial="rest"
                 whileHover="hover"
-                variants={cardHoverVariants}
+                variants={cardHoverVariants as Variants}
                 onMouseEnter={() => setHoveredIndex(testimonial._id)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >

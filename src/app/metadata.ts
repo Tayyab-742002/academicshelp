@@ -2,30 +2,37 @@ import { Metadata } from "next";
 
 // Default metadata that will be used as fallback when no metadata is defined for a route
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://academic-help-service.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://academicshelp.com"),
   title: {
-    default: "Academic Help Services | Professional Academic Assistance",
-    template: "%s | Academic Help Services"
+    default: "AcademicsHelp | Professional Academic Assistance & Homework Help",
+    template: "%s | AcademicsHelp.com"
   },
-  description: "Professional academic assistance for students. Get help with essays, research papers, dissertations, and more.",
+  description: "Expert academic assistance for students at all levels. Get professional help with essays, research papers, assignments, homework, dissertations, and more. 24/7 support available.",
   keywords: [
     "academic help",
-    "essay writing",
-    "research paper",
-    "dissertation",
     "homework help",
-    "academic assistance",
+    "academics help",
+    "academic assistant",
+    "assignment help",
+    "essay writing",
+    "research paper help",
+    "dissertation writing",
+    "thesis help",
+    "online tutoring",
+    "academic writing service",
     "professional writing",
-    "student services"
+    "student services",
+    "college homework help",
+    "university assignment help"
   ],
   authors: [
     {
-      name: "Academic Help Services",
-      url: "https://academic-help-service.com",
+      name: "AcademicsHelp",
+      url: "https://academicshelp.com",
     },
   ],
-  creator: "Academic Help Services",
-  publisher: "Academic Help Services",
+  creator: "AcademicsHelp",
+  publisher: "AcademicsHelp",
   formatDetection: {
     email: false,
     telephone: false,
@@ -45,24 +52,24 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXT_PUBLIC_APP_URL || "https://academic-help-service.com",
-    title: "Academic Help Services | Professional Academic Assistance",
-    description: "Professional academic assistance for students. Get help with essays, research papers, dissertations, and more.",
-    siteName: "Academic Help Services",
+    url: process.env.NEXT_PUBLIC_APP_URL || "https://academicshelp.com",
+    title: "AcademicsHelp | Professional Academic Assistance & Homework Help",
+    description: "Expert academic assistance for students at all levels. Get professional help with essays, research papers, assignments, homework, dissertations, and more. 24/7 support available.",
+    siteName: "AcademicsHelp",
     images: [
       {
         url: "/og/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Academic Help Services",
+        alt: "AcademicsHelp - Your Academic Success Partner",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Academic Help Services | Professional Academic Assistance",
-    description: "Professional academic assistance for students. Get help with essays, research papers, dissertations, and more.",
-    creator: "@academichelpservices",
+    title: "AcademicsHelp | Professional Academic Assistance & Homework Help",
+    description: "Expert academic assistance for students at all levels. Get professional help with essays, research papers, assignments, homework, dissertations, and more. 24/7 support available.",
+    creator: "@academicshelp",
     images: ["/og/twitter-image.jpg"],
   },
   icons: {
@@ -90,7 +97,7 @@ export const metadata: Metadata = {
     google: "google-site-verification-code", // Replace with your actual verification code
   },
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_APP_URL,
+    canonical: process.env.NEXT_PUBLIC_APP_URL || "https://academicshelp.com",
     languages: {
       "en-US": "/en-US",
     },

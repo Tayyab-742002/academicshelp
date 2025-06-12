@@ -6,10 +6,11 @@ export default function ServiceSchema() {
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Service",
-          "serviceType": "Academic Services",
+          "serviceType": "Academic Assistance",
+          "name": "Academic Help Services",
           "provider": {
             "@type": "Organization",
-            "name": "Academic Assist"
+            "name": "AcademicsHelp"
           },
           "offers": {
             "@type": "AggregateOffer",
@@ -41,8 +42,29 @@ export default function ServiceSchema() {
               }
             ]
           },
-          "description": "Professional academic services including essay writing, research papers, homework help, and more.",
-          "termsOfService": "https://www.academicassist.com/terms"
+          "description": "Professional academic assistance services including essay writing, research papers, homework help, assignments, and more. 24/7 expert support for all educational levels.",
+          "termsOfService": "https://academicshelp.com/terms",
+          "areaServed": "Worldwide",
+          "availableChannel": {
+            "@type": "ServiceChannel",
+            "serviceUrl": "https://academicshelp.com/contact"
+          },
+          "potentialAction": {
+            "@type": "OrderAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://academicshelp.com/contact",
+              "inLanguage": "en-US",
+              "actionPlatform": [
+                "http://schema.org/DesktopWebPlatform",
+                "http://schema.org/MobileWebPlatform"
+              ]
+            },
+            "result": {
+              "@type": "ServiceOutput",
+              "name": "Academic assistance"
+            }
+          }
         })
       }}
     />

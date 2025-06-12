@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { defaultMetadata } from "@/lib/metadata";
+import WebsiteSchema from "@/components/structured-data/WebsiteSchema";
+import OrganizationSchema from "@/components/structured-data/OrganizationSchema";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,6 +52,9 @@ export default function RootLayout({
           content="#0f172a"
           media="(prefers-color-scheme: dark)"
         />
+        {/* Structured Data for SEO */}
+        <WebsiteSchema />
+        <OrganizationSchema />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

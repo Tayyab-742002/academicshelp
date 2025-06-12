@@ -3,45 +3,61 @@ import type { Metadata } from "next";
 // Default website metadata
 export const defaultMetadata: Metadata = {
   title: {
-    default: "Academic Help Services | Professional Academic Assistance",
-    template: "%s | Academic Help Services"
+    default: "AcademicsHelp | Expert Academic Assistance & Homework Help",
+    template: "%s | AcademicsHelp.com"
   },
-  description: "Get top grades with our professional academic assistance services. Expert help with essays, research papers, homework, and more.",
-  keywords: ["academic assistance", "essay writing", "research papers", "homework help", "academic services", "professional writers", "thesis writing", "dissertation help"],
-  authors: [{ name: "Academic Help Services" }],
-  creator: "Academic Help Services",
-  publisher: "Academic Help Services",
+  description: "Get top grades with our professional academic assistance services. Expert help with essays, research papers, assignments, homework, dissertations, and more. 24/7 support available.",
+  keywords: [
+    "academic help",
+    "homework help", 
+    "academics help", 
+    "academic assistant", 
+    "assignment help", 
+    "essay writing", 
+    "research paper help", 
+    "dissertation writing", 
+    "thesis help", 
+    "online tutoring", 
+    "academic writing service", 
+    "professional writing", 
+    "student services", 
+    "college homework help", 
+    "university assignment help"
+  ],
+  authors: [{ name: "AcademicsHelp" }],
+  creator: "AcademicsHelp",
+  publisher: "AcademicsHelp",
   formatDetection: {
     email: false,
     telephone: false,
     address: false,
   },
-  metadataBase: new URL("https://academic-help-service.com"),
+  metadataBase: new URL("https://academicshelp.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://academic-help-service.com",
-    title: "Academic Help Services | Professional Academic Assistance",
-    description: "Get top grades with our professional academic assistance services. Expert help with essays, research papers, homework, and more.",
-    siteName: "Academic Help Services",
+    url: "https://academicshelp.com",
+    title: "AcademicsHelp | Expert Academic Assistance & Homework Help",
+    description: "Get top grades with our professional academic assistance services. Expert help with essays, research papers, assignments, homework, dissertations, and more. 24/7 support available.",
+    siteName: "AcademicsHelp",
     images: [
       {
         url: "/og/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Academic Help Services - Professional Academic Assistance",
+        alt: "AcademicsHelp - Your Academic Success Partner",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Academic Help Services | Professional Academic Assistance",
-    description: "Get top grades with our professional academic assistance services. Expert help with essays, research papers, homework, and more.",
+    title: "AcademicsHelp | Expert Academic Assistance & Homework Help",
+    description: "Get top grades with our professional academic assistance services. Expert help with essays, research papers, assignments, homework, dissertations, and more. 24/7 support available.",
     images: ["/og/twitter-image.jpg"],
-    creator: "@academichelpservices",
+    creator: "@academicshelp",
   },
   robots: {
     index: true,
@@ -70,21 +86,21 @@ export const defaultMetadata: Metadata = {
 
 // Service page metadata
 export const servicesMetadata: Metadata = {
-  title: "Our Services | Academic Help Services",
-  description: "Explore our comprehensive range of academic services including essay writing, research papers, dissertations, and more.",
+  title: "Academic Services | AcademicsHelp.com",
+  description: "Explore our comprehensive range of academic services including essay writing, research papers, homework help, assignments, dissertations, and more. Expert assistance for all subjects.",
   alternates: {
     canonical: "/services",
   },
   openGraph: {
-    title: "Our Services | Academic Help Services",
-    description: "Explore our comprehensive range of academic services including essay writing, research papers, dissertations, and more.",
-    url: "https://academic-help-service.com/services",
+    title: "Academic Services | AcademicsHelp.com",
+    description: "Explore our comprehensive range of academic services including essay writing, research papers, homework help, assignments, dissertations, and more. Expert assistance for all subjects.",
+    url: "https://academicshelp.com/services",
     images: [
       {
         url: "/images/services-og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Academic Help Services Services",
+        alt: "AcademicsHelp Services",
       },
     ],
   },
@@ -92,21 +108,21 @@ export const servicesMetadata: Metadata = {
 
 // Pricing page metadata
 export const pricingMetadata: Metadata = {
-  title: "Pricing | Academic Help Services",
-  description: "View our transparent pricing for academic writing services. Affordable rates for students with discounts available.",
+  title: "Affordable Pricing | AcademicsHelp.com",
+  description: "View our transparent and affordable pricing for academic assistance services. Student-friendly rates with discounts available for returning customers.",
   alternates: {
     canonical: "/pricing",
   },
   openGraph: {
-    title: "Pricing | Academic Help Services",
-    description: "View our transparent pricing for academic writing services. Affordable rates for students with discounts available.",
-    url: "https://academic-help-service.com/pricing",
+    title: "Affordable Pricing | AcademicsHelp.com",
+    description: "View our transparent and affordable pricing for academic assistance services. Student-friendly rates with discounts available for returning customers.",
+    url: "https://academicshelp.com/pricing",
     images: [
       {
         url: "/images/pricing-og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Academic Help Services Pricing Plans",
+        alt: "AcademicsHelp Pricing Plans",
       },
     ],
   },
@@ -114,21 +130,21 @@ export const pricingMetadata: Metadata = {
 
 // About page metadata
 export const aboutMetadata: Metadata = {
-  title: "About Us | Academic Help Services",
-  description: "Learn about our team of academic experts dedicated to helping students succeed in their academic journey.",
+  title: "About Us | AcademicsHelp.com",
+  description: "Learn about our team of academic experts with advanced degrees dedicated to helping students succeed in their academic journey. Quality assistance for all educational levels.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About Us | Academic Help Services",
-    description: "Learn about our team of academic experts dedicated to helping students succeed in their academic journey.",
-    url: "https://academic-help-service.com/about",
+    title: "About Us | AcademicsHelp.com",
+    description: "Learn about our team of academic experts with advanced degrees dedicated to helping students succeed in their academic journey. Quality assistance for all educational levels.",
+    url: "https://academicshelp.com/about",
     images: [
       {
         url: "/images/about-og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Academic Help Services Team",
+        alt: "AcademicsHelp Team",
       },
     ],
   },
@@ -136,21 +152,21 @@ export const aboutMetadata: Metadata = {
 
 // Contact page metadata
 export const contactMetadata: Metadata = {
-  title: "Contact Us | Academic Help Services",
-  description: "Get in touch with our team for any questions or to place an order for academic assistance.",
+  title: "Contact Us | AcademicsHelp.com",
+  description: "Get in touch with our 24/7 support team for any questions or to place an order for academic assistance. Quick response guaranteed.",
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Contact Us | Academic Help Services",
-    description: "Get in touch with our team for any questions or to place an order for academic assistance.",
-    url: "https://academic-help-service.com/contact",
+    title: "Contact Us | AcademicsHelp.com",
+    description: "Get in touch with our 24/7 support team for any questions or to place an order for academic assistance. Quick response guaranteed.",
+    url: "https://academicshelp.com/contact",
     images: [
       {
         url: "/images/contact-og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Contact Academic Help Services",
+        alt: "Contact AcademicsHelp",
       },
     ],
   },
@@ -158,21 +174,21 @@ export const contactMetadata: Metadata = {
 
 // FAQs page metadata
 export const faqsMetadata: Metadata = {
-  title: "Frequently Asked Questions | Academic Help Services",
-  description: "Find answers to common questions about our academic services, process, guarantees, and more.",
+  title: "Frequently Asked Questions | AcademicsHelp.com",
+  description: "Find answers to common questions about our academic assistance services, process, guarantees, confidentiality, and more.",
   alternates: {
     canonical: "/faqs",
   },
   openGraph: {
-    title: "Frequently Asked Questions | Academic Help Services",
-    description: "Find answers to common questions about our academic services, process, guarantees, and more.",
-    url: "https://academic-help-service.com/faqs",
+    title: "Frequently Asked Questions | AcademicsHelp.com",
+    description: "Find answers to common questions about our academic assistance services, process, guarantees, confidentiality, and more.",
+    url: "https://academicshelp.com/faqs",
     images: [
       {
         url: "/images/faqs-og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Academic Help Services FAQs",
+        alt: "AcademicsHelp FAQs",
       },
     ],
   },
@@ -180,21 +196,21 @@ export const faqsMetadata: Metadata = {
 
 // Testimonials page metadata
 export const testimonialsMetadata: Metadata = {
-  title: "Testimonials | Academic Help Services",
-  description: "Read what our customers say about our academic services and their experience working with us.",
+  title: "Student Testimonials | AcademicsHelp.com",
+  description: "Read genuine reviews and testimonials from students who have used our academic assistance services and improved their grades.",
   alternates: {
     canonical: "/testimonials",
   },
   openGraph: {
-    title: "Testimonials | Academic Help Services",
-    description: "Read what our customers say about our academic services and their experience working with us.",
-    url: "https://academic-help-service.com/testimonials",
+    title: "Student Testimonials | AcademicsHelp.com",
+    description: "Read genuine reviews and testimonials from students who have used our academic assistance services and improved their grades.",
+    url: "https://academicshelp.com/testimonials",
     images: [
       {
         url: "/images/testimonials-og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Academic Help Services Testimonials",
+        alt: "AcademicsHelp Testimonials",
       },
     ],
   },

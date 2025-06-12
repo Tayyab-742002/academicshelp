@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { PricingPlan, getPricingPlans, calculateAnnualPrice } from "@/lib/pricing";
 import { Icons } from "@/components/ui/icons";
 import Loading from "@/components/common/loading";
@@ -28,14 +28,15 @@ export default function PricingPlans({ initialPlans = [] }: PricingPlansProps) {
     }
   };
 
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
-      y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.6, 
-        ease: [0.22, 1, 0.36, 1]
+      y: 0,
+      transition: { 
+        type: "spring" as const, 
+        stiffness: 100, 
+        damping: 10 
       }
     }
   };

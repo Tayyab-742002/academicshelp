@@ -7,7 +7,7 @@ import { Home, Search, ArrowLeft, FileQuestion } from "lucide-react";
 
 export default function NotFound() {
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -18,12 +18,16 @@ export default function NotFound() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: "spring", stiffness: 100, damping: 10 }
+      transition: { 
+        type: "spring" as const, 
+        stiffness: 100, 
+        damping: 10 
+      }
     }
   };
 
@@ -35,8 +39,8 @@ export default function NotFound() {
       transition: {
         duration: 3 + Math.random() * 2,
         repeat: Infinity,
-        repeatType: "reverse",
-        ease: "easeInOut"
+        repeatType: "reverse" as const,
+        ease: "easeInOut" as const
       }
     })
   };
@@ -62,7 +66,7 @@ export default function NotFound() {
             background: `rgba(var(--primary-rgb), ${0.1 + Math.random() * 0.2})`,
           }}
           custom={-10 + Math.random() * 20}
-          variants={floatingVariants as Variants}
+          variants={floatingVariants}
           animate="animate"
         />
       ))}

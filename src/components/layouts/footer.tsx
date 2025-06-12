@@ -3,7 +3,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import {
   Phone,
   Mail,
@@ -80,7 +80,7 @@ const Footer = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [0, 1]);
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -91,13 +91,13 @@ const Footer = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 15,
       },
@@ -234,8 +234,8 @@ const Footer = () => {
           opacity: [0.5, 0.7, 0.5],
         }}
         transition={{
-          scale: { duration: 8, repeat: Infinity, repeatType: "reverse" },
-          opacity: { duration: 6, repeat: Infinity, repeatType: "reverse" },
+          scale: { duration: 8, repeat: Infinity, repeatType: "reverse" as const },
+          opacity: { duration: 6, repeat: Infinity, repeatType: "reverse" as const },
         }}
       ></motion.div>
 
@@ -247,8 +247,8 @@ const Footer = () => {
           opacity: [0.6, 0.8, 0.6],
         }}
         transition={{
-          scale: { duration: 10, repeat: Infinity, repeatType: "reverse" },
-          opacity: { duration: 8, repeat: Infinity, repeatType: "reverse" },
+          scale: { duration: 10, repeat: Infinity, repeatType: "reverse" as const },
+          opacity: { duration: 8, repeat: Infinity, repeatType: "reverse" as const },
         }}
       ></motion.div>
 
@@ -293,10 +293,10 @@ const Footer = () => {
           >
             <Link href="/" className="group flex items-center gap-2">
               <div className="relative overflow-hidden rounded-full transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/20">
-                <motion.div transition={{ duration: 0.6, ease: "easeInOut" }}>
+                <motion.div transition={{ duration: 0.6, ease: "easeInOut" as const }}>
                   <Image
                     src="/images/Logo.svg"
-                    alt="Academic Assist Logo"
+                    alt="AcademicsHelp Logo"
                     width={45}
                     height={45}
                     className="object-contain"
@@ -304,8 +304,8 @@ const Footer = () => {
                 </motion.div>
               </div>
               <span className="font-bold text-xl">
-                <span className="text-primary">Academic</span>
-                <span className="text-gray-900 dark:text-white">Assist</span>
+                <span className="text-primary">Academics</span>
+                <span className="text-gray-900 dark:text-white">Help</span>
               </span>
             </Link>
 
@@ -488,7 +488,7 @@ const Footer = () => {
             >
               &copy; {currentYear}{" "}
               <span className="text-primary dark:text-primary-foreground">
-                Academic Assist
+                AcademicsHelp
               </span>
               . All rights reserved.
             </motion.p>
@@ -580,7 +580,7 @@ const Footer = () => {
         viewport={{ once: true }}
       >
         <p className="text-xs text-gray-700 dark:text-gray-300">
-          &copy; {currentYear} Academic Assist. All rights reserved.
+          &copy; {currentYear} AcademicsHelp. All rights reserved.
         </p>
       </motion.div>
     </motion.footer>

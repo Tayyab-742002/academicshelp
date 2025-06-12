@@ -1,7 +1,7 @@
 "use client";
 
 
-import { motion } from "framer-motion";
+import { motion, cubicBezier } from "framer-motion";
 import { Shield, ChevronRight, Info, FileText, Lock, Server, Users,  MailCheck, Phone, Mail } from "lucide-react";
 
 
@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+      transition: { duration: 0.6, ease: cubicBezier(0.22, 1, 0.36, 1) }
     }
   };
   
@@ -105,7 +105,7 @@ export default function PrivacyPolicy() {
                       Introduction
                     </h2>
                     <p>
-                      At Academic Help Services, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
+                      At AcademicsHelp, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
                     </p>
                   </motion.section>
                   
@@ -181,16 +181,27 @@ export default function PrivacyPolicy() {
                     <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
                       <div className="flex items-center">
                         <Mail className="h-4 w-4 text-primary mr-2" />
-                        <a href="mailto:privacy@academicassist.com" className="text-primary hover:underline text-sm">
-                          privacy@academicassist.com
+                        <a href="mailto:privacy@academicshelp.com" className="text-primary hover:underline text-sm">
+                          academichelp0007@gmail.com
                         </a>
                       </div>
-                      <div className="flex items-center">
-                        <Phone className="h-4 w-4 text-primary mr-2" />
-                        <a href="tel:+15551234567" className="text-primary hover:underline text-sm">
-                          +1 (555) 123-4567
+                      <div className="flex items-center flex-col">
+                       <div className="flex items-center">
+                       <Phone className="h-4 w-4 text-primary mr-2" />
+                        <a href="tel:+61489911266" className="text-primary hover:underline text-sm">
+                        +61489911266 
                         </a>
+                       </div>
+                       <div className="flex items-center">
+                       <Phone className="h-4 w-4 text-primary mr-2" />
+                        <a href="tel:+14169070931" className="text-primary hover:underline text-sm">
+                        +14169070931 
+                        </a>
+                       </div>
+                       
                       </div>
+                      
+                     
                     </div>
                   </motion.section>
                 </div>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { ScrollProgress } from "../magicui/scroll-progress";
 import { getServices } from "@/lib/services";
 import type { Service } from "@/lib/fallbackdata/service";
@@ -93,7 +93,7 @@ const Header = () => {
   ];
 
   // Animation variants
-  const navContainerVariants = {
+  const navContainerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -103,13 +103,13 @@ const Header = () => {
     },
   };
 
-  const navItemVariants = {
+  const navItemVariants: Variants = {
     hidden: { opacity: 0, y: -10 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 300,
         damping: 24,
       },
@@ -126,7 +126,7 @@ const Header = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{
-        type: "spring",
+        type: "spring" as const,
         stiffness: 260,
         damping: 20,
       }}
@@ -145,11 +145,11 @@ const Header = () => {
               <div className="relative overflow-hidden rounded-full transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/20">
                 <motion.div
                   // animate={{ rotate: theme === "dark" ? 360 : 0 }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  transition={{ duration: 0.6, ease: "easeInOut" as const }}
                 >
                   <Image
                     src="/images/Logo.svg"
-                    alt="Academic Assist Logo"
+                    alt="AcademicsHelp Logo"
                     width={45}
                     height={45}
                     className="object-contain"
@@ -157,8 +157,8 @@ const Header = () => {
                 </motion.div>
               </div>
               <span className="font-bold text-xl">
-                <span className="text-primary">Academic</span>
-                <span className="text-gray-900 dark:text-white">Assist</span>
+                <span className="text-primary">Academics</span>
+                <span className="text-gray-900 dark:text-white">Help</span>
               </span>
             </Link>
           </motion.div>

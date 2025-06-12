@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useRef } from "react";
 
 interface Step {
@@ -114,7 +114,7 @@ export default function HowItWorksSection() {
           {howItWorks.map((step, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
+              variants={itemVariants as Variants}
               className="group relative "
               whileHover={{ y: -8 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}

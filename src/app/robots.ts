@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/studio/', '/api/'],
     },
-    sitemap: 'https://www.academicassist.com/sitemap.xml',
-    host: 'https://www.academicassist.com',
+    sitemap: 'https://academicshelp.com/sitemap.xml',
+    host: 'https://academicshelp.com',
   };
 } 

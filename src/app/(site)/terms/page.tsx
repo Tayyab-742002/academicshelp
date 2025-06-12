@@ -1,17 +1,19 @@
 "use client";
 
-
-import { motion } from "framer-motion";
-import { FileText,  FileCheck, CreditCard, Copyright, AlertTriangle, Scale, MailCheck, Feather } from "lucide-react";
-
+import { motion, cubicBezier } from "framer-motion";
+import { FileText, FileCheck, CreditCard, Copyright, AlertTriangle, Scale, MailCheck, Feather } from "lucide-react";
 
 export default function TermsOfService() {
+  // Animation variants with proper easing function
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+      transition: { 
+        duration: 0.6, 
+        ease: cubicBezier(0.22, 1, 0.36, 1) 
+      }
     }
   };
   
@@ -62,15 +64,15 @@ export default function TermsOfService() {
                 <span className="text-sm font-medium">Legal Agreement</span>
               </div>
               
-              <motion.h1 className="text-3xl md:text-4xl font-bold mb-2" variants={fadeIn}>
+              <h1 className="text-3xl md:text-4xl font-bold mb-2">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
                   Terms of Service
                 </span>
-              </motion.h1>
+              </h1>
               
-              <motion.p className="text-sm text-muted-foreground" variants={fadeIn}>
+              <p className="text-sm text-muted-foreground">
                 Last Updated: May 28, 2025 
-              </motion.p>
+              </p>
             </motion.div>
 
             <div className="flex flex-col lg:flex-row gap-6">
@@ -105,7 +107,7 @@ export default function TermsOfService() {
                       Introduction
                     </h2>
                     <p>
-                      Welcome to Academic Help Services. These Terms of Service govern your access to and use of our website and services. By using our services, you agree to be bound by these Terms and our Privacy Policy.
+                      Welcome to AcademicsHelp. These Terms of Service govern your access to and use of our website and services. By using our services, you agree to be bound by these Terms and our Privacy Policy.
                     </p>
                   </motion.section>
                   
@@ -147,7 +149,7 @@ export default function TermsOfService() {
                       Intellectual Property
                     </h2>
                     <p>
-                      All content and functionality of our Services are the property of Academic Help Services. Upon payment, you receive a non-exclusive, non-transferable license to use the materials for reference purposes only.
+                      All content and functionality of our Services are the property of AcademicsHelp. Upon payment, you receive a non-exclusive, non-transferable license to use the materials for reference purposes only.
                     </p>
                   </motion.section>
                   
@@ -167,7 +169,7 @@ export default function TermsOfService() {
                       Limitation of Liability
                     </h2>
                     <p className="text-sm">
-                      TO THE MAXIMUM EXTENT PERMITTED BY LAW, ACADEMIC HELP SERVICES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES RESULTING FROM THE USE OR INABILITY TO USE OUR SERVICES.
+                      TO THE MAXIMUM EXTENT PERMITTED BY LAW, ACADEMICSHELP SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES RESULTING FROM THE USE OR INABILITY TO USE OUR SERVICES.
                     </p>
                   </motion.section>
                   
@@ -181,8 +183,8 @@ export default function TermsOfService() {
                     </p>
                     <div className="flex items-center mt-2">
                       <MailCheck className="h-4 w-4 text-primary mr-2" />
-                      <a href="mailto:terms@academicassist.com" className="text-primary hover:underline text-sm">
-                        terms@academicassist.com
+                      <a href="mailto:academichelp0007@gmail.com" className="text-primary hover:underline text-sm">
+                        academichelp0007@gmail.com
                       </a>
                     </div>
                   </motion.section>

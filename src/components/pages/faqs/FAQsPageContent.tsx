@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import {
   HelpCircle,
   DollarSign,
@@ -202,13 +202,17 @@ export default function FAQsPageContent() {
     },
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
-      y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-    },
+      y: 0,
+      transition: { 
+        type: "spring" as const, 
+        stiffness: 100, 
+        damping: 10 
+      }
+    }
   };
 
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, cubicBezier, Variants } from "framer-motion";
 
 interface PricingItem {
   service: string;
@@ -11,7 +11,7 @@ interface PricingItem {
 
 export default function CustomPricing() {
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -21,14 +21,14 @@ export default function CustomPricing() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
         duration: 0.6, 
-        ease: [0.22, 1, 0.36, 1]
+        ease: cubicBezier(0.22, 1, 0.36, 1)
       }
     }
   };
@@ -160,7 +160,7 @@ export default function CustomPricing() {
               transition: { 
                 duration: 0.8,
                 delay: 0.3,
-                ease: [0.22, 1, 0.36, 1] 
+                ease: cubicBezier(0.22, 1, 0.36, 1) 
               }
             }}
             viewport={{ once: true }}

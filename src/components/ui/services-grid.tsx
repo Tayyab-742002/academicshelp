@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Filter, Search, X } from "lucide-react";
 import AnimatedServiceCard from "./animated-service-card";
 
@@ -68,7 +68,7 @@ export function ServicesGrid({
   }, [services, selectedCategory, searchTerm]);
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -78,13 +78,13 @@ export function ServicesGrid({
     }
   };
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: { 
-        type: "spring", 
+        type: "spring" as const, 
         stiffness: 100, 
         damping: 15 
       }
@@ -98,13 +98,13 @@ export function ServicesGrid({
     }
   };
 
-  const filterVariants = {
+  const filterVariants: Variants = {
     hidden: { opacity: 0, x: -20 },
     visible: {
       opacity: 1,
       x: 0,
       transition: { 
-        type: "spring", 
+        type: "spring" as const, 
         stiffness: 100, 
         damping: 15 
       }

@@ -146,7 +146,7 @@ export function AnimatedHero({
       opacity: number;
       y: number;
       transition: {
-        type: string;
+        type: "spring";
         stiffness: number;
         damping: number;
       };
@@ -158,7 +158,7 @@ export function AnimatedHero({
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 10,
       },

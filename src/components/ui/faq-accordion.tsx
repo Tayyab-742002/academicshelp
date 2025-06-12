@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import TagLine from "./TagLine";
 import { FileQuestion } from "lucide-react";
 interface FAQSectionProps {
@@ -32,19 +32,18 @@ export default function FAQSection({ faqs, header = true }: FAQSectionProps) {
     },
   };
   
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: (i: number) => ({
-      y: 0,
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
       opacity: 1,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    }),
+      y: 0,
+      transition: { 
+        type: "spring" as const, 
+        stiffness: 100, 
+        damping: 10 
+      }
+    }
   };
-
   return (
     <section className="py-16 md:py-24 relative overflow-hidden">
       {/* Enhanced background gradient */}

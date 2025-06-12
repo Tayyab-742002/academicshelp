@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 export default function StatsSection() {
   // Animation variants
@@ -15,14 +15,15 @@ export default function StatsSection() {
     }
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
-      y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1]
+      y: 0,
+      transition: { 
+        type: "spring" as const, 
+        stiffness: 100, 
+        damping: 10 
       }
     }
   };
@@ -60,7 +61,7 @@ export default function StatsSection() {
           
           <motion.div 
             className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-md rounded-2xl border border-primary/30 dark:border-primary/30 p-8 text-center shadow-lg"
-            variants={itemVariants}
+            variants={itemVariants }
             whileHover={{ y: -5, boxShadow: "0 15px 30px -5px rgba(0, 0, 0, 0.1)" }}
             transition={{ type: "spring", stiffness: 400 }}
           >

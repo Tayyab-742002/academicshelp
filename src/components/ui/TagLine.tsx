@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, Variants } from "motion/react";
 import React from "react";
 
 interface TagLineProps {
@@ -6,17 +6,17 @@ interface TagLineProps {
   TagLineIcon: React.ReactNode;
   className?: string;
 }
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 10,
-    },
-  },
+    transition: { 
+      type: "spring" as const, 
+      stiffness: 100, 
+      damping: 10 
+    }
+  }
 };
 
 const TagLine = ({ tagline, TagLineIcon, className }: TagLineProps) => {
