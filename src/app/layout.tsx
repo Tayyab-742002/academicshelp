@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import { defaultMetadata } from "@/lib/metadata";
 import WebsiteSchema from "@/components/structured-data/WebsiteSchema";
 import OrganizationSchema from "@/components/structured-data/OrganizationSchema";
-
+import { Analytics } from "@vercel/analytics/next";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -63,9 +63,10 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="light"
           enableSystem
-         disableTransitionOnChange
+          disableTransitionOnChange
         >
           {children}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
