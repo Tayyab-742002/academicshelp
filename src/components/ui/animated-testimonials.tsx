@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState, useCallback } from "react";
 import { AnimatedShinyText } from "../magicui/animated-shiny-text";
 import Image from "next/image";
+import { urlFor } from "@/sanity/lib/image";
 
 type Testimonial = {
   _id: string;
@@ -89,10 +90,13 @@ export const AnimatedTestimonials = ({
                   className="absolute inset-0 origin-bottom"
                 >
                   <Image
-                    src={testimonial?.image?.asset.url || ""}
+                    src={urlFor(testimonial?.image?.asset.url || "")
+                      .width(800)
+                      .height(800)
+                      .url()}
                     alt={testimonial.name}
-                    width={500}
-                    height={500}
+                    width={800}
+                    height={600}
                     draggable={false}
                     className="h-full w-full rounded-3xl object-cover object-center"
                   />

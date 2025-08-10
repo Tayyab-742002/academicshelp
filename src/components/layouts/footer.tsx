@@ -16,7 +16,12 @@ import {
   Globe,
 } from "lucide-react";
 import { getContactInfo } from "@/lib/contactinfo";
-import { ContactInfo as ContactInfoType, Email, PhoneNumber, SocialMedia } from "@/types/contact";
+import {
+  ContactInfo as ContactInfoType,
+  Email,
+  PhoneNumber,
+  SocialMedia,
+} from "@/types/contact";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -32,7 +37,7 @@ const Footer = () => {
   >([]);
   const [isClient, setIsClient] = useState(false);
   const [contactInfo, setContactInfo] = useState<ContactInfoType | null>(null);
-  
+
   // Fetch contact info
   useEffect(() => {
     const fetchContactInfo = async () => {
@@ -118,7 +123,9 @@ const Footer = () => {
     const details = [];
 
     // Primary email
-    const primaryEmail = contactInfo?.emails?.find((email: Email) => email.primary) || contactInfo?.emails?.[0];
+    const primaryEmail =
+      contactInfo?.emails?.find((email: Email) => email.primary) ||
+      contactInfo?.emails?.[0];
     if (primaryEmail) {
       details.push({
         icon: <Mail className="h-5 w-5" />,
@@ -134,27 +141,27 @@ const Footer = () => {
     const whatsappNumbers = contactInfo?.phoneNumbers?.filter(
       (phone: PhoneNumber) => phone.phoneType === "whatsapp"
     );
-    
+
     if (whatsappNumbers && whatsappNumbers.length > 0) {
       details.push({
         icon: <MessageCircle className="h-5 w-5" />,
         label: "WhatsApp",
-        value: whatsappNumbers.map(phone => phone.number).join(", "),
+        value: whatsappNumbers.map((phone) => phone.number).join(", "),
         href: `https://wa.me/${whatsappNumbers[0].number.replace(/\+|\s+|-|\(|\)/g, "")}`,
         allNumbers: whatsappNumbers,
       });
     }
-    
+
     // Mobile numbers - group them together
     const mobileNumbers = contactInfo?.phoneNumbers?.filter(
       (phone: PhoneNumber) => phone.phoneType === "mobile"
     );
-    
+
     if (mobileNumbers && mobileNumbers.length > 0) {
       details.push({
         icon: <Phone className="h-5 w-5" />,
         label: "Mobile",
-        value: mobileNumbers.map(phone => phone.number).join(", "),
+        value: mobileNumbers.map((phone) => phone.number).join(", "),
         href: `tel:${mobileNumbers[0].number.replace(/\s+/g, "")}`,
         allNumbers: mobileNumbers,
       });
@@ -190,7 +197,7 @@ const Footer = () => {
   // Get social media links from Sanity
   const getSocialLinks = (): SocialMedia[] => {
     if (!contactInfo?.socialMedia?.length) return [];
-    
+
     return contactInfo.socialMedia.map((social: SocialMedia) => ({
       platform: social.platform,
       url: social.url,
@@ -234,8 +241,16 @@ const Footer = () => {
           opacity: [0.5, 0.7, 0.5],
         }}
         transition={{
-          scale: { duration: 8, repeat: Infinity, repeatType: "reverse" as const },
-          opacity: { duration: 6, repeat: Infinity, repeatType: "reverse" as const },
+          scale: {
+            duration: 8,
+            repeat: Infinity,
+            repeatType: "reverse" as const,
+          },
+          opacity: {
+            duration: 6,
+            repeat: Infinity,
+            repeatType: "reverse" as const,
+          },
         }}
       ></motion.div>
 
@@ -247,8 +262,16 @@ const Footer = () => {
           opacity: [0.6, 0.8, 0.6],
         }}
         transition={{
-          scale: { duration: 10, repeat: Infinity, repeatType: "reverse" as const },
-          opacity: { duration: 8, repeat: Infinity, repeatType: "reverse" as const },
+          scale: {
+            duration: 10,
+            repeat: Infinity,
+            repeatType: "reverse" as const,
+          },
+          opacity: {
+            duration: 8,
+            repeat: Infinity,
+            repeatType: "reverse" as const,
+          },
         }}
       ></motion.div>
 
@@ -293,7 +316,9 @@ const Footer = () => {
           >
             <Link href="/" className="group flex items-center gap-2">
               <div className="relative overflow-hidden rounded-full transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/20">
-                <motion.div transition={{ duration: 0.6, ease: "easeInOut" as const }}>
+                <motion.div
+                  transition={{ duration: 0.6, ease: "easeInOut" as const }}
+                >
                   <Image
                     src="/images/Logo.svg"
                     alt="AcademicsHelp Logo"
@@ -329,22 +354,20 @@ const Footer = () => {
               viewport={{ once: true }}
             >
               <div className="flex flex-wrap gap-3">
-                {socialLinks.map(
-                  (social, i) => (
-                    <motion.a
-                      key={social.platform}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      custom={i + 5}
-                      variants={itemVariants}
-                      className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full dark:bg-card/20 border border-primary/50 dark:border-primary/30 text-muted-foreground hover:text-primary hover:border-primary/40 transition-all duration-200 shadow-sm hover:shadow"
-                      whileHover={{ y: -3 }}
-                    >
-                      {getSocialIcon(social.platform)}
-                    </motion.a>
-                  )
-                )}
+                {socialLinks.map((social, i) => (
+                  <motion.a
+                    key={social.platform}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    custom={i + 5}
+                    variants={itemVariants}
+                    className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full dark:bg-card/20 border border-primary/50 dark:border-primary/30 text-muted-foreground hover:text-primary hover:border-primary/40 transition-all duration-200 shadow-sm hover:shadow"
+                    whileHover={{ y: -3 }}
+                  >
+                    {getSocialIcon(social.platform)}
+                  </motion.a>
+                ))}
               </div>
             </motion.div>
           </motion.div>
@@ -384,19 +407,31 @@ const Footer = () => {
                           {contact.label}
                         </p>
                         <div className="flex flex-col">
-                          {contact.allNumbers.map((phone: PhoneNumber, idx: number) => (
-                            <a
-                              key={`${contact.label}-${idx}`}
-                              href={contact.label === "WhatsApp" 
-                                ? `https://wa.me/${phone.number.replace(/\+|\s+|-|\(|\)/g, "")}` 
-                                : `tel:${phone.number.replace(/\s+/g, "")}`}
-                              className="text-sm md:text-base text-gray-900 dark:text-gray-200 font-medium group-hover:text-primary transition-colors duration-200"
-                              target={contact.label === "WhatsApp" ? "_blank" : undefined}
-                              rel={contact.label === "WhatsApp" ? "noopener noreferrer" : undefined}
-                            >
-                              {phone.number}
-                            </a>
-                          ))}
+                          {contact.allNumbers.map(
+                            (phone: PhoneNumber, idx: number) => (
+                              <a
+                                key={`${contact.label}-${idx}`}
+                                href={
+                                  contact.label === "WhatsApp"
+                                    ? `https://wa.me/${phone.number.replace(/\+|\s+|-|\(|\)/g, "")}`
+                                    : `tel:${phone.number.replace(/\s+/g, "")}`
+                                }
+                                className="text-sm md:text-base text-gray-900 dark:text-gray-200 font-medium group-hover:text-primary transition-colors duration-200"
+                                target={
+                                  contact.label === "WhatsApp"
+                                    ? "_blank"
+                                    : undefined
+                                }
+                                rel={
+                                  contact.label === "WhatsApp"
+                                    ? "noopener noreferrer"
+                                    : undefined
+                                }
+                              >
+                                {phone.number}
+                              </a>
+                            )
+                          )}
                         </div>
                       </div>
                     </div>
@@ -404,7 +439,9 @@ const Footer = () => {
                     <a
                       href={contact.href}
                       className="flex items-start group"
-                      target={contact.label === "Address" ? "_blank" : undefined}
+                      target={
+                        contact.label === "Address" ? "_blank" : undefined
+                      }
                       rel={
                         contact.label === "Address"
                           ? "noopener noreferrer"
@@ -521,14 +558,15 @@ const Footer = () => {
                     <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 inline-block mr-1 mb-0.5" />{" "}
                     <span className="flex flex-wrap gap-2">
                       {contactInfo.phoneNumbers
-                        ?.filter(phone => phone.phoneType === "mobile")
+                        ?.filter((phone) => phone.phoneType === "mobile")
                         .map((phone, index, filteredArray) => (
                           <a
                             key={`mobile-${index}`}
                             href={`tel:${phone.number.replace(/\s+/g, "")}`}
                             className="hover:text-primary transition-colors duration-300"
                           >
-                            {phone.number}{index < filteredArray.length - 1 ? "," : ""}
+                            {phone.number}
+                            {index < filteredArray.length - 1 ? "," : ""}
                           </a>
                         ))}
                     </span>
@@ -540,7 +578,7 @@ const Footer = () => {
                     <MessageCircle className="h-3 w-3 sm:h-3.5 sm:w-3.5 inline-block mr-1 mb-0.5" />{" "}
                     <span className="flex flex-wrap gap-2">
                       {contactInfo.phoneNumbers
-                        ?.filter(phone => phone.phoneType === "whatsapp")
+                        ?.filter((phone) => phone.phoneType === "whatsapp")
                         .map((phone, index, filteredArray) => (
                           <a
                             key={`whatsapp-${index}`}
@@ -549,7 +587,8 @@ const Footer = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            {phone.number}{index < filteredArray.length - 1 ? "," : ""}
+                            {phone.number}
+                            {index < filteredArray.length - 1 ? "," : ""}
                           </a>
                         ))}
                     </span>
@@ -568,21 +607,28 @@ const Footer = () => {
               </motion.div>
             </motion.div>
           </div>
+          <div className="flex mt-10 text-center flex-row justify-center items-center gap-1 text-xs  text-gray-600 dark:text-gray-400 ">
+            Powered By
+            <Image
+              src="/solvspot.png"
+              alt="Solvspot"
+              width={100}
+              height={100}
+              className="w-4 h-4"
+            />
+            <a
+              href="https://solvspot.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-[#c248eb]"
+            >
+              Solvspot
+            </a>
+          </div>
         </div>
       </motion.div>
 
-      {/* Copyright - hidden on larger screens since it's redundant */}
-      <motion.div
-        className="sm:hidden mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 text-center"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        viewport={{ once: true }}
-      >
-        <p className="text-xs text-gray-700 dark:text-gray-300">
-          &copy; {currentYear} AcademicsHelp. All rights reserved.
-        </p>
-      </motion.div>
+   
     </motion.footer>
   );
 };
